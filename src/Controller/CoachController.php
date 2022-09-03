@@ -20,9 +20,9 @@ class CoachController extends AbstractController
         $entityManager = $doctrine->getManager();
 
         $newCoach = new Coach();
-        $newCoach->setName('Zidane');
-        $newCoach->setSalary(72.5);
-        $newCoach->setClub('Arsenal');
+        $newCoach->setName('Guardiola');
+        $newCoach->setSalary(102.8);
+        $newCoach->setClub('Man city');
 
         $entityManager->persist($newCoach);
         $entityManager->flush();
