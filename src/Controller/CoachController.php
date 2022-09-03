@@ -5,14 +5,29 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Coach;
+use App\Repository\CoachRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
 class CoachController extends AbstractController
 {
     /**
      * @Route("/coach", name="app_coach")
      */
-    public function index(): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
+
+        $entityManager = $doctrine->getManager();
+
+        $newCoach = new Coach();
+        $newCoach->setName('Zidane');
+        $newCoach->setSalary(72.5);
+        $newCoach->setClub('Arsenal');
+
+        $entityManager->persist($newCoach);
+        $entityManager->flush();
+
+
         return $this->render('coach/index.html.twig', [
             'controller_name' => 'CoachController',
         ]);
