@@ -4,17 +4,48 @@
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    table {
+        border-collapse: collapse;
+        font-family: Tahoma, Geneva, sans-serif;
+    }
+    table td {
+        padding: 15px;
+    }
+    table thead td {
+        background-color: #54585d;
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 13px;
+        border: 1px solid #54585d;
+    }
+    table tbody td {
+        color: #636363;
+        border: 1px solid #dddfe1;
+    }
+    table tbody tr {
+        background-color: #f9fafb;
+    }
+    table tbody tr:nth-child(odd) {
+        background-color: #ffffff;
+    }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/FootballLeague/src/Controller/CoachController.php'|file_link(0) }}">src/Controller/CoachController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/FootballLeague/templates/coach/index.html.twig'|file_link(0) }}">templates/coach/index.html.twig</a></code></li>
-    </ul>
-</div>
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Salary</td>
+			<td>Club</td>
+		</tr>
+	</thead>
+	<tbody>
+        {% for coach in coaches %}
+            <tr>
+                <td>{{ coach.name }}</td>
+                <td>{{ coach.salary }}</td>
+                <td>{{ coach.club ?: 'None' }}</td>
+            </tr>
+        {% endfor %}
+	</tbody>
+</table>
 {% endblock %}

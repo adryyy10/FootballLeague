@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Coach;
-use App\Repository\CoachRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 class CoachController extends AbstractController
@@ -16,20 +15,12 @@ class CoachController extends AbstractController
      */
     public function index(ManagerRegistry $doctrine): Response
     {
-
-        $entityManager = $doctrine->getManager();
-
-        $newCoach = new Coach();
-        $newCoach->setName('Guardiola');
-        $newCoach->setSalary(102.8);
-        $newCoach->setClub('Man city');
-
-        $entityManager->persist($newCoach);
-        $entityManager->flush();
-
+        $repository = $doctrine->getRepository(Coach::class);
+        $coaches    = $repository->findAll();
 
         return $this->render('coach/index.html.twig', [
-            'controller_name' => 'CoachController',
+            'controller_name'   => 'CoachController',
+            'coaches'           => $coaches,
         ]);
     }
 }
