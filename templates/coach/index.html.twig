@@ -42,8 +42,8 @@
         {% for coach in coaches %}
             <tr>
                 <td>{{ coach.name }}</td>
-                <td>{{ coach.salary }}</td>
-                <td>{{ coach.club ?: 'None' }}</td>
+                <td>{{ coach.salary }} €</td>
+                <td>{{ (coach.club is not null) ? coach.club.name : 'None' }}</td>
             </tr>
         {% endfor %}
 	</tbody>
