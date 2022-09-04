@@ -28,7 +28,7 @@ class Coach
     private $salary;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToOne(targetEntity=Club::class, mappedBy="coach", cascade={"persist", "remove"})
      */
     private $club;
 
@@ -61,12 +61,12 @@ class Coach
         return $this;
     }
 
-    public function getClub(): ?string
+    public function getClub(): ?Club
     {
         return $this->club;
     }
 
-    public function setClub(?string $club): self
+    public function setClub(?Club $club): self
     {
         $this->club = $club;
 

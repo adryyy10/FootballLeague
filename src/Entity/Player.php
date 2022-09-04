@@ -33,7 +33,7 @@ class Player
     private $salary;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity=Club::class, inversedBy="players")
      */
     private $club;
 
@@ -78,12 +78,12 @@ class Player
         return $this;
     }
 
-    public function getClub(): ?string
+    public function getClub(): ?Club
     {
         return $this->club;
     }
 
-    public function setClub(?string $club): self
+    public function setClub(?Club $club): self
     {
         $this->club = $club;
 
