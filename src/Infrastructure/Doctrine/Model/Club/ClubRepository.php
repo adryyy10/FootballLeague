@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Infrastructure\Club;
+namespace App\Infrastructure\Doctrine\Model\Club;
 
 use App\Domain\Club\Club;
+use App\Domain\Club\ClubRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,7 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Club[]    findAll()
  * @method Club[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ClubRepository extends ServiceEntityRepository
+class ClubRepository extends ServiceEntityRepository implements ClubRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

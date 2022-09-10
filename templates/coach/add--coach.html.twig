@@ -20,8 +20,9 @@
     <label for="club">Club*</label>
     <select id="club" name="club">
       <option value="" selected disabled>Select a club</option>
-      <option value="mancity">Man. City</option>
-      <option value="manunited">Man. United</option>
+            {% for club in clubs %}
+                <option value="{{club.id}}">{{club.name}}</option>
+            {% endfor %}
     </select>
   
     <input type="submit" value="Submit">

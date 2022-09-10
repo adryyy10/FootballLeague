@@ -2,7 +2,6 @@
 
 namespace App\Domain\Club;
 
-use App\Repository\ClubRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,12 +31,12 @@ class Club
     private $budget;
 
     /**
-     * @ORM\OneToOne(targetEntity=Coach::class, inversedBy="Club", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Coach::class, inversedBy="club", cascade={"persist", "remove"})
      */
     private $coach;
 
     /**
-     * @ORM\OneToMany(targetEntity=Player::class, mappedBy="Club")
+     * @ORM\OneToMany(targetEntity=Player::class, mappedBy="club")
      */
     private $players;
 

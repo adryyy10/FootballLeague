@@ -2,24 +2,23 @@
 
 namespace App\Infrastructure\Controllers;
 
-use App\Application\Coach\GetCoaches\QueryHandler;
+use App\Application\Coach\GetCoaches\QueryHandler as getCoachesUseCase;
+use App\Application\Club\GetClubs\QueryHandler as getClubsUseCase;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Persistence\ManagerRegistry;
 
 class CoachController extends AbstractController
 {
     /**
      * @Route("/coaches", name="app_coach")
      */
-    public function listingCoaches(QueryHandler $useCase): Response
+    public function listingCoaches(getCoachesUseCase $useCase): Response
     {
         
         $response = $useCase();
 
         return $this->render('coach/index.html.twig', [
-            'controller_name'   => 'CoachController',
             'coaches'           => $response->getCoaches()
         ]);
     }
@@ -27,12 +26,12 @@ class CoachController extends AbstractController
     /**
      * @Route("/addCoach", name="app_add_coach")
      */
-    public function addCoach()
+    public function addCoach(getClubsUseCase $useCase): Response
     {
-        $test = 1;
+        $response = $useCase();
+        
         return $this->render('coach/add--coach.html.twig', [
-            'controller_name'   => 'CoachController',
-            'test'              => $test
+            'clubs'             => $response->getClubs()
         ]);
     }
 }

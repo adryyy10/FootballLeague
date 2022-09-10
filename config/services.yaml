@@ -26,3 +26,7 @@ services:
     App\Application\Coach\GetCoaches\Response:
         arguments:
             $coaches: 'manager@example.com'
+
+    App\Application\Club\GetClubs\Response:
+        arguments:
+            $clubs: 'manager@example.com'

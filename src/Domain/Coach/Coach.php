@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Domain\Club\Club;
 
 /**
- * @ORM\Entity(repositoryClass=App\Infrastructure\Doctrine\Model\Coach::class)
+ * @ORM\Entity(repositoryClass=CoachRepository::class)
  */
 class Coach
 {
