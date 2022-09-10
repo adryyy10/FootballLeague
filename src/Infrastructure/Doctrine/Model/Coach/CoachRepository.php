@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Repository;
+namespace App\Infrastructure\Doctrine\Model\Coach;
 
-use App\Entity\Coach;
+use App\Domain\Coach\Coach;
+use App\Domain\Coach\CoachRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,11 +15,12 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Coach[]    findAll()
  * @method Coach[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CoachRepository extends ServiceEntityRepository
+class CoachRepository extends ServiceEntityRepository implements CoachRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Coach::class);
+        $this->registry = $registry;
     }
 
     public function add(Coach $entity, bool $flush = false): void

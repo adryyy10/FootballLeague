@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Player;
 
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Domain\Club\Club;
+
 
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)

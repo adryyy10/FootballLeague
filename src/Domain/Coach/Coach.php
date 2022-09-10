@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Coach;
 
-use App\Repository\CoachRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Domain\Club\Club;
 
 /**
- * @ORM\Entity(repositoryClass=CoachRepository::class)
+ * @ORM\Entity(repositoryClass=App\Infrastructure\Doctrine\Model\Coach::class)
  */
 class Coach
 {

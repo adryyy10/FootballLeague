@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Infrastructure\Controller;
+namespace App\Infrastructure\Controllers;
 
+use App\Application\Coach\GetCoaches\QueryHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Coach;
 use Doctrine\Persistence\ManagerRegistry;
 
 class CoachController extends AbstractController
 {
     /**
-     * @Route("/coach", name="app_coach")
+     * @Route("/coaches", name="app_coach")
      */
-    public function index(ManagerRegistry $doctrine): Response
+    public function listingCoaches(ManagerRegistry $managerRegistry, QueryHandler $useCase): Response
     {
-        $repository = $doctrine->getRepository(Coach::class);
-        $coaches    = $repository->findAll();
+        
+        $response = $useCase();
 
         return $this->render('coach/index.html.twig', [
             'controller_name'   => 'CoachController',
-            'coaches'           => $coaches,
+            'coaches'           => $response->getCoaches()
         ]);
     }
 }
