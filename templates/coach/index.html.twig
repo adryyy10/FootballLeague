@@ -3,9 +3,10 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('css/listing.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/addButton.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
 
-{% block title %}Hello CoachController!{% endblock %}
+{% block title %}Premier League coaches!{% endblock %}
 
 {% block body %}
 
@@ -27,4 +28,6 @@
         {% endfor %}
 	</tbody>
 </table>
+
+<a class="add-button" href="/addCoach">Add new coach</a>
 {% endblock %}

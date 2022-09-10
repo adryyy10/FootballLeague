@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/listing.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}New coach form!{% endblock %}
+
+{% block body %}
+
+<div>
+  <form class="add-coach-form" action="#">
+    <label for="name">Coach Name</label>
+    <input type="text" id="name" name="firstname" placeholder="Name of the coach">
+
+    <label for="salary">Salary</label>
+    <input type="text" id="salary" name="salary" placeholder="salary in €">
+
+    <label for="club">Club*</label>
+    <select id="club" name="club">
+      <option value="" selected disabled>Select a club</option>
+      <option value="mancity">Man. City</option>
+      <option value="manunited">Man. United</option>
+    </select>
+  
+    <input type="submit" value="Submit">
+
+    <div>
+        <label><strong>* means optional</strong></label>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

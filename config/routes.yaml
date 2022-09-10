@@ -1,3 +1,7 @@
 app_coach:
     path: /coaches
     controller: App\Infrastructure\Controllers\CoachController::listingCoaches
+
+app_add_coach:
+    path: /addCoach
+    controller: App\Infrastructure\Controllers\CoachController::addCoach
