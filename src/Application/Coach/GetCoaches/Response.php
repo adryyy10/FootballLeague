@@ -7,6 +7,7 @@ class Response
     /**
      * @var array $coaches
      */
+    protected $coaches;
 
     public function __construct(array $coaches)
     {

@@ -10,6 +10,7 @@ use App\Domain\Club\Club;
  */
 class Coach
 {
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -31,6 +32,13 @@ class Coach
      * @ORM\OneToOne(targetEntity=Club::class, mappedBy="coach", cascade={"persist", "remove"})
      */
     private $club;
+
+    public function __construct(string $name, float $salary, ?Club $club)
+    {
+        $this->name     = $name;
+        $this->salary   = $salary;
+        $this->club     = $club;
+    }
 
     public function getId(): ?int
     {

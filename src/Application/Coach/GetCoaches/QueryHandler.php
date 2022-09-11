@@ -9,6 +9,7 @@ class QueryHandler {
     /**
      * @var CoachRepositoryInterface $coachRepository
      */
+    protected $coachRepository;
 
     public function __construct(CoachRepositoryInterface $coachRepository)
     {
