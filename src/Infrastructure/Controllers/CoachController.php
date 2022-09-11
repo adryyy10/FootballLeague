@@ -22,7 +22,6 @@ class CoachController extends AbstractController
     {
         // We get our list of coaches via useCase where we can show them with the $response->getCoaches()
         $response = $useCase();
-        dd($response->getCoaches());
 
         return $this->render('coach/index.html.twig', [
             'coaches'           => $response->getCoaches()

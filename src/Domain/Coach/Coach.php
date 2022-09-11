@@ -29,7 +29,7 @@ class Coach
     private $salary;
 
     /**
-     * @ORM\OneToOne(targetEntity=Club::class, mappedBy="coach", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Club::class, inversedBy="coach", cascade={"persist", "remove"})
      */
     private $club;
 
