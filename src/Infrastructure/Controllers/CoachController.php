@@ -5,6 +5,7 @@ namespace App\Infrastructure\Controllers;
 use App\Application\Coach\GetCoaches\QueryHandler as getCoachesUseCase;
 use App\Application\Club\GetClubs\QueryHandler as getClubsUseCase;
 use App\Application\Coach\AddCoaches;
+use App\Application\Coach\DeleteCoach;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -72,5 +73,30 @@ class CoachController extends AbstractController
         
         // After a coach is added, we redirect to our coach listing
         return $this->redirectToRoute('app_coach');
+    }
+
+    /**
+     * @Route("/removeCoachAction", name="app_remove_coach")
+     * 
+     * @param Request $request
+     */
+    public function removeCoachAction(Request $request, DeleteCoach\CommandHandler $deleteCoachUseCase)
+    {
+        $coachId = $request->get('id');
+
+        $data = [
+            'coachId' => (int)$coachId
+        ];
+
+        // We send the data through our Command in order to validate our business logic in the CommandHandler
+        $command = new DeleteCoach\Command($data);
+
+        $response = $deleteCoachUseCase($command);
+
+        return $this->json(
+            ['success'=> $response->isDeletedCoach()],
+            200
+        );
+
     }
 }

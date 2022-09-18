@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ asset('js/deleteCoach.js') }}"></script>
+{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('css/listing.css') }}" type="text/css" rel="stylesheet" />
@@ -16,6 +21,7 @@
 			<td>Name</td>
 			<td>Salary</td>
 			<td>Club</td>
+            <td></td>
 		</tr>
 	</thead>
 	<tbody>
@@ -24,6 +30,7 @@
                 <td>{{ coach.name }}</td>
                 <td>{{ coach.salary }} €</td>
                 <td>{{ (coach.club is not null) ? coach.club.name : 'None' }}</td>
+                <td><div onClick="removeCoach({{coach.id}})" style="cursor:pointer;" data-coach-id="{{coach.id}}">Delete &#10006;</div></td>
             </tr>
         {% endfor %}
 	</tbody>

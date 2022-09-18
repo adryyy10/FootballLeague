@@ -9,3 +9,7 @@ app_add_coach:
 app_add_coach_submit:
     path: /addCoachSubmitAction
     controller: App\Infrastructure\Controllers\CoachController::addCoachSubmitAction
+
+app_remove_coach:
+    path: /removeCoachAction
+    controller: App\Infrastructure\Controllers\CoachController::removeCoachAction
