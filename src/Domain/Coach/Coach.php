@@ -29,7 +29,8 @@ class Coach
     private $salary;
 
     /**
-     * @ORM\OneToOne(targetEntity=Club::class, inversedBy="coach", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Club::class, inversedBy="coach", cascade={"persist"})
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
      */
     private $club;
 

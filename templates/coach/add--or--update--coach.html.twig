@@ -12,17 +12,17 @@
 <div>
   <form class="add-coach-form" action="/addCoachSubmitAction">
     <label for="coachName">Coach Name</label>
-    <input type="text" id="coachName" name="coachName" placeholder="Name of the coach">
+    <input type="text" id="coachName" name="coachName" placeholder="Name of the coach" value="{{ (coach is defined) ? coach.name : '' }}">
 
     <label for="salary">Salary</label>
-    <input type="text" id="salary" name="salary" placeholder="salary in €">
+    <input type="text" id="salary" name="salary" placeholder="salary in €" value="{{ (coach is defined) ? coach.salary : '' }}">
 
     <label for="club">Club*</label>
     <select id="club" name="club">
       <option value="" selected disabled>Select a club</option>
-            {% for club in clubs %}
-                <option value="{{club.id}}">{{club.name}}</option>
-            {% endfor %}
+        {% for club in clubs %}
+            <option value="{{club.id}}" {{ (coach is defined and coach.club.id == club.id) ? 'selected' : '' }}>{{club.name}}</option>
+        {% endfor %}
     </select>
   
     <input type="submit" value="Submit">

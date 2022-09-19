@@ -6,6 +6,7 @@ use App\Application\Coach\GetCoaches\QueryHandler as getCoachesUseCase;
 use App\Application\Club\GetClubs\QueryHandler as getClubsUseCase;
 use App\Application\Coach\AddCoaches;
 use App\Application\Coach\DeleteCoach;
+use App\Application\Coach\GetCoach;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,16 +33,54 @@ class CoachController extends AbstractController
     /**
      * @Route("/addCoach", name="app_add_coach")
      * 
-     * @param getClubsUseCase $useCase
+     * @param getClubsUseCase $getClubsUseCase
      * @return Response
      */
-    public function addCoach(getClubsUseCase $useCase): Response
+    public function addCoach(
+        Request $request,
+        getClubsUseCase $getClubsUseCase
+    ): Response
     {
-        // In order to add a new coach, we must get all the clubs to be able to show them in the form
-        $response = $useCase();
+        $coachId = $request->get('id');
+
+        // We must get all the clubs to be able to show them in the form
+        $getClubsResponse = $getClubsUseCase();
         
-        return $this->render('coach/add--coach.html.twig', [
-            'clubs'             => $response->getClubs()
+        return $this->render('coach/add--or--update--coach.html.twig', [
+            'clubs' => $getClubsResponse->getClubs()
+        ]);
+    }
+
+    /**
+     * @Route("/updateCoach/{id}", name="app_update_coach")
+     * 
+     * @param Request $request
+     * @param getClubsUseCase $getClubsUseCase
+     * @param GetCoach\QueryHandler $getCoachUseCase
+     * 
+     * @return Response
+     */
+    public function updatecoach(
+        Request $request,
+        getClubsUseCase $getClubsUseCase, 
+        GetCoach\QueryHandler $getCoachUseCase,
+        int $coachId
+    ): Response
+    {
+        $data = [
+            'coachId' => $coachId
+        ];
+
+        // We send the data through our Command in order to validate our business logic in the CommandHandler
+        $command = new GetCoach\Query($data);
+        // We need to find Coach and update it
+        $getCoachResponse = $getCoachUseCase($command);
+        // We must get all the clubs to be able to show them in the form
+        $getClubsResponse = $getClubsUseCase();
+        
+        return $this->render('coach/add--or--update--coach.html.twig', [
+            'clubs' => $getClubsResponse->getClubs(),
+            'coach' => $getCoachResponse->getCoach()
         ]);
     }
 
@@ -69,7 +108,7 @@ class CoachController extends AbstractController
         $command = new AddCoaches\Command($data);
 
         // We add a new coach with our useCase and get a Json response
-        $response = $addCoachUseCase($command);
+        $addCoachUseCase($command);
         
         // After a coach is added, we redirect to our coach listing
         return $this->redirectToRoute('app_coach');
@@ -97,6 +136,5 @@ class CoachController extends AbstractController
             ['success'=> $response->isDeletedCoach()],
             200
         );
-
     }
 }

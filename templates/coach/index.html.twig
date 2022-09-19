@@ -1,10 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block javascripts %}
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="{{ asset('js/deleteCoach.js') }}"></script>
-{% endblock %}
-
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('css/listing.css') }}" type="text/css" rel="stylesheet" />
@@ -22,6 +17,7 @@
 			<td>Salary</td>
 			<td>Club</td>
             <td></td>
+            <td></td>
 		</tr>
 	</thead>
 	<tbody>
@@ -31,10 +27,17 @@
                 <td>{{ coach.salary }} €</td>
                 <td>{{ (coach.club is not null) ? coach.club.name : 'None' }}</td>
                 <td><div onClick="removeCoach({{coach.id}})" style="cursor:pointer;" data-coach-id="{{coach.id}}">Delete &#10006;</div></td>
+                <td><div style="cursor:pointer;" data-url="/updateCoach/{{coach.id}}" data-coach-id="{{coach.id}}">Update &#9989;</div></td>
             </tr>
         {% endfor %}
 	</tbody>
 </table>
 
 <a class="add-button" href="/addCoach">Add new coach</a>
+
+{% block javascripts %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ asset('js/manageCoach.js') }}"></script>
+{% endblock %}
+
 {% endblock %}

@@ -10,6 +10,10 @@ app_add_coach_submit:
     path: /addCoachSubmitAction
     controller: App\Infrastructure\Controllers\CoachController::addCoachSubmitAction
 
+app_update_coach:
+    path: /updateCoach/{coachId}
+    controller: App\Infrastructure\Controllers\CoachController::updateCoach
+
 app_remove_coach:
     path: /removeCoachAction
     controller: App\Infrastructure\Controllers\CoachController::removeCoachAction
