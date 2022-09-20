@@ -38,14 +38,25 @@ class CommandHandler
             $club = $this->clubRepository->find((int)$command->getClubId());
         }
 
-        // New Coach entity created to be able to insert it as a new coach
-        $coach = new Coach (
-            $command->getCoachName(),
-            $command->getSalary(),
-            $club
-        );
+        // If getCoachId() is null --> insert new coach, else --> update coach 
+        if (empty($command->getCoachId())) {
+            // New Coach entity created to be able to insert it as a new coach
+            $coach = new Coach (
+                $command->getCoachName(),
+                $command->getSalary(),
+                $club
+            );
 
-        $this->coachRepository->add($coach, true);
+            $this->coachRepository->add($coach, true);
+        } else {
+            // We find the coach and update new fields
+            $coach = $this->coachRepository->find($command->getCoachId());
+            $coach->setName($command->getCoachName());
+            $coach->setSalary($command->getSalary());
+            $coach->setClub($club);
+
+            $this->coachRepository->flush();
+        }
     }
 
     public function validateBusinessLogic(Command $command) 

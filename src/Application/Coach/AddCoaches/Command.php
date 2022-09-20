@@ -19,6 +19,11 @@ class Command extends AbstractCommand
         $this->data = $data;
     }
 
+    public function getCoachId(): ?int
+    {
+        return $this->data['coachId'];
+    }
+
     public function getCoachName(): string
     {
         return $this->data['coachName'];
@@ -37,6 +42,11 @@ class Command extends AbstractCommand
     public function assertMandatoryAttributes()
     {
         // In this method we will check the typing of the variables and if the need to be mandatory or not
+
+        if (isset($this->data['coachId'])) {
+            Assert::integer($this->data['coachId']);
+        }
+
         Assert::propertyExists($this->data['coachName'], 'coachName');
         Assert::string($this->data['coachName']);
 

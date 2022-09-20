@@ -93,12 +93,14 @@ class CoachController extends AbstractController
     public function addCoachSubmitAction(Request $request, AddCoaches\CommandHandler $addCoachUseCase)
     {
         // We get the data from the form via $request
+        $coachId    = $request->get('coachId', null);
         $coachName  = $request->get('coachName');
         $salary     = $request->get('salary');
         $clubId     = $request->get('club');
 
         // We create an array $data just to pass it to our Command
         $data = [
+            'coachId'   => (int)$coachId,
             'coachName' => $coachName,
             'salary'    => $salary,
             'clubId'    => $clubId

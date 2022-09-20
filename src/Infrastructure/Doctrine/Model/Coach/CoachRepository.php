@@ -41,6 +41,11 @@ class CoachRepository extends ServiceEntityRepository implements CoachRepository
         }
     }
 
+    public function flush()
+    {
+        $this->getEntityManager()->flush();
+    }
+
 //    /**
 //     * @return Coach[] Returns an array of Coach objects
 //     */

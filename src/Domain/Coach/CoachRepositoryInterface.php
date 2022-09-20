@@ -10,5 +10,7 @@ interface CoachRepositoryInterface
 
     public function add(Coach $entity, bool $flush = false);
 
+    public function flush();
+
     public function remove(Coach $entity, bool $flush = false): void;
 }
