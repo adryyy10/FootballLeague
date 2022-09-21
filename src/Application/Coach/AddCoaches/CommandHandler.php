@@ -53,9 +53,16 @@ class CommandHandler
             $coach = $this->coachRepository->find($command->getCoachId());
             $coach->setName($command->getCoachName());
             $coach->setSalary($command->getSalary());
-            $coach->setClub($club);
-
             $this->coachRepository->flush();
+
+            // Remove coach from previous club
+            $coachClub = $this->clubRepository->findOneByCoachId($command->getCoachId());
+            $coachClub->setCoach(null);
+            $this->clubRepository->flush();
+
+            // Add coach to the new club
+            $club->setCoach($coach);
+            $this->clubRepository->flush();
         }
     }
 

@@ -48,4 +48,19 @@ class ClubRepository extends ServiceEntityRepository implements ClubRepositoryIn
             ->where($qb->expr()->isNull("c.coach"))
             ->getQuery()->getResult();
     }
+
+    public function findOneByCoachId(int $coachId): ?Club
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.coach = :coach_id')
+            ->setParameter('coach_id', $coachId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function flush()
+    {
+        $this->getEntityManager()->flush();
+    }
 }
