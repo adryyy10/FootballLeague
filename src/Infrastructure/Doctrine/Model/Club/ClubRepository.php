@@ -40,28 +40,12 @@ class ClubRepository extends ServiceEntityRepository implements ClubRepositoryIn
         }
     }
 
-//    /**
-//     * @return Club[] Returns an array of Club objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findByNoCoach(): array
+    {
+        $qb = $this->createQueryBuilder('c');
 
-//    public function findOneBySomeField($value): ?Club
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        return $qb->select('c')
+            ->where($qb->expr()->isNull("c.coach"))
+            ->getQuery()->getResult();
+    }
 }

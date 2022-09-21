@@ -31,8 +31,10 @@ class Club
     private $budget;
 
     /**
+     * One club has one coach
+     * 
      * @ORM\OneToOne(targetEntity=Coach::class, inversedBy="club", cascade={"persist"})
-     * @ORM\JoinColumn(referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="coach_id", referencedColumnName="id", nullable=true)
      */
     private $coach;
 

@@ -4,6 +4,7 @@ namespace App\Infrastructure\Controllers;
 
 use App\Application\Coach\GetCoaches\QueryHandler as getCoachesUseCase;
 use App\Application\Club\GetClubs\QueryHandler as getClubsUseCase;
+use App\Application\Club\GetClubsWithNoCoach;
 use App\Application\Coach\AddCoaches;
 use App\Application\Coach\DeleteCoach;
 use App\Application\Coach\GetCoach;
@@ -33,18 +34,18 @@ class CoachController extends AbstractController
     /**
      * @Route("/addCoach", name="app_add_coach")
      * 
-     * @param getClubsUseCase $getClubsUseCase
+     * @param GetClubsWithNoCoach\QueryHandler $getClubsWithNoCoachUseCase
      * @return Response
      */
     public function addCoach(
         Request $request,
-        getClubsUseCase $getClubsUseCase
+        GetClubsWithNoCoach\QueryHandler $getClubsWithNoCoachUseCase
     ): Response
     {
         $coachId = $request->get('id');
 
         // We must get all the clubs to be able to show them in the form
-        $getClubsResponse = $getClubsUseCase();
+        $getClubsResponse = $getClubsWithNoCoachUseCase();
         
         return $this->render('coach/add--or--update--coach.html.twig', [
             'clubs' => $getClubsResponse->getClubs()
@@ -55,14 +56,14 @@ class CoachController extends AbstractController
      * @Route("/updateCoach/{id}", name="app_update_coach")
      * 
      * @param Request $request
-     * @param getClubsUseCase $getClubsUseCase
+     * @param GetClubsWithNoCoach\QueryHandler $getClubsWithNoCoachUseCase
      * @param GetCoach\QueryHandler $getCoachUseCase
      * 
      * @return Response
      */
     public function updatecoach(
         Request $request,
-        getClubsUseCase $getClubsUseCase, 
+        GetClubsWithNoCoach\QueryHandler $getClubsWithNoCoachUseCase,
         GetCoach\QueryHandler $getCoachUseCase,
         int $coachId
     ): Response
@@ -76,7 +77,7 @@ class CoachController extends AbstractController
         // We need to find Coach and update it
         $getCoachResponse = $getCoachUseCase($command);
         // We must get all the clubs to be able to show them in the form
-        $getClubsResponse = $getClubsUseCase();
+        $getClubsResponse = $getClubsWithNoCoachUseCase();
         
         return $this->render('coach/add--or--update--coach.html.twig', [
             'clubs' => $getClubsResponse->getClubs(),
