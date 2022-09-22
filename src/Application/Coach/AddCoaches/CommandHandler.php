@@ -64,8 +64,10 @@ class CommandHandler
             }
 
             // Add coach to the new club
-            $club->setCoach($coach);
-            $this->clubRepository->flush();
+            if (!empty($club)) {
+                $club->setCoach($coach);
+                $this->clubRepository->flush();
+            }
         }
     }
 

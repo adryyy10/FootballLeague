@@ -2,8 +2,9 @@
 
 namespace App\Application\Coach\DeleteCoach;
 
-use App\Domain\Coach\Coach;
 use App\Domain\Coach\CoachRepositoryInterface;
+use App\Domain\Club\ClubRepositoryInterface;
+use App\Infrastructure\Doctrine\Model\Club\ClubRepository;
 
 class CommandHandler
 {
@@ -13,10 +14,17 @@ class CommandHandler
      */
     public $coachRepository;
 
+    /**
+     * @var ClubRepositoryInterface $clubRepository
+     */
+    public $clubRepository;
+
     public function __construct(
-        CoachRepositoryInterface $coachRepository
+        CoachRepositoryInterface $coachRepository,
+        ClubRepositoryInterface $clubRepository
     ) {
         $this->coachRepository  = $coachRepository;
+        $this->clubRepository   = $clubRepository;
     }
 
     public function __invoke(Command $command): Response
@@ -29,6 +37,14 @@ class CommandHandler
         // In case we didn't find the coach, we do not delete it and return isDeleted = false in Response
         if (empty($coach)) {
             return new Response(false);
+        }
+
+        // Find the club with the coach associated and set coach_id to null
+        $coachClub = $this->clubRepository->findOneByCoachId($command->getCoachId());
+
+        if (!empty($coachClub)) {
+            $coachClub->setCoach(null);
+            $this->clubRepository->flush();
         }
 
         //remove coach
