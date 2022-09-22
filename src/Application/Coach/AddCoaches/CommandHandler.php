@@ -57,8 +57,11 @@ class CommandHandler
 
             // Remove coach from previous club
             $coachClub = $this->clubRepository->findOneByCoachId($command->getCoachId());
-            $coachClub->setCoach(null);
-            $this->clubRepository->flush();
+
+            if (!empty($coachClub)) {
+                $coachClub->setCoach(null);
+                $this->clubRepository->flush();
+            }
 
             // Add coach to the new club
             $club->setCoach($coach);
