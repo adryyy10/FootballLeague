@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/listing.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/addButton.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}Premier League clubs!{% endblock %}
+
+{% block body %}
+
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Budget</td>
+			<td>Coach</td>
+            <td></td>
+            <td></td>
+		</tr>
+	</thead>
+	<tbody>
+        {% for club in clubs %}
+            <tr>
+                <td>{{ club.name }}</td>
+                <td>{{ club.budget }} €</td>
+                <td>{{ (club.coach is not null) ? club.coach.name : 'None' }}</td>
+                <td><div onClick="removeCoach({{club.id}})" style="cursor:pointer;" data-club-id="{{club.id}}">Delete &#10006;</div></td>
+                <td><div onClick="editCoach('/updateCoach/{{club.id}}')" style="cursor:pointer;" data-url="/updateCoach/{{club.id}}" data-club-id="{{club.id}}">Update &#9989;</div></td>
+            </tr>
+        {% endfor %}
+	</tbody>
+</table>
+
+<a class="add-button" href="/addCoach">Add new club</a>
+
+{% block javascripts %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ asset('js/manageCoach.js') }}"></script>
+{% endblock %}
+
+{% endblock %}

@@ -1,5 +1,9 @@
-controllers:
-    resource: ../../src/Infrastructure/
+controllerCoach:
+    resource: ../../src/Infrastructure/Controllers/Coach/
+    type: annotation
+
+controllerClub:
+    resource: ../../src/Infrastructure/Controllers/Club/
     type: annotation
 
 kernel:

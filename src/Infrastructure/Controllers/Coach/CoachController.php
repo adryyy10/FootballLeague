@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Infrastructure\Controllers;
+namespace App\Infrastructure\Controllers\Coach;
 
 use App\Application\Coach\GetCoaches\QueryHandler as getCoachesUseCase;
-use App\Application\Club\GetClubs\QueryHandler as getClubsUseCase;
 use App\Application\Club\GetClubsWithNoCoach;
 use App\Application\Coach\AddCoaches;
 use App\Application\Coach\DeleteCoach;

@@ -1,19 +1,25 @@
+#COACHES
 app_coach:
     path: /coaches
-    controller: App\Infrastructure\Controllers\CoachController::listingCoaches
+    controller: App\Infrastructure\Controllers\Coach\CoachController::listingCoaches
 
 app_add_coach:
     path: /addCoach
-    controller: App\Infrastructure\Controllers\CoachController::addCoach
+    controller: App\Infrastructure\Controllers\Coach\CoachController::addCoach
 
 app_add_coach_submit:
     path: /addCoachSubmitAction
-    controller: App\Infrastructure\Controllers\CoachController::addCoachSubmitAction
+    controller: App\Infrastructure\Controllers\Coach\CoachController::addCoachSubmitAction
 
 app_update_coach:
     path: /updateCoach/{coachId}
-    controller: App\Infrastructure\Controllers\CoachController::updateCoach
+    controller: App\Infrastructure\Controllers\Coach\CoachController::updateCoach
 
 app_remove_coach:
     path: /removeCoachAction
-    controller: App\Infrastructure\Controllers\CoachController::removeCoachAction
+    controller: App\Infrastructure\Controllers\Coach\CoachController::removeCoachAction
+
+#CLUBS
+app_club:
+    path: /clubs
+    controller: App\Infrastructure\Controllers\Club\ClubController::listingClubs
