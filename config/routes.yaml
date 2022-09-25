@@ -23,3 +23,7 @@ app_remove_coach:
 app_club:
     path: /clubs
     controller: App\Infrastructure\Controllers\Club\ClubController::listingClubs
+
+app_add_club:
+    path: /addClub
+    controller: App\Infrastructure\Controllers\Club\ClubController::addClub

@@ -41,8 +41,6 @@ class CoachController extends AbstractController
         GetClubsWithNoCoach\QueryHandler $getClubsWithNoCoachUseCase
     ): Response
     {
-        $coachId = $request->get('id');
-
         // We must get all the clubs to be able to show them in the form
         $getClubsResponse = $getClubsWithNoCoachUseCase();
         

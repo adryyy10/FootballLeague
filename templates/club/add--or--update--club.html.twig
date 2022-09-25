@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/listing.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}New club form!{% endblock %}
+
+{% block body %}
+
+<div>
+  <form class="add-club-form" action="/addClubSubmitAction">
+    <input type="hidden" id="clubId" name="clubId" value="{{ (club is defined) ? club.id : '' }}" />
+    <label for="clubName">Club Name</label>
+    <input type="text" id="clubName" name="clubName" placeholder="Name of the club" value="{{ (club is defined) ? club.name : '' }}">
+
+    <label for="budget">Budget</label>
+    <input type="text" id="budget" name="budget" placeholder="budget in €" value="{{ (club is defined) ? club.budget : '' }}">
+
+    <label for="coach">Coach*</label>
+    <select id="coach" name="coach">
+      <option value="" selected disabled>Select a coach</option>
+        {% for coach in coaches %}
+            <option value="{{coach.id}}" {{ (coach.coach.id is defined and coach.coach.id == coach.id) ? 'selected' : '' }}>{{coach.name}}</option>
+        {% endfor %}
+    </select>
+  
+    <input type="submit" value="Submit">
+
+    <div>
+        <label><strong>* means optional</strong></label>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

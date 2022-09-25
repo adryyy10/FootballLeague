@@ -32,6 +32,16 @@ class CoachRepository extends ServiceEntityRepository implements CoachRepository
         }
     }
 
+    public function findByNoClub(): array
+    {
+        $qb = $this->createQueryBuilder('coach');
+
+        return $qb->select('coach')
+            ->join('coach.club', 'club')
+            ->where($qb->expr()->isNull("club.coach"))
+            ->getQuery()->getResult();
+    }
+
     public function remove(Coach $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

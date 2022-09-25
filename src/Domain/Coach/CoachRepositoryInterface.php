@@ -8,6 +8,8 @@ interface CoachRepositoryInterface
 
     public function findAll();
 
+    public function findByNoClub();
+
     public function add(Coach $entity, bool $flush = false);
 
     public function flush();
