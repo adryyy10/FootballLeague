@@ -7,9 +7,9 @@ use Exception;
 abstract class DomainException extends Exception
 {
 
-    protected function domainException(string $message)
+    protected function domainException(string $message): string
     {
-
+        return $message;
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Application\Coach\AddCoaches;
 use App\Domain\Club\ClubRepositoryInterface;
 use App\Domain\Coach\Coach;
 use App\Domain\Coach\CoachRepositoryInterface;
+use App\Domain\Exceptions\EntityNotFoundException;
 
 class CommandHandler
 {
@@ -48,6 +49,10 @@ class CommandHandler
         } else {
             // We find the coach and update new fields
             $coach = $this->coachRepository->find($command->getCoachId());
+
+            if (empty($coach)) {
+                throw new EntityNotFoundException('Coach not found');
+            }
 
             // Update the entity from domain layer
             Coach::update(
