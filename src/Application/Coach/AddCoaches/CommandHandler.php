@@ -51,7 +51,7 @@ class CommandHandler
             $coach = $this->coachRepository->find($command->getCoachId());
 
             if (empty($coach)) {
-                throw new EntityNotFoundException('Coach not found');
+                throw new EntityNotFoundException($command->getCoachId(), Coach::class);
             }
 
             // Update the entity from domain layer

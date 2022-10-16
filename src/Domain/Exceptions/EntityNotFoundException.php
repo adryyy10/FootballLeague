@@ -2,12 +2,12 @@
 
 namespace App\Domain\Exceptions;
 
-class EntityNotFoundException extends DomainException
+class EntityNotFoundException extends \Exception
 {
 
-    public function domainException(string $message): string
+    public function __construct(?string $uid, string $entity)
     {
-        return $message;
+        parent::__construct(sprintf('The $s entity (UID %s) does not exist', $entity, $uid));
     }
 
 }
