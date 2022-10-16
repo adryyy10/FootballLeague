@@ -4,6 +4,7 @@ namespace App\Domain\Coach;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Domain\Club\Club;
+use App\Domain\Exceptions\EmptyCoachNameException;
 
 /**
  * @ORM\Entity(repositoryClass=CoachRepository::class)
@@ -91,11 +92,11 @@ class Coach
     {
 
         if (empty($coachName)) {
-            throw new \Exception('Coach name is empty!');
+            throw new EmptyCoachNameException('Coach name is empty!');
         }
 
         if (empty($salary)) {
-            throw new \Exception('Salary is empty!');
+            throw new EmptySalaryException('Salary is empty!');
         }
 
         $coach = new Coach(
@@ -105,5 +106,15 @@ class Coach
         );
 
         return $coach;
+    }
+
+    public static function update(
+        Coach $coach,
+        string $coachName,
+        float $salary
+    ): void
+    {
+        $coach->setName($coachName);
+        $coach->setSalary($salary);
     }
 }

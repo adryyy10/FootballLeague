@@ -48,13 +48,20 @@ class CommandHandler
         } else {
             // We find the coach and update new fields
             $coach = $this->coachRepository->find($command->getCoachId());
-            $coach->setName($command->getCoachName());
-            $coach->setSalary($command->getSalary());
+
+            // Update the entity from domain layer
+            Coach::update(
+                $coach, 
+                $command->getCoachName(),
+                $command->getSalary()
+            );
+
             $this->coachRepository->flush();
 
-            // Remove coach from previous club
+            // Find if coach has a club
             $coachClub = $this->clubRepository->findOneByCoachId($command->getCoachId());
 
+            // Remove coach from previous club
             if (!empty($coachClub)) {
                 $coachClub->setCoach(null);
                 $this->clubRepository->flush();
