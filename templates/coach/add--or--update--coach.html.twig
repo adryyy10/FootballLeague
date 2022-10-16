@@ -17,15 +17,6 @@
 
     <label for="salary">Salary</label>
     <input type="text" id="salary" name="salary" placeholder="salary in €" value="{{ (coach is defined) ? coach.salary : '' }}">
-
-    <label for="club">Club*</label>
-    <select id="club" name="club">
-      <option value="" selected disabled>Select a club</option>
-        {% for club in clubs %}
-            <option value="{{club.id}}" {{ (coach.club.id is defined and coach.club.id == club.id) ? 'selected' : '' }}>{{club.name}}</option>
-        {% endfor %}
-    </select>
-  
     <input type="submit" value="Submit">
 
     <div>

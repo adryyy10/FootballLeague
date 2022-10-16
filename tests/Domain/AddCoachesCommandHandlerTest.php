@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Domain;
 
 use App\Domain\Club\ClubRepositoryInterface;
 use App\Domain\Coach\CoachRepositoryInterface;

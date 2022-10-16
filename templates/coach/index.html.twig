@@ -15,7 +15,6 @@
 		<tr>
 			<td>Name</td>
 			<td>Salary</td>
-			<td>Club</td>
             <td></td>
             <td></td>
 		</tr>
@@ -25,7 +24,6 @@
             <tr>
                 <td>{{ coach.name }}</td>
                 <td>{{ coach.salary }} €</td>
-                <td>{{ (coach.club is not null) ? coach.club.name : 'None' }}</td>
                 <td><div onClick="removeCoach({{coach.id}})" style="cursor:pointer;" data-coach-id="{{coach.id}}">Delete &#10006;</div></td>
                 <td><div onClick="editCoach('/updateCoach/{{coach.id}}')" style="cursor:pointer;" data-url="/updateCoach/{{coach.id}}" data-coach-id="{{coach.id}}">Update &#9989;</div></td>
             </tr>

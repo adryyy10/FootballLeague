@@ -30,19 +30,12 @@ class CommandHandler
 
     public function __invoke(Command $command)
     {
-        // Get the club via clubId
-        $club = null;
-        if (!empty($command->getClubId())) {
-            $club = $this->clubRepository->find((int)$command->getClubId());
-        }
-
         // If getCoachId() is null --> insert new coach, else --> update coach 
         if (empty($command->getCoachId())) {
             // New Coach entity created to be able to insert it as a new coach
             $coach = Coach::create(
                 $command->getCoachName(),
-                $command->getSalary(),
-                $club
+                $command->getSalary()
             );
 
             $this->coachRepository->add($coach, true);

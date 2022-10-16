@@ -32,11 +32,6 @@ class Command extends AbstractCommand
     {
         return $this->data['salary'];
     }
-
-    public function getClubId(): ?string
-    {
-        return $this->data['clubId'];
-    }
     
     public function assertMandatoryAttributes()
     {
@@ -51,10 +46,6 @@ class Command extends AbstractCommand
 
         Assert::propertyExists($this->data['salary'], 'salary');
         Assert::float($this->data['salary']);
-
-        if (isset($this->data['clubId'])) {
-            Assert::string($this->data['clubId']);
-        }
     }
 
 }

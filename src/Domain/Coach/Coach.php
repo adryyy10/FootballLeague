@@ -3,7 +3,6 @@
 namespace App\Domain\Coach;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Domain\Club\Club;
 use App\Domain\Exceptions\EmptyCoachNameException;
 use App\Domain\Exceptions\EmptySalaryException;
 
@@ -30,18 +29,10 @@ class Coach
      */
     public $salary;
 
-    /**
-     * One coach has one club
-     * 
-     * @ORM\OneToOne(targetEntity=Club::class, mappedBy="coach", cascade={"persist"})
-     */
-    public $club;
-
-    private function __construct(string $name, float $salary, ?Club $club)
+    private function __construct(string $name, float $salary)
     {
         $this->name     = $name;
         $this->salary   = $salary;
-        $this->club     = $club;
     }
 
     public function getId(): ?int
@@ -73,37 +64,23 @@ class Coach
         return $this;
     }
 
-    public function getClub(): ?Club
-    {
-        return $this->club;
-    }
-
-    private function setClub(?Club $club): self
-    {
-        $this->club = $club;
-
-        return $this;
-    }
-
     public static function create(
         string $coachName,
-        float $salary,
-        ?Club $club
+        float $salary
     ): Coach
     {
 
-        if (empty($coachName)) {
-            throw new EmptyCoachNameException('Coach name is empty!');
+        if (empty($coachName) || strlen($coachName) < 3) {
+            throw new EmptyCoachNameException('Coach name is invalid!');
         }
 
-        if (empty($salary)) {
-            throw new EmptySalaryException('Salary is empty!');
+        if (empty($salary) || !is_numeric($salary)) {
+            throw new EmptySalaryException('Salary is invalid!');
         }
 
         $coach = new Coach(
             $coachName,
-            $salary,
-            $club
+            $salary
         );
 
         return $coach;
