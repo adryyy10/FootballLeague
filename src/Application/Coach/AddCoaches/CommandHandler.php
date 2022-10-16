@@ -29,9 +29,6 @@ class CommandHandler
 
     public function __invoke(Command $command)
     {
-        // Validate our business logic before adding a new coach, just in case
-        $this->validateBusinessLogic($command);
-
         // Get the club via clubId
         $club = null;
         if (!empty($command->getClubId())) {
@@ -41,7 +38,7 @@ class CommandHandler
         // If getCoachId() is null --> insert new coach, else --> update coach 
         if (empty($command->getCoachId())) {
             // New Coach entity created to be able to insert it as a new coach
-            $coach = new Coach (
+            $coach = Coach::create(
                 $command->getCoachName(),
                 $command->getSalary(),
                 $club
@@ -70,16 +67,4 @@ class CommandHandler
             }
         }
     }
-
-    public function validateBusinessLogic(Command $command) 
-    {
-        if (empty($command->getCoachName())) {
-            throw new \Exception('Coach name is empty!');
-        }
-
-        if (empty($command->getSalary())) {
-            throw new \Exception('Salary is empty!');
-        }
-    }
-
 }

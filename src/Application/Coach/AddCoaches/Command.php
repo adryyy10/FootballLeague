@@ -3,7 +3,6 @@
 namespace App\Application\Coach\AddCoaches;
 
 use App\Application\Shared\AbstractCommand;
-use App\Domain\Club\Club;
 use Webmozart\Assert\Assert;
 
 class Command extends AbstractCommand

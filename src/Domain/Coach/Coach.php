@@ -16,26 +16,26 @@ class Coach
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    public $name;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $salary;
+    public $salary;
 
     /**
      * One coach has one club
      * 
      * @ORM\OneToOne(targetEntity=Club::class, mappedBy="coach", cascade={"persist"})
      */
-    private $club;
+    public $club;
 
-    public function __construct(string $name, float $salary, ?Club $club)
+    private function __construct(string $name, float $salary, ?Club $club)
     {
         $this->name     = $name;
         $this->salary   = $salary;
@@ -52,7 +52,7 @@ class Coach
         return $this->name;
     }
 
-    public function setName(string $name): self
+    private function setName(string $name): self
     {
         $this->name = $name;
 
@@ -64,7 +64,7 @@ class Coach
         return $this->salary;
     }
 
-    public function setSalary(float $salary): self
+    private function setSalary(float $salary): self
     {
         $this->salary = $salary;
 
@@ -76,10 +76,34 @@ class Coach
         return $this->club;
     }
 
-    public function setClub(?Club $club): self
+    private function setClub(?Club $club): self
     {
         $this->club = $club;
 
         return $this;
+    }
+
+    public static function create(
+        string $coachName,
+        float $salary,
+        ?Club $club
+    ): Coach
+    {
+
+        if (empty($coachName)) {
+            throw new \Exception('Coach name is empty!');
+        }
+
+        if (empty($salary)) {
+            throw new \Exception('Salary is empty!');
+        }
+
+        $coach = new Coach(
+            $coachName,
+            $salary,
+            $club
+        );
+
+        return $coach;
     }
 }
