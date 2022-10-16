@@ -43,9 +43,15 @@ class Club
      */
     private $players;
 
-    public function __construct()
-    {
-        $this->players = new ArrayCollection();
+    private function __construct(
+        string $name,
+        float $budget,
+        Coach $coach
+    ) {
+        $this->name     = $name;
+        $this->budget   = $budget;
+        $this->coach    = $coach;
+        $this->players  = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -58,7 +64,7 @@ class Club
         return $this->name;
     }
 
-    public function setName(string $name): self
+    private function setName(string $name): self
     {
         $this->name = $name;
 
@@ -70,7 +76,7 @@ class Club
         return $this->budget;
     }
 
-    public function setBudget(float $budget): self
+    private function setBudget(float $budget): self
     {
         $this->budget = $budget;
 
@@ -82,7 +88,7 @@ class Club
         return $this->coach;
     }
 
-    public function setCoach(?Coach $coach): self
+    private function setCoach(?Coach $coach): self
     {
         $this->coach = $coach;
 
@@ -117,5 +123,30 @@ class Club
         }
 
         return $this;
+    }
+
+    public static function create(
+        string $name,
+        float $budget,
+        Coach $coach
+    ): Club
+    {
+        $club = new Club(
+            $name,
+            $budget,
+            $coach
+        );
+
+        return $club;
+    }
+
+    public static function update(
+        Club $club,
+        string $name,
+        float $budget,
+        Coach $coach
+    ): void
+    {
+
     }
 }

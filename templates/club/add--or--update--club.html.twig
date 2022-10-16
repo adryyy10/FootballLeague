@@ -19,7 +19,7 @@
     <input type="text" id="budget" name="budget" placeholder="budget in €" value="{{ (club is defined) ? club.budget : '' }}">
 
     <label for="coach">Coach*</label>
-    <select id="coach" name="coach">
+    <select id="coachId" name="coachId">
       <option value="" selected disabled>Select a coach</option>
         {% for coach in coaches %}
             <option value="{{coach.id}}" {{ (coach.coach.id is defined and coach.coach.id == coach.id) ? 'selected' : '' }}>{{coach.name}}</option>

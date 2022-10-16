@@ -10,5 +10,7 @@ interface ClubRepositoryInterface
 
     public function findOneByCoachId(int $coachId);
 
+    public function add(Club $entity, bool $flush = false);
+
     public function flush();
 }

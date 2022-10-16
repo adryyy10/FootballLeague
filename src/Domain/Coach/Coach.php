@@ -3,6 +3,7 @@
 namespace App\Domain\Coach;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Domain\Club\Club;
 use App\Domain\Exceptions\EmptyCoachNameException;
 use App\Domain\Exceptions\EmptySalaryException;
 
@@ -28,6 +29,13 @@ class Coach
      * @ORM\Column(type="float")
      */
     public $salary;
+
+    /**
+     * One coach has one club
+     * 
+     * @ORM\OneToOne(targetEntity=Club::class, mappedBy="coach", cascade={"persist"})
+     */
+    public $club;
 
     private function __construct(string $name, float $salary)
     {
