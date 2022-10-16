@@ -31,3 +31,7 @@ app_add_club:
 app_add_club_submit:
     path: /addClubSubmitAction
     controller: App\Infrastructure\Controllers\Club\ClubController::addClubSubmitAction
+
+app_update_club:
+    path: /updateClub/{clubId}
+    controller: App\Infrastructure\Controllers\Club\ClubController::updateClub

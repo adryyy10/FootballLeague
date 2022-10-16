@@ -147,6 +147,8 @@ class Club
         Coach $coach
     ): void
     {
-
+        $club->setName($name);
+        $club->setBudget($budget);
+        $club->setCoach($coach);
     }
 }

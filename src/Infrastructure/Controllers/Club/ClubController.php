@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Application\Club\AddClubs;
+use App\Application\Club\GetClubsWithNoCoach;
+use App\Application\Club\GetClub;
+use App\Application\Coach\GetCoaches;
 
 class ClubController extends AbstractController
 {
@@ -83,5 +86,36 @@ class ClubController extends AbstractController
         return $this->redirectToRoute('app_club');
     }
 
+        /**
+     * @Route("/updateCoach/{id}", name="app_update_coach")
+     * 
+     * @param Request $request
+     * @param GetClubsWithNoCoach\QueryHandler $getClubsWithNoCoachUseCase
+     * @param GetCoach\QueryHandler $getCoachUseCase
+     * 
+     * @return Response
+     */
+    public function updateClub(
+        GetCoaches\QueryHandler $getCoaches,
+        GetClub\QueryHandler $getClubUseCase,
+        int $clubId
+    ): Response
+    {
+        $data = [
+            'clubId' => $clubId
+        ];
+
+        // We send the data through our Command in order to validate our business logic in the CommandHandler
+        $command = new GetClub\Query($data);
+        // We need to find Coach and update it
+        $getClubResponse = $getClubUseCase($command);
+        // We must get all the clubs to be able to show them in the form
+        $getCoachesResponse = $getCoaches();
+        
+        return $this->render('club/add--or--update--club.html.twig', [
+            'coaches' => $getCoachesResponse->getCoaches(),
+            'club'  => $getClubResponse->getClub()
+        ]);
+    }
 
 }

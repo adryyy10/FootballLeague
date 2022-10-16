@@ -52,14 +52,12 @@ class CoachController extends AbstractController
     /**
      * @Route("/updateCoach/{id}", name="app_update_coach")
      * 
-     * @param Request $request
      * @param GetClubsWithNoCoach\QueryHandler $getClubsWithNoCoachUseCase
      * @param GetCoach\QueryHandler $getCoachUseCase
      * 
      * @return Response
      */
-    public function updatecoach(
-        Request $request,
+    public function updateCoach(
         GetClubsWithNoCoach\QueryHandler $getClubsWithNoCoachUseCase,
         GetCoach\QueryHandler $getCoachUseCase,
         int $coachId
