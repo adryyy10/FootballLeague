@@ -62,8 +62,8 @@ class GetClubQueryHandlerTest extends TestCase
 
         $response = $queryHandler(new GetClub\Query($this->data));
 
+        $this->assertInstanceOf(GetClub\Response::class, $this->mocks[GetClub\Response::class]);
         $this->assertEquals($response->getClub(), $this->mocks[Club::class]);
-        $this->assertNotEmpty($response->getClub());
     }
 
     public function testClubNotFound() 
@@ -75,6 +75,7 @@ class GetClubQueryHandlerTest extends TestCase
 
         $response = $queryHandler(new GetClub\Query($this->data));
 
+        $this->assertInstanceOf(GetClub\Response::class, $this->mocks[GetClub\Response::class]);
         $this->assertEquals($response->getClub(), null);
     }
 
