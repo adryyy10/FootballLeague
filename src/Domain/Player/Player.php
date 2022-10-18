@@ -39,6 +39,17 @@ class Player
      */
     private $club;
 
+    private function __construct(
+        string $name,
+        string $position,
+        float $salary
+    )
+    {
+        $this->name     = $name;
+        $this->position = $position;
+        $this->salary   = $salary;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -49,7 +60,7 @@ class Player
         return $this->name;
     }
 
-    public function setName(string $name): self
+    private function setName(string $name): self
     {
         $this->name = $name;
 
@@ -61,7 +72,7 @@ class Player
         return $this->position;
     }
 
-    public function setPosition(string $position): self
+    private function setPosition(string $position): self
     {
         $this->position = $position;
 
@@ -73,7 +84,7 @@ class Player
         return $this->salary;
     }
 
-    public function setSalary(float $salary): self
+    private function setSalary(float $salary): self
     {
         $this->salary = $salary;
 
@@ -90,5 +101,32 @@ class Player
         $this->club = $club;
 
         return $this;
+    }
+
+    public static function create(
+        string $name,
+        string $position,
+        string $salary
+    ): Player
+    {
+        $player = new Player(
+            $name,
+            $position,
+            $salary
+        );
+
+        return $player;
+    }
+
+    public static function update(
+        Player $player,
+        string $name,
+        string $position,
+        string $salary
+    ): void
+    {
+        $player->setName($name);
+        $player->setPosition($position);
+        $player->setSalary($salary);
     }
 }
