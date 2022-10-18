@@ -7,11 +7,11 @@ use App\Domain\Club\Club;
 class Response
 {
     /**
-     * @var Club $club
+     * @var Club|null $club
      */
     protected $club;
 
-    public function __construct(Club $club)
+    public function __construct(?Club $club)
     {
         $this->club = $club;
     }
@@ -19,7 +19,7 @@ class Response
      /**
       * Get the value of entity club
       */ 
-     public function getClub(): Club
+     public function getClub(): ?Club
      {
           return $this->club;
      }
