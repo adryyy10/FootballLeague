@@ -6,10 +6,10 @@ class Response
 {
 
     /**
-     * @var array $clubs
+     * @var array|null $clubs
      */
 
-    public function __construct(array $clubs)
+    public function __construct(?array $clubs)
     {
         $this->clubs = $clubs;
     }
@@ -17,7 +17,7 @@ class Response
      /**
       * Get the value of clubs
       */ 
-     public function getClubs()
+     public function getClubs(): ?array
      {
           return $this->clubs;
      }

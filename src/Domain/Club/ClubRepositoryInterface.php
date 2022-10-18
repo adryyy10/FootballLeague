@@ -6,6 +6,8 @@ interface ClubRepositoryInterface
 {
     public function find($id, $lockMode = null, $lockVersion = null);
 
+    public function findAll();
+
     public function findByNoCoach();
 
     public function findOneByCoachId(int $coachId);
