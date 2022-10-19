@@ -101,7 +101,7 @@ class ClubController extends AbstractController
         int $clubId
     ): Response
     {
-        $data = [
+        $data = (object)[
             'clubId' => $clubId
         ];
 

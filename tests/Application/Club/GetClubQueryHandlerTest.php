@@ -6,11 +6,12 @@ use PHPUnit\Framework\TestCase;
 use App\Application\Club\GetClub;
 use App\Domain\Club\Club;
 use App\Domain\Club\ClubRepositoryInterface;
+use stdClass;
 
 class GetClubQueryHandlerTest extends TestCase
 {
 
-    protected array $data;
+    protected stdClass $data;
 
     protected array $mocks = [];
 
@@ -18,7 +19,7 @@ class GetClubQueryHandlerTest extends TestCase
     {
         parent::setUp();
 
-        $this->data = [
+        $this->data = (object)[
             'clubId' => 1,
         ];
 

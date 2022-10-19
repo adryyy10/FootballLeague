@@ -2,19 +2,21 @@
 
 namespace App\Application\Shared;
 
+use stdClass;
+
 abstract class AbstractCommand
 {
 
     /**
-     * @param array $data
+     * @param stdClass $data
      */
-    protected $data;
+    public $data;
 
-    public function __construct(array $data)
+    public function __construct(stdClass $data)
     {
         $this->data = $data;
         $this->assertMandatoryAttributes();
     }
 
-    abstract public function assertMandatoryAttributes();
+    abstract protected function assertMandatoryAttributes();
 }
