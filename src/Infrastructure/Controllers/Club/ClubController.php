@@ -77,7 +77,7 @@ class ClubController extends AbstractController
         ];
 
         // We send the data through our Command in order to validate our business logic in the CommandHandler
-        $command = new AddClubs\Command($data);
+        $command = new AddClubs\Command((object)$data);
 
         // We add a new coach with our useCase and get a Json response
         $addClubUseCase($command);
@@ -101,12 +101,12 @@ class ClubController extends AbstractController
         int $clubId
     ): Response
     {
-        $data = (object)[
+        $data = [
             'clubId' => $clubId
         ];
 
         // We send the data through our Command in order to validate our business logic in the CommandHandler
-        $command = new GetClub\Query($data);
+        $command = new GetClub\Query((object)$data);
         // We need to find Coach and update it
         $getClubResponse = $getClubUseCase($command);
         // We must get all the clubs to be able to show them in the form

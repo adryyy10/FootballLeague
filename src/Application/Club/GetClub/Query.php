@@ -25,9 +25,11 @@ class Query extends AbstractCommand
         return $this->data->clubId;
     }
     
+    /**
+     * This method checks the type of the variables and if they are mandatory or not
+     */
     protected function assertMandatoryAttributes()
     {
-        // In this method we will check the typing of the variables and if the need to be mandatory or not
         Assert::propertyExists($this->data, 'clubId');
         Assert::integer($this->data->clubId);
     }

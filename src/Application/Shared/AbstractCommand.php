@@ -10,7 +10,7 @@ abstract class AbstractCommand
     /**
      * @param stdClass $data
      */
-    public $data;
+    protected $data;
 
     public function __construct(stdClass $data)
     {

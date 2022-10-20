@@ -68,7 +68,7 @@ class CoachController extends AbstractController
         ];
 
         // We send the data through our Command in order to validate our business logic in the CommandHandler
-        $command = new GetCoach\Query($data);
+        $command = new GetCoach\Query((object)$data);
         // We need to find Coach and update it
         $getCoachResponse = $getCoachUseCase($command);
         // We must get all the clubs to be able to show them in the form
@@ -95,7 +95,7 @@ class CoachController extends AbstractController
         $clubId     = $request->get('club');
 
         // We create an array $data just to pass it to our Command
-        $data = [
+        $data = (object)[
             'coachId'   => (int)$coachId,
             'coachName' => $coachName,
             'salary'    => $salary,
@@ -126,7 +126,7 @@ class CoachController extends AbstractController
         ];
 
         // We send the data through our Command in order to validate our business logic in the CommandHandler
-        $command = new DeleteCoach\Command($data);
+        $command = new DeleteCoach\Command((object)$data);
 
         $response = $deleteCoachUseCase($command);
 

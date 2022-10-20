@@ -3,31 +3,34 @@
 namespace App\Application\Coach\DeleteCoach;
 
 use App\Application\Shared\AbstractCommand;
+use stdClass;
 use Webmozart\Assert\Assert;
 
 class Command extends AbstractCommand
 {
 
     /**
-     * @var array $data
+     * @var stdClass $data
      */
     protected $data;
 
-    public function __construct(array $data) 
+    public function __construct(stdClass $data) 
     {
         $this->data = $data;
     }
 
     public function getCoachId(): int
     {
-        return $this->data['coachId'];
+        return $this->data->coachId;
     }
     
+    /**
+     * This method checks the type of the variables and if they are mandatory or not
+     */
     public function assertMandatoryAttributes()
     {
-        // In this method we will check the typing of the variables and if the need to be mandatory or not
-        Assert::propertyExists($this->data['coachId'], 'coachId');
-        Assert::integer($this->data['coachId']);
+        Assert::propertyExists($this->data, 'coachId');
+        Assert::integer($this->data->coachId);
     }
 
 }

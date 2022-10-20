@@ -3,49 +3,51 @@
 namespace App\Application\Coach\AddCoaches;
 
 use App\Application\Shared\AbstractCommand;
+use stdClass;
 use Webmozart\Assert\Assert;
 
 class Command extends AbstractCommand
 {
 
     /**
-     * @var array $data
+     * @var stdClass $data
      */
     protected $data;
 
-    public function __construct(array $data) 
+    public function __construct(stdClass $data) 
     {
         $this->data = $data;
     }
 
     public function getCoachId(): ?int
     {
-        return $this->data['coachId'];
+        return $this->data->coachId;
     }
 
     public function getCoachName(): string
     {
-        return $this->data['coachName'];
+        return $this->data->coachName;
     }
 
     public function getSalary(): float
     {
-        return $this->data['salary'];
+        return $this->data->salary;
     }
     
+    /**
+     * This method checks the type of the variables and if they are mandatory or not
+     */
     public function assertMandatoryAttributes()
     {
-        // In this method we will check the typing of the variables and if the need to be mandatory or not
-
-        if (isset($this->data['coachId'])) {
-            Assert::integer($this->data['coachId']);
+        if (isset($this->data->coachId)) {
+            Assert::integer($this->data->coachId);
         }
 
-        Assert::propertyExists($this->data['coachName'], 'coachName');
-        Assert::string($this->data['coachName']);
+        Assert::propertyExists($this->data, 'coachName');
+        Assert::string($this->data->coachName);
 
-        Assert::propertyExists($this->data['salary'], 'salary');
-        Assert::float($this->data['salary']);
+        Assert::propertyExists($this->data, 'salary');
+        Assert::float($this->data->salary);
     }
 
 }
