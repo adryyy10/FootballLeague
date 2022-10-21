@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Coach\AddCoaches;
+namespace App\Application\Coach\AddCoach;
 
 use App\Application\Shared\AbstractCommand;
 use stdClass;
@@ -16,6 +16,7 @@ class Command extends AbstractCommand
 
     public function __construct(stdClass $data) 
     {
+        parent::__construct($data);
         $this->data = $data;
     }
 
@@ -40,7 +41,7 @@ class Command extends AbstractCommand
     public function assertMandatoryAttributes()
     {
         if (isset($this->data->coachId)) {
-            Assert::integer($this->data->coachId);
+            Assert::greaterThan($this->data->coachId, 0);
         }
 
         Assert::propertyExists($this->data, 'coachName');

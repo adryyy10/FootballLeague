@@ -4,7 +4,7 @@ namespace App\Infrastructure\Controllers\Coach;
 
 use App\Application\Coach\GetCoaches\QueryHandler as getCoachesUseCase;
 use App\Application\Club\GetClubsWithNoCoach;
-use App\Application\Coach\AddCoaches;
+use App\Application\Coach\AddCoach;
 use App\Application\Coach\DeleteCoach;
 use App\Application\Coach\GetCoach;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -86,7 +86,7 @@ class CoachController extends AbstractController
      * @param Request $request
      * @param AddCoaches\CommandHandler $addCoachUseCase
      */
-    public function addCoachSubmitAction(Request $request, AddCoaches\CommandHandler $addCoachUseCase)
+    public function addCoachSubmitAction(Request $request, AddCoach\CommandHandler $addCoachUseCase)
     {
         // We get the data from the form via $request
         $coachId    = $request->get('coachId', null);
@@ -103,7 +103,7 @@ class CoachController extends AbstractController
         ];
 
         // We send the data through our Command in order to validate our business logic in the CommandHandler
-        $command = new AddCoaches\Command($data);
+        $command = new AddCoach\Command($data);
 
         // We add a new coach with our useCase and get a Json response
         $addCoachUseCase($command);

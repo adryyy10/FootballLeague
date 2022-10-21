@@ -46,8 +46,7 @@ class Command extends AbstractCommand
     protected function assertMandatoryAttributes()
     {
         if (isset($this->data->clubId)) {
-            Assert::notEmpty($this->data->clubId);
-            Assert::integer($this->data->clubId);
+            Assert::greaterThan($this->data->clubId, 0);
         }
 
         Assert::propertyExists($this->data, 'clubName');

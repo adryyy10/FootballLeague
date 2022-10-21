@@ -5,14 +5,14 @@ namespace App\Tests\Application\Coach;
 use App\Domain\Club\ClubRepositoryInterface;
 use App\Domain\Coach\CoachRepositoryInterface;
 use PHPUnit\Framework\TestCase;
-use App\Application\Coach\AddCoaches;
+use App\Application\Coach\AddCoach;
 use App\Domain\Coach\Coach;
 use App\Domain\Exceptions\EmptyCoachNameException;
 use App\Domain\Exceptions\EmptySalaryException;
 use App\Domain\Exceptions\EntityNotFoundException;
 use stdClass;
 
-class AddCoachesCommandHandlerTest extends TestCase
+class AddCoachCommandHandlerTest extends TestCase
 {
 
     protected stdClass $data;
@@ -43,7 +43,7 @@ class AddCoachesCommandHandlerTest extends TestCase
 
     protected function initUseCase()
     {
-        return new AddCoaches\CommandHandler(
+        return new AddCoach\CommandHandler(
             $this->mocks[CoachRepositoryInterface::class],
             $this->mocks[ClubRepositoryInterface::class]
         );
@@ -71,7 +71,7 @@ class AddCoachesCommandHandlerTest extends TestCase
         $useCase = $this->initUseCase();
 
         $this->expectException(EmptyCoachNameException::class);
-        $useCase(new AddCoaches\Command($this->data));
+        $useCase(new AddCoach\Command($this->data));
     }
 
     public function testAddNewCoachWithEmptySalary()
@@ -81,7 +81,7 @@ class AddCoachesCommandHandlerTest extends TestCase
         $useCase = $this->initUseCase();
 
         $this->expectException(EmptySalaryException::class);
-        $useCase(new AddCoaches\Command($this->data));
+        $useCase(new AddCoach\Command($this->data));
     }
 
     public function testUpdateCoachWithEmptyId()
@@ -93,7 +93,7 @@ class AddCoachesCommandHandlerTest extends TestCase
         $useCase = $this->initUseCase();
 
         $this->expectException(EntityNotFoundException::class);
-        $useCase(new AddCoaches\Command($this->data));
+        $useCase(new AddCoach\Command($this->data));
     }
 
 }

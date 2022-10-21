@@ -16,6 +16,7 @@ class Command extends AbstractCommand
 
     public function __construct(stdClass $data) 
     {
+        parent::__construct($data);
         $this->data = $data;
     }
 
