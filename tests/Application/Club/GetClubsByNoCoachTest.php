@@ -4,9 +4,9 @@ namespace App\Tests\Application\Club;
 
 use App\Domain\Club\ClubRepositoryInterface;
 use PHPUnit\Framework\TestCase;
-use App\Application\Club\GetClubs;
+use App\Application\Club\GetClubsWithNoCoach;
 
-class GetClubsQueryHandlerTest extends TestCase
+class GetClubsByNoCoachTest extends TestCase
 {
 
     protected array $mocks = [];
@@ -20,34 +20,29 @@ class GetClubsQueryHandlerTest extends TestCase
 
     private function initMocks()
     {
-        $this->mocks[ClubRepositoryInterface::class] = $this->createMock(ClubRepositoryInterface::class); 
+        $this->mocks[ClubRepositoryInterface::class] = $this->createMock(ClubRepositoryInterface::class);
     }
 
-    private function initHandler(): GetClubs\QueryHandler
+    private function initHandler(): GetClubsWithNoCoach\QueryHandler
     {
-        return new GetClubs\QueryHandler(
+        return new GetClubsWithNoCoach\QueryHandler(
             $this->mocks[ClubRepositoryInterface::class]
         );
     }
 
-    private function findAllClubs()
+    public function testGetClubsWithNoCoach()
     {
         $this->mocks[ClubRepositoryInterface::class]
-        ->expects($this->once())
-        ->method('findAll')
-        ->willReturn([]);
-    }
-
-    public function testGetclubs()
-    {
-        $this->findAllClubs();
+            ->expects($this->once())
+            ->method('findByNoCoach')
+            ->willReturn([]);
 
         $handler = $this->initHandler();
         $response = $handler();
 
         $this->assertNotNull($response->getClubs());
         $this->assertIsArray($response->getClubs());
-        $this->assertInstanceOf(GetClubs\Response::class, $response);
+        $this->assertInstanceOf(GetClubsWithNoCoach\Response::class, $response);
     }
 
 }
