@@ -7,6 +7,7 @@ use App\Application\Club\GetClubsWithNoCoach;
 use App\Application\Coach\AddCoach;
 use App\Application\Coach\DeleteCoach;
 use App\Application\Coach\GetCoach;
+use App\Domain\Exceptions\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -84,21 +85,21 @@ class CoachController extends AbstractController
      * @Route("/addCoachSubmitAction", name="app_add_coach_submit")
      * 
      * @param Request $request
-     * @param AddCoaches\CommandHandler $addCoachUseCase
+     * @param AddCoach\CommandHandler $addCoachUseCase
      */
     public function addCoachSubmitAction(Request $request, AddCoach\CommandHandler $addCoachUseCase)
     {
         // We get the data from the form via $request
-        $coachId    = $request->get('coachId', null);
+        $coachId    = $request->get('coachId');
         $coachName  = $request->get('coachName');
         $salary     = $request->get('salary');
         $clubId     = $request->get('club');
 
         // We create an array $data just to pass it to our Command
         $data = (object)[
-            'coachId'   => (int)$coachId,
+            'coachId'   => (empty($coachId) ? null : (int)$coachId),
             'coachName' => $coachName,
-            'salary'    => $salary,
+            'salary'    => (float)$salary,
             'clubId'    => $clubId
         ];
 
@@ -128,11 +129,20 @@ class CoachController extends AbstractController
         // We send the data through our Command in order to validate our business logic in the CommandHandler
         $command = new DeleteCoach\Command((object)$data);
 
-        $response = $deleteCoachUseCase($command);
+        try {
+            $deleteCoachUseCase($command);
+            $success = true;
+        } catch (EntityNotFoundException $e) {
+            $success = false;
+            $message = $e;
+        }
 
         return $this->json(
-            ['success'=> $response->isDeletedCoach()],
-            200
+            [
+                'success'   => $success,
+                'message'   => (!empty($message)) ? $message : ''
+            ],
+            ($success) ? 200 : 400
         );
     }
 }

@@ -8,9 +8,9 @@ interface ClubRepositoryInterface
 
     public function findAll();
 
-    public function findByNoCoach();
+    public function findByNoCoach(): array;
 
-    public function findOneByCoachId(int $coachId);
+    public function findOneByCoachId(int $coachId): ?Club;
 
     public function add(Club $entity, bool $flush = false);
 

@@ -151,4 +151,9 @@ class Club
         $club->setBudget($budget);
         $club->setCoach($coach);
     }
+
+    public static function setCoachToNull(Club $club): void
+    {
+        $club->setCoach(null);
+    }
 }

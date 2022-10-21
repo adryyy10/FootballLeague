@@ -61,18 +61,17 @@ class ClubController extends AbstractController
         Request $request
     ): Response
     {
-
         // We get the data from the form via $request
-        $clubId     = $request->get('clubId', null);
+        $clubId     = $request->get('clubId');
         $clubName   = $request->get('clubName');
         $budget     = $request->get('budget');
         $coachId    = $request->get('coachId');
 
         // We create an array $data just to pass it to our Command
         $data = [
-            'clubId'    => (int)$clubId,
+            'clubId'    => (empty($clubId) ? null : (int)$clubId),
             'clubName'  => $clubName,
-            'budget'    => $budget,
+            'budget'    => (float)$budget,
             'coachId'   => (int)$coachId
         ];
 
