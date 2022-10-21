@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Club\AddClubs;
+namespace App\Application\Club\AddClub;
 
 use App\Domain\Club\Club;
 use App\Domain\Club\ClubRepositoryInterface;

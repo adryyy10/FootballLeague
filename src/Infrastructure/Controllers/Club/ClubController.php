@@ -8,7 +8,7 @@ use App\Application\Coach\GetCoachesWithNoClub;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Application\Club\AddClubs;
+use App\Application\Club\AddClub;
 use App\Application\Club\GetClubsWithNoCoach;
 use App\Application\Club\GetClub;
 use App\Application\Coach\GetCoaches;
@@ -57,7 +57,7 @@ class ClubController extends AbstractController
      * @return Response
      */
     public function addClubSubmitAction(
-        AddClubs\CommandHandler $addClubUseCase,
+        AddClub\CommandHandler $addClubUseCase,
         Request $request
     ): Response
     {
@@ -77,7 +77,7 @@ class ClubController extends AbstractController
         ];
 
         // We send the data through our Command in order to validate our business logic in the CommandHandler
-        $command = new AddClubs\Command((object)$data);
+        $command = new AddClub\Command((object)$data);
 
         // We add a new coach with our useCase and get a Json response
         $addClubUseCase($command);
@@ -113,8 +113,8 @@ class ClubController extends AbstractController
         $getCoachesResponse = $getCoaches();
         
         return $this->render('club/add--or--update--club.html.twig', [
-            'coaches' => $getCoachesResponse->getCoaches(),
-            'club'  => $getClubResponse->getClub()
+            'coaches'   => $getCoachesResponse->getCoaches(),
+            'club'      => $getClubResponse->getClub()
         ]);
     }
 

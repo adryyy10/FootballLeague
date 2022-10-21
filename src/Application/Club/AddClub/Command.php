@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Club\AddClubs;
+namespace App\Application\Club\AddClub;
 
 use App\Application\Shared\AbstractCommand;
 use stdClass;
@@ -12,10 +12,11 @@ class Command extends AbstractCommand
     /**
      * @var stdClass $data
      */
-    protected $data;
+    public $data;
 
     public function __construct(stdClass $data) 
     {
+        parent::__construct($data);
         $this->data = $data;
     }
 
@@ -42,9 +43,10 @@ class Command extends AbstractCommand
     /**
      * This method checks the type of the variables and if they are mandatory or not
      */
-    public function assertMandatoryAttributes()
+    protected function assertMandatoryAttributes()
     {
-        if (isset($this->data->clubId) && $this->data->clubId > 0) {
+        if (isset($this->data->clubId)) {
+            Assert::notEmpty($this->data->clubId);
             Assert::integer($this->data->clubId);
         }
 

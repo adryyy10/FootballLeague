@@ -10,12 +10,12 @@ use App\Domain\Coach\Coach;
 use App\Domain\Exceptions\EmptyCoachNameException;
 use App\Domain\Exceptions\EmptySalaryException;
 use App\Domain\Exceptions\EntityNotFoundException;
-
+use stdClass;
 
 class AddCoachesCommandHandlerTest extends TestCase
 {
 
-    protected array $data;
+    protected stdClass $data;
 
     protected array $mocks;
 
@@ -24,7 +24,7 @@ class AddCoachesCommandHandlerTest extends TestCase
         parent::setUp();
         $this->mocks = [];
 
-        $this->data = [
+        $this->data = (object)[
             'coachId'   => 1,
             'coachName' => 'Guardiola',
             'salary'    => 12345,
@@ -66,8 +66,8 @@ class AddCoachesCommandHandlerTest extends TestCase
 
     public function testAddNewCoachWithEmptyName()
     {
-        $this->data['coachId']    = null;
-        $this->data['coachName']  = '';
+        $this->data->coachId    = null;
+        $this->data->coachName  = '';
         $useCase = $this->initUseCase();
 
         $this->expectException(EmptyCoachNameException::class);
@@ -76,8 +76,8 @@ class AddCoachesCommandHandlerTest extends TestCase
 
     public function testAddNewCoachWithEmptySalary()
     {
-        $this->data['coachId']  = null;
-        $this->data['salary']   = 0;
+        $this->data->coachId  = null;
+        $this->data->salary   = 0;
         $useCase = $this->initUseCase();
 
         $this->expectException(EmptySalaryException::class);
@@ -86,7 +86,7 @@ class AddCoachesCommandHandlerTest extends TestCase
 
     public function testUpdateCoachWithEmptyId()
     {
-        $this->data['coachId']  = 99999;
+        $this->data->coachId  = 99999;
 
         $this->getCoach(false);
 

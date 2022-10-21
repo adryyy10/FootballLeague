@@ -29,7 +29,7 @@ class GetClubQueryTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectErrorMessage('Expected an integer. Got: NULL');
-        new GetClub\Query((object)$data);
+        new GetClub\Query($data);
     }
 
     public function testClubIdNotInteger()
@@ -39,7 +39,7 @@ class GetClubQueryTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectErrorMessage('Expected an integer. Got: string');
-        new GetClub\Query((object)$data);
+        new GetClub\Query($data);
     }
 
 }
