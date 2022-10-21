@@ -7,11 +7,11 @@ use App\Domain\Coach\Coach;
 class Response
 {
     /**
-     * @var Coach $coach
+     * @var Coach|null $coach
      */
     protected $coach;
 
-    public function __construct(Coach $coach)
+    public function __construct(?Coach $coach)
     {
         $this->coach = $coach;
     }
@@ -19,7 +19,7 @@ class Response
      /**
       * Get the value of entity Coach
       */ 
-     public function getCoach(): Coach
+     public function getCoach(): ?Coach
      {
           return $this->coach;
      }

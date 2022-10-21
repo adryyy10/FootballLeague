@@ -32,6 +32,7 @@ class Query extends AbstractCommand
     {
         Assert::propertyExists($this->data, 'coachId');
         Assert::integer($this->data->coachId);
+        Assert::greaterThan($this->data->coachId, 0);
     }
 
 }
