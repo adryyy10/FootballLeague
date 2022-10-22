@@ -2,6 +2,7 @@
 
 namespace App\Application\Coach\AddCoach;
 
+use App\Domain\Club\Club;
 use App\Domain\Club\ClubRepositoryInterface;
 use App\Domain\Coach\Coach;
 use App\Domain\Coach\CoachRepositoryInterface;
@@ -55,21 +56,6 @@ class CommandHandler
             );
 
             $this->coachRepository->flush();
-
-            // Find if coach has a club
-            $coachClub = $this->clubRepository->findOneByCoachId($command->getCoachId());
-
-            // Remove coach from previous club
-            if (!empty($coachClub)) {
-                $coachClub->setCoach(null);
-                $this->clubRepository->flush();
-            }
-
-            // Add coach to the new club
-            if (!empty($club)) {
-                $club->setCoach($coach);
-                $this->clubRepository->flush();
-            }
         }
     }
 }

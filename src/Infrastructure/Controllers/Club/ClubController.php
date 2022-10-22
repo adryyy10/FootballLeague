@@ -12,6 +12,8 @@ use App\Application\Club\AddClub;
 use App\Application\Club\GetClubsWithNoCoach;
 use App\Application\Club\GetClub;
 use App\Application\Coach\GetCoaches;
+use App\Application\Club\DeleteClub;
+use App\Domain\Exceptions\EntityNotFoundException;
 
 class ClubController extends AbstractController
 {
@@ -115,6 +117,39 @@ class ClubController extends AbstractController
             'coaches'   => $getCoachesResponse->getCoaches(),
             'club'      => $getClubResponse->getClub()
         ]);
+    }
+
+    /**
+     * @Route("/removeClubAction", name="app_remove_club")
+     * 
+     * @param Request $request
+     */
+    public function removeClubAction(Request $request, DeleteClub\CommandHandler $deleteClubUseCase)
+    {
+        $clubId = $request->get('id');
+
+        $data = [
+            'clubId' => (int)$clubId
+        ];
+
+        // We send the data through our Command in order to validate our business logic in the CommandHandler
+        $command = new DeleteClub\Command((object)$data);
+
+        try {
+            $deleteClubUseCase($command);
+            $success = true;
+        } catch (EntityNotFoundException $e) {
+            $success = false;
+            $message = $e;
+        }
+
+        return $this->json(
+            [
+                'success'   => $success,
+                'message'   => (!empty($message)) ? $message : ''
+            ],
+            ($success) ? 200 : 400
+        );
     }
 
 }

@@ -6,7 +6,7 @@ use App\Domain\Club\ClubRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 use App\Application\Club\GetClubsWithNoCoach;
 
-class GetClubsByNoCoachTest extends TestCase
+class GetClubsByNoCoachQueryHandlerTest extends TestCase
 {
 
     protected array $mocks = [];

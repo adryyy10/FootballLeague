@@ -14,5 +14,7 @@ interface ClubRepositoryInterface
 
     public function add(Club $entity, bool $flush = false);
 
+    public function remove(Club $entity, bool $flush = false): void;
+
     public function flush();
 }

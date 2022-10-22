@@ -26,7 +26,7 @@
                 <td>{{ club.name }}</td>
                 <td>{{ club.budget }} €</td>
                 <td>{{ (club.coach is not null) ? club.coach.name : 'None' }}</td>
-                <td><div onClick="removeCoach({{club.id}})" style="cursor:pointer;" data-club-id="{{club.id}}">Delete &#10006;</div></td>
+                <td><div onClick="removeClub({{club.id}})" style="cursor:pointer;" data-club-id="{{club.id}}">Delete &#10006;</div></td>
                 <td><div onClick="editClub('/updateClub/{{club.id}}')" style="cursor:pointer;" data-url="/updateClub/{{club.id}}" data-club-id="{{club.id}}">Update &#9989;</div></td>
             </tr>
         {% endfor %}
@@ -34,9 +34,9 @@
 </table>
 
 <a class="add-button" href="/addClub">Add new club</a>
+<a class="add-button" href="/coaches">Coaches</a>
 
 {% block javascripts %}
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{{ asset('js/manageClub.js') }}"></script>
 {% endblock %}
 

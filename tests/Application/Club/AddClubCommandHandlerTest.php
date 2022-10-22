@@ -11,7 +11,7 @@ use App\Domain\Coach\CoachRepositoryInterface;
 use App\Domain\Exceptions\EntityNotFoundException;
 use stdClass;
 
-class AddClubQueryHandlerTest extends TestCase
+class AddClubCommandHandlerTest extends TestCase
 {
 
     protected stdClass $data;

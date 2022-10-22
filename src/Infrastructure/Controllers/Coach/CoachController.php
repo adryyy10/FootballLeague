@@ -120,6 +120,7 @@ class CoachController extends AbstractController
      */
     public function removeCoachAction(Request $request, DeleteCoach\CommandHandler $deleteCoachUseCase)
     {
+
         $coachId = $request->get('id');
 
         $data = [
