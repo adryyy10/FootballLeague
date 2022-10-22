@@ -10,7 +10,7 @@
 {% block body %}
 
 <div>
-  <form class="add-coach-form" action="/addCoachSubmitAction">
+  <form class="add-coach-form" method="POST" action="/addCoachSubmitAction">
     <input type="hidden" id="coachId" name="coachId" value="{{ (coach is defined) ? coach.id : '' }}" />
     <label for="coachName">Coach Name</label>
     <input type="text" id="coachName" name="coachName" placeholder="Name of the coach" value="{{ (coach is defined) ? coach.name : '' }}">

@@ -10,7 +10,7 @@
 {% block body %}
 
 <div>
-  <form class="add-club-form" action="/addClubSubmitAction">
+  <form class="add-club-form" method="POST" action="/addClubSubmitAction">
     <input type="hidden" id="clubId" name="clubId" value="{{ (club is defined) ? club.id : '' }}" />
     <label for="clubName">Club Name</label>
     <input type="text" id="clubName" name="clubName" placeholder="Name of the club" value="{{ (club is defined) ? club.name : '' }}">
