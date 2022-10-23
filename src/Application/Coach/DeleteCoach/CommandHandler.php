@@ -4,6 +4,7 @@ namespace App\Application\Coach\DeleteCoach;
 
 use App\Domain\Coach\CoachRepositoryInterface;
 use App\Domain\Club\ClubRepositoryInterface;
+use App\Domain\Exceptions\EmptyCoachIdException;
 use App\Domain\Exceptions\EntityNotFoundException;
 
 class CommandHandler
@@ -53,9 +54,8 @@ class CommandHandler
 
     public function validateBusinessLogic(Command $command) 
     {
-        if (empty($command->getCoachId())) {
-            throw new \Exception('Coach id is empty!');
+        if ($command->getCoachId() <= 0) {
+            throw new EmptyCoachIdException('Invalid coach id!');
         }
     }
-
 }

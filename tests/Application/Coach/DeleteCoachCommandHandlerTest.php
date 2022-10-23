@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use App\Application\Coach\DeleteCoach;
 use App\Domain\Club\Club;
 use App\Domain\Coach\Coach;
+use App\Domain\Exceptions\EmptyCoachIdException;
 use App\Domain\Exceptions\EntityNotFoundException;
 use phpDocumentor\Reflection\Types\Void_;
 use SebastianBergmann\Type\VoidType;
@@ -101,5 +102,17 @@ class DeleteCoachCommandHandlerTest extends TestCase
 
         $handler($command);
     } 
+
+    public function testInvalidCoachId()
+    {
+        $this->data->coachId = -1;
+
+        $command = new DeleteCoach\Command($this->data);
+
+        $this->expectException(EmptyCoachIdException::class);
+        $handler = $this->initHandler();
+
+        $handler($command);
+    }
 
 }

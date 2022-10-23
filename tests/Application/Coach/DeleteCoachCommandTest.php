@@ -27,14 +27,6 @@ class DeleteCoachCommandTest extends TestCase
         $this->assertIsInt($command->getCoachId());
     }
 
-    public function testInvalidCoachId()
-    {
-        $this->data->coachId = -1;
-
-        $this->expectException(InvalidArgumentException::class);
-        new DeleteCoach\Command($this->data);
-    }
-
     public function testNullCoachId()
     {
         $this->data->coachId = null;
