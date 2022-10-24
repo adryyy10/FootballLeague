@@ -55,7 +55,7 @@ class ClubController extends AbstractController
     /**
      * @Route("/addClubSubmitAction", name="app_add_club_submit")
      * 
-     * @param GetCoachesWithNoClub\QueryHandler $getCoachesByNoClubUseCase
+     * @param AddClub\CommandHandler $addClubUseCase
      * @return Response
      */
     public function addClubSubmitAction(

@@ -18,7 +18,7 @@ class QueryHandler {
 
     public function __invoke(): Response
     {
-        $coaches = $this->coachRepository->findAll();
+        $coaches = $this->coachRepository->findByNoClub();
 
         return new Response(
             $coaches

@@ -37,7 +37,7 @@ class CoachRepository extends ServiceEntityRepository implements CoachRepository
         $qb = $this->createQueryBuilder('coach');
 
         return $qb->select('coach')
-            ->join('coach.club', 'club')
+            ->leftjoin('coach.club', 'club')
             ->where($qb->expr()->isNull("club.coach"))
             ->getQuery()->getResult();
     }
