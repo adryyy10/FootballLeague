@@ -26,7 +26,7 @@ class ClubController extends AbstractController
      */
     public function list(GetClubs\QueryHandler $useCase): Response
     {
-        // We get our list of clubs via useCase where we can show them with the $response->getClubs()
+        // Get list of clubs via useCase where we can show them with the $response->getClubs()
         $response = $useCase();
 
         return $this->render('club/index.html.twig', [
@@ -43,7 +43,7 @@ class ClubController extends AbstractController
      */
     public function add(GetCoachesWithNoClub\QueryHandler $getCoachesByNoClubUseCase): Response
     {
-        // We must get all the coaches that has no club to show them in the dropdown
+        // Get all the coaches that have no club to show them in the dropdown
         $getClubsResponse = $getCoachesByNoClubUseCase();
         
         return $this->render('club/add--or--update--club.html.twig', [
@@ -62,13 +62,13 @@ class ClubController extends AbstractController
      */
     public function addSubmitAction(Request $request,AddClub\CommandHandler $addClubUseCase): Response
     {
-        // We get the data from the form via $request
+        // Get data from the form via $request
         $clubId     = $request->get('clubId');
         $clubName   = $request->get('clubName');
         $budget     = $request->get('budget');
         $coachId    = $request->get('coachId');
 
-        // We create an array $data just to pass it to our Command
+        // Create array $data just to pass it to Command
         $data = [
             'clubId'    => (empty($clubId) ? null : (int)$clubId),
             'clubName'  => $clubName,
@@ -76,8 +76,8 @@ class ClubController extends AbstractController
             'coachId'   => (int)$coachId
         ];
 
-        // We instantiate a new AddClub\Command and pass the data to validate 
-        // the typos of the data and if they are mandatory or not
+        // Instantiate new AddClub\Command and pass data to validate 
+        // typos and check if are mandatory or not
         $command = new AddClub\Command((object)$data);
 
         // Add new Club
@@ -87,7 +87,7 @@ class ClubController extends AbstractController
             return $e->getMessage();
         }
         
-        // After a club is added, we redirect to our club listing
+        // After a club is added, redirect to club listing
         return $this->redirectToRoute('app_club');
     }
 
@@ -110,14 +110,14 @@ class ClubController extends AbstractController
             'clubId' => $clubId
         ];
 
-        // We instantiate a new GetClub\Query and pass the data to validate 
-        // the typos of the data and if they are mandatory or not
+        // Instantiate new GetClub\Query and pass data to validate 
+        // typos and check if are mandatory or not
         $command = new GetClub\Query((object)$data);
 
-        // We need to find the Club first
+        // Find Club
         $getClubResponse = $getClubUseCase($command);
 
-        // We must get all the Coaches to show them in the dropdown
+        // Get all coaches to show in the dropdown
         $getCoachesResponse = $getCoaches();
         
         return $this->render('club/add--or--update--club.html.twig', [
@@ -143,10 +143,11 @@ class ClubController extends AbstractController
             'clubId' => (int)$clubId
         ];
 
-        // We instantiate a new DeleteClub\Command and pass the data to validate 
-        // the typos of the data and if they are mandatory or not
+        // Instantiate new DeleteClub\Command and pass data to validate 
+        // typos and check if are mandatory or not
         $command = new DeleteClub\Command((object)$data);
 
+        // Delete club
         try {
             $deleteClubUseCase($command);
             $success = true;
