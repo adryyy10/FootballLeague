@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Application\Club\AddClub;
-use App\Application\Club\GetClubsWithNoCoach;
 use App\Application\Club\GetClub;
 use App\Application\Coach\GetCoaches;
 use App\Application\Club\DeleteClub;
@@ -22,9 +21,10 @@ class ClubController extends AbstractController
      * @Route("/clubs", name="app_club")
      * 
      * @param GetClubs\QueryHandler
-     * @return GetClubs\Response
+     * 
+     * @return Response
      */
-    public function listingClubs(GetClubs\QueryHandler $useCase): Response
+    public function list(GetClubs\QueryHandler $useCase): Response
     {
         // We get our list of clubs via useCase where we can show them with the $response->getClubs()
         $response = $useCase();
@@ -37,14 +37,13 @@ class ClubController extends AbstractController
     /**
      * @Route("/addClub", name="app_add_club")
      * 
-     * @param GetCoachesWithNoClub\QueryHandler $getCoachesByNoClubUseCase
+     * @param GetCoachesWithNoClub\QueryHandler
+     * 
      * @return Response
      */
-    public function addClub(
-        GetCoachesWithNoClub\QueryHandler $getCoachesByNoClubUseCase
-    ): Response
+    public function add(GetCoachesWithNoClub\QueryHandler $getCoachesByNoClubUseCase): Response
     {
-        // We must get all the clubs to be able to show them in the form
+        // We must get all the coaches that has no club to show them in the dropdown
         $getClubsResponse = $getCoachesByNoClubUseCase();
         
         return $this->render('club/add--or--update--club.html.twig', [
@@ -55,13 +54,13 @@ class ClubController extends AbstractController
     /**
      * @Route("/addClubSubmitAction", name="app_add_club_submit")
      * 
-     * @param AddClub\CommandHandler $addClubUseCase
+     * @param Request
+     * @param AddClub\CommandHandler
+     * 
      * @return Response
+     * @throws EntityNotFoundException
      */
-    public function addClubSubmitAction(
-        AddClub\CommandHandler $addClubUseCase,
-        Request $request
-    ): Response
+    public function addSubmitAction(Request $request,AddClub\CommandHandler $addClubUseCase): Response
     {
         // We get the data from the form via $request
         $clubId     = $request->get('clubId');
@@ -77,26 +76,31 @@ class ClubController extends AbstractController
             'coachId'   => (int)$coachId
         ];
 
-        // We send the data through our Command in order to validate our business logic in the CommandHandler
+        // We instantiate a new AddClub\Command and pass the data to validate 
+        // the typos of the data and if they are mandatory or not
         $command = new AddClub\Command((object)$data);
 
-        // We add a new coach with our useCase and get a Json response
-        $addClubUseCase($command);
+        // Add new Club
+        try {
+            $addClubUseCase($command);
+        } catch (EntityNotFoundException $e) {
+            return $e->getMessage();
+        }
         
         // After a club is added, we redirect to our club listing
         return $this->redirectToRoute('app_club');
     }
 
-        /**
+    /**
      * @Route("/updateCoach/{id}", name="app_update_coach")
      * 
-     * @param Request $request
-     * @param GetClubsWithNoCoach\QueryHandler $getClubsWithNoCoachUseCase
-     * @param GetCoach\QueryHandler $getCoachUseCase
+     * @param GetCoaches\QueryHandler
+     * @param GetClub\QueryHandler
+     * @param int $clubId
      * 
      * @return Response
      */
-    public function updateClub(
+    public function update(
         GetCoaches\QueryHandler $getCoaches,
         GetClub\QueryHandler $getClubUseCase,
         int $clubId
@@ -106,11 +110,14 @@ class ClubController extends AbstractController
             'clubId' => $clubId
         ];
 
-        // We send the data through our Command in order to validate our business logic in the CommandHandler
+        // We instantiate a new GetClub\Query and pass the data to validate 
+        // the typos of the data and if they are mandatory or not
         $command = new GetClub\Query((object)$data);
-        // We need to find Coach and update it
+
+        // We need to find the Club first
         $getClubResponse = $getClubUseCase($command);
-        // We must get all the clubs to be able to show them in the form
+
+        // We must get all the Coaches to show them in the dropdown
         $getCoachesResponse = $getCoaches();
         
         return $this->render('club/add--or--update--club.html.twig', [
@@ -122,9 +129,13 @@ class ClubController extends AbstractController
     /**
      * @Route("/removeClubAction", name="app_remove_club")
      * 
-     * @param Request $request
+     * @param Request
+     * @param DeleteClub\CommandHandler
+     * 
+     * @return JsonReponse
+     * @throws EntityNotFoundException
      */
-    public function removeClubAction(Request $request, DeleteClub\CommandHandler $deleteClubUseCase)
+    public function removeSubmitAction(Request $request, DeleteClub\CommandHandler $deleteClubUseCase)
     {
         $clubId = $request->get('id');
 
@@ -132,7 +143,8 @@ class ClubController extends AbstractController
             'clubId' => (int)$clubId
         ];
 
-        // We send the data through our Command in order to validate our business logic in the CommandHandler
+        // We instantiate a new DeleteClub\Command and pass the data to validate 
+        // the typos of the data and if they are mandatory or not
         $command = new DeleteClub\Command((object)$data);
 
         try {
