@@ -4,7 +4,8 @@ namespace App\Application\Coach\GetCoaches;
 
 use App\Domain\Coach\CoachRepositoryInterface;
 
-class QueryHandler {
+class QueryHandler 
+{
 
     /**
      * @var CoachRepositoryInterface $coachRepository
@@ -20,9 +21,7 @@ class QueryHandler {
     {
         $coaches = $this->coachRepository->findAll();
 
-        return new Response(
-            $coaches
-        );
+        return new Response($coaches);
     }
 
 

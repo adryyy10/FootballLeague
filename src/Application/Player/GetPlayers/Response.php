@@ -5,7 +5,7 @@ namespace App\Application\Player\GetPlayers;
 class Response
 {
 
-    private array $players;
+    protected $players;
 
     public function __construct(array $players)
     {

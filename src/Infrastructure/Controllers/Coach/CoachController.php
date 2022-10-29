@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Controllers\Coach;
 
-use App\Application\Coach\GetCoaches\QueryHandler as getCoachesUseCase;
+use App\Application\Coach\GetCoaches;
 use App\Application\Club\GetClubsWithNoCoach;
 use App\Application\Coach\AddCoach;
 use App\Application\Coach\DeleteCoach;
@@ -18,11 +18,11 @@ class CoachController extends AbstractController
     /**
      * @Route("/coaches", name="app_coach")
      * 
-     * @param getCoachesUseCase
+     * @param GetCoaches\QueryHandler
      * 
      * @return Response
      */
-    public function list(getCoachesUseCase $useCase): Response
+    public function list(GetCoaches\QueryHandler $useCase): Response
     {
         // Get list of Coaches via useCase where we can show them with the $response->getCoaches()
         $response = $useCase();

@@ -30,3 +30,7 @@ services:
     App\Application\Club\GetClubs\Response:
         arguments:
             $clubs: 'manager@example.com'
+
+    App\Application\Player\GetPlayers\Response:
+        arguments:
+            $players: 'manager@example.com'

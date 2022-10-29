@@ -3,7 +3,6 @@
 namespace App\Domain\Coach;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Domain\Club\Club;
 use App\Domain\Exceptions\EmptyCoachNameException;
 use App\Domain\Exceptions\EmptySalaryException;
 

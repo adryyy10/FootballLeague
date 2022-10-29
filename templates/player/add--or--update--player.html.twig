@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/listing.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}New player form!{% endblock %}
+
+{% block body %}
+
+<div>
+  <form class="add-player-form" method="POST" action="/addPlayerSubmitAction">
+    <input type="hidden" id="playerId" name="playerId" value="{{ (player is defined) ? player.id : '' }}" />
+    <label for="playerName">Player Name</label>
+    <input type="text" id="playerName" name="playerName" placeholder="Name of the player" value="{{ (player is defined) ? player.name : '' }}">
+
+    <label for="salary">Salary</label>
+    <input type="text" id="salary" name="salary" placeholder="salary in €" value="{{ (player is defined) ? player.salary : '' }}">
+    <input type="submit" value="Submit">
+
+    <div>
+        <label><strong>* means optional</strong></label>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

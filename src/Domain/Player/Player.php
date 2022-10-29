@@ -2,7 +2,6 @@
 
 namespace App\Domain\Player;
 
-use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Domain\Club\Club;
 

@@ -39,3 +39,8 @@ app_update_club:
 app_remove_club:
     path: /removeClubAction
     controller: App\Infrastructure\Controllers\Club\ClubController::removeSubmitAction
+
+#PLAYERS
+app_player:
+    path: /players
+    controller: App\Infrastructure\Controllers\Player\PlayerController::list

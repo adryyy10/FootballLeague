@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/listing.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/addButton.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}Premier League players!{% endblock %}
+
+{% block body %}
+
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+            <td>Position</td>
+			<td>Salary</td>
+            <td>Club</td>
+            <td></td>
+            <td></td>
+		</tr>
+	</thead>
+	<tbody>
+        {% for player in players %}
+            <tr>
+                <td>{{ player.name }}</td>
+                <td>{{ player.position }}</td>
+                <td>{{ player.salary }} €</td>
+                <td>{{ (player.club is defined and player.club is not null) ? player.club.name : 'No club' }}</td>
+                <td><div onClick="removePlayer({{player.id}})" style="cursor:pointer;" data-player-id="{{player.id}}">Delete &#10006;</div></td>
+                <td><div onClick="editPlayer('/updatePlayer/{{player.id}}')" style="cursor:pointer;" data-url="/updatePlayer/{{player.id}}" data-player-id="{{player.id}}">Update &#9989;</div></td>
+            </tr>
+        {% endfor %}
+	</tbody>
+</table>
+
+<a class="add-button" href="/addPlayer">Add new player</a>
+<a class="add-button" href="/clubs">Clubs</a>
+
+{% block javascripts %}
+    <script src="{{ asset('js/managePlayer.js') }}"></script>
+{% endblock %}
+
+{% endblock %}

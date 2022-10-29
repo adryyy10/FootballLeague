@@ -7,14 +7,17 @@ use App\Domain\Player\PlayerRepositoryInterface;
 class QueryHandler
 {
 
-    private PlayerRepositoryInterface $playerRepository;
+    /**
+     * @var PlayerRepositoryInterface $playerRepository
+     */
+    protected $playerRepository;
 
     public function __construct(PlayerRepositoryInterface $playerRepository)
     {
         $this->playerRepository = $playerRepository;
     }
 
-    public function __invoke()
+    public function __invoke(): Response
     {
         $players = $this->playerRepository->findAll();
 

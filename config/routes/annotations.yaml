@@ -6,6 +6,10 @@ controllerClub:
     resource: ../../src/Infrastructure/Controllers/Club/
     type: annotation
 
+controllerPlayer:
+    resource: ../../src/Infrastructure/Controllers/Player/
+    type: annotation
+
 kernel:
     resource: ../../src/Kernel.php
     type: annotation
