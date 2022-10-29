@@ -44,3 +44,7 @@ app_remove_club:
 app_player:
     path: /players
     controller: App\Infrastructure\Controllers\Player\PlayerController::list
+
+app_add_player:
+    path: /addPlayer
+    controller: App\Infrastructure\Controllers\Player\PlayerController::add

@@ -22,11 +22,22 @@ class PlayerController extends AbstractController
     public function list(GetPlayers\QueryHandler $useCase): Response
     {
         $useCaseResponse = $useCase();
-        dd($useCaseResponse->getPlayers());
 
-        return $this->render('add--or-update--player.html.twig', [
+        return $this->render('player/index.html.twig', [
             'players' => $useCaseResponse->getPlayers()
         ]);
+    }
+
+        /**
+     * 
+     * @Route("/addPlayer", name="app_add_player")
+     * 
+     * @return Response
+     * 
+     */
+    public function add(): Response
+    {
+        return $this->render('player/add--or--update--player.html.twig', []);
     }
 
 }

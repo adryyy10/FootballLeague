@@ -12,11 +12,16 @@
 <div>
   <form class="add-player-form" method="POST" action="/addPlayerSubmitAction">
     <input type="hidden" id="playerId" name="playerId" value="{{ (player is defined) ? player.id : '' }}" />
+
     <label for="playerName">Player Name</label>
     <input type="text" id="playerName" name="playerName" placeholder="Name of the player" value="{{ (player is defined) ? player.name : '' }}">
 
+    <label for="playerPosition">Player Position</label>
+    <input type="text" id="playerPosition" name="playerPosition" placeholder="Position of the player" value="{{ (player is defined) ? player.position : '' }}">
+
     <label for="salary">Salary</label>
     <input type="text" id="salary" name="salary" placeholder="salary in €" value="{{ (player is defined) ? player.salary : '' }}">
+
     <input type="submit" value="Submit">
 
     <div>
