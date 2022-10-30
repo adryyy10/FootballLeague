@@ -52,3 +52,7 @@ app_add_player:
 app_add_player_submit:
     path: /addPlayerSubmitAction
     controller: App\Infrastructure\Controllers\Player\PlayerController::addSubmitAction
+
+app_remove_player:
+    path: /removePlayerAction
+    controller: App\Infrastructure\Controllers\Player\PlayerController::removeSubmitAction

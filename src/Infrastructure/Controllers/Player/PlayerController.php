@@ -3,12 +3,13 @@
 namespace App\Infrastructure\Controllers\Player;
 
 use App\Application\Player\GetPlayers;
+use App\Application\Player\AddPlayer;
+use App\Application\Player\RemovePlayer;
+use App\Domain\Exceptions\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Application\Player\AddPlayer;
-use App\Domain\Exceptions\EntityNotFoundException;
 
 class PlayerController extends AbstractController
 {
@@ -70,6 +71,40 @@ class PlayerController extends AbstractController
 
 
         return $this->redirectToRoute('app_player');
+    }
+
+        /**
+     * 
+     * @Route("/removeSubmitAction", name="app_remove_player")
+     * 
+     * @return Response
+     * 
+     */
+    public function removeSubmitAction(Request $request, RemovePlayer\CommandHandler $useCase): Response
+    {
+
+        $data = (object)[
+            'playerId' => (int)$request->get('id'),
+        ];
+
+        $command = new RemovePlayer\Command($data);
+
+        try {
+            $useCase($command);
+            $success = true;
+        } catch (EntityNotFoundException $e) {
+            $message = $e->getMessage();
+            $success = false;
+        }
+
+
+        return $this->json(
+            [
+                'success'   => $success,
+                'message'   => (!empty($message)) ? $message : ''
+            ],
+            ($success) ? 200 : 400
+        );
     }
 
 }
