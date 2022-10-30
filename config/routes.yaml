@@ -48,3 +48,7 @@ app_player:
 app_add_player:
     path: /addPlayer
     controller: App\Infrastructure\Controllers\Player\PlayerController::add
+
+app_add_player_submit:
+    path: /addPlayerSubmitAction
+    controller: App\Infrastructure\Controllers\Player\PlayerController::addSubmitAction
