@@ -34,3 +34,7 @@ services:
     App\Application\Player\GetPlayers\Response:
         arguments:
             $players: 'manager@example.com'
+
+    App\Application\Position\GetPositions\Response:
+        arguments:
+            $positions: 'manager@example.com'

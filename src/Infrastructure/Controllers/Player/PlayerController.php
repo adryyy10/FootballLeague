@@ -2,9 +2,10 @@
 
 namespace App\Infrastructure\Controllers\Player;
 
-use App\Application\Player\GetPlayers;
 use App\Application\Player\AddPlayer;
+use App\Application\Player\GetPlayers;
 use App\Application\Player\RemovePlayer;
+use App\Application\Position\GetPositions;
 use App\Domain\Exceptions\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,12 +37,19 @@ class PlayerController extends AbstractController
      * 
      * @Route("/addPlayer", name="app_add_player")
      * 
+     * @param GetPositions\QueryHandler $useCase
+     * 
      * @return Response
      * 
      */
-    public function add(): Response
+    public function add(GetPositions\QueryHandler $useCase): Response
     {
-        return $this->render('player/add--or--update--player.html.twig', []);
+
+        $useCaseResponse = $useCase();
+
+        return $this->render('player/add--or--update--player.html.twig', [
+            'positions' => $useCaseResponse->getPositions()
+        ]);
     }
 
 
