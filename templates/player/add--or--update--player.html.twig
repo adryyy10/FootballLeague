@@ -24,7 +24,7 @@
           {% if player is defined and position.id == player.position %}
             {% set selected = 'selected' %}
           {% endif %}
-          <option value="{{position.id}}" {{ selected }}>{{position.name}}</option>
+          <option value="{{position.name}}" {{ selected }}>{{position.name}}</option>
       {% endfor %}
     </select>
 
