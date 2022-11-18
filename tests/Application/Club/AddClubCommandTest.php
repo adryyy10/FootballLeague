@@ -73,4 +73,13 @@ class AddClubQueryTest extends TestCase
         $this->generateQuery($data);
     }
 
+    public function testInvalidCoachId()
+    {
+        $data = $this->generateClubData();
+        $data->coachId = null;
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->generateQuery($data);
+    }
+
 }

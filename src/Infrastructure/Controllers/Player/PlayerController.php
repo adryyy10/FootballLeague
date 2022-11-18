@@ -5,6 +5,7 @@ namespace App\Infrastructure\Controllers\Player;
 use App\Application\Player\AddPlayer;
 use App\Application\Player\GetPlayers;
 use App\Application\Player\RemovePlayer;
+use App\Application\Club\GetClubs;
 use App\Application\Position\GetPositions;
 use App\Domain\Exceptions\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,13 +43,15 @@ class PlayerController extends AbstractController
      * @return Response
      * 
      */
-    public function add(GetPositions\QueryHandler $useCase): Response
+    public function add(GetPositions\QueryHandler $positionUseCase, GetClubs\QueryHandler $clubUseCase): Response
     {
 
-        $useCaseResponse = $useCase();
+        $positionUseCaseResponse    = $positionUseCase();
+        $clubUseCaseResponse        = $clubUseCase();
 
         return $this->render('player/add--or--update--player.html.twig', [
-            'positions' => $useCaseResponse->getPositions()
+            'positions' => $positionUseCaseResponse->getPositions(),
+            'clubs'     => $clubUseCaseResponse->getClubs()
         ]);
     }
 
@@ -66,7 +69,8 @@ class PlayerController extends AbstractController
         $data = (object)[
             'playerName'    => $request->get('playerName'),
             'salary'        => (float)$request->get('salary'),
-            'position'      => $request->get('playerPosition')
+            'position'      => $request->get('playerPosition'),
+            'clubId'        => (int)$request->get('club')
         ];
 
         $command = new AddPlayer\Command($data);

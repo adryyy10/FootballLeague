@@ -6,6 +6,7 @@ use App\Domain\Coach\CoachRepositoryInterface;
 use App\Domain\Club\ClubRepositoryInterface;
 use App\Domain\Exceptions\EmptyCoachIdException;
 use App\Domain\Exceptions\EntityNotFoundException;
+use App\Domain\Exceptions\InvalidCoachIdException;
 
 class CommandHandler
 {
@@ -55,7 +56,7 @@ class CommandHandler
     public function validateBusinessLogic(Command $command) 
     {
         if ($command->getCoachId() <= 0) {
-            throw new EmptyCoachIdException('Invalid coach id!');
+            throw new InvalidCoachIdException();
         }
     }
 }

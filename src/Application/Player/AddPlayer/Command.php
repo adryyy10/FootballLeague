@@ -31,6 +31,11 @@ class Command extends AbstractCommand
         return $this->data->salary;
     }
 
+    public function getClubId(): ?int
+    {
+        return $this->data->clubId;
+    }
+
     protected function assertMandatoryAttributes()
     {
         Assert::propertyExists($this->data, 'playerName');
@@ -41,6 +46,10 @@ class Command extends AbstractCommand
 
         Assert::propertyExists($this->data, 'salary');
         Assert::float($this->data->salary);
+
+        if (!empty($this->data->clubId)) {
+            Assert::integer($this->data->clubId);
+        }
     }
 
 }

@@ -41,12 +41,14 @@ class Player
     private function __construct(
         string $name,
         string $position,
-        float $salary
+        float $salary,
+        ?Club $club
     )
     {
         $this->name     = $name;
         $this->position = $position;
         $this->salary   = $salary;
+        $this->club     = $club;
     }
 
     public function getId(): ?int
@@ -105,13 +107,15 @@ class Player
     public static function create(
         string $name,
         string $position,
-        string $salary
+        string $salary,
+        ?Club $club
     ): Player
     {
         $player = new Player(
             $name,
             $position,
-            $salary
+            $salary,
+            $club
         );
 
         return $player;

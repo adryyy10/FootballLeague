@@ -31,6 +31,18 @@
     <label for="salary">Salary</label>
     <input type="text" id="salary" name="salary" placeholder="salary in €" value="{{ (player is defined) ? player.salary : '' }}">
 
+    <label for="club">Club</label>
+    <select class="form-control" id="club" name="club">
+      <option value="" selected disabled>Select club</option>
+      {% for club in clubs %}
+          {% set selected = '' %}
+          {% if player is defined and player.club.id == club.id %}
+            {% set selected = 'selected' %}
+          {% endif %}
+          <option value="{{club.id}}" {{ selected }}>{{club.name}}</option>
+      {% endfor %}
+    </select>
+
     <input type="submit" value="Submit">
 
     <div>

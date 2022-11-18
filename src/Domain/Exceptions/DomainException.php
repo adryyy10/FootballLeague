@@ -7,9 +7,7 @@ use Exception;
 abstract class DomainException extends Exception
 {
 
-    protected function domainException(string $message): string
-    {
-        return $message;
+    public function __construct(string $message) {
+        printf($message);
     }
-
 }

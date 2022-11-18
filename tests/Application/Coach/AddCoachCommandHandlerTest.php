@@ -7,9 +7,9 @@ use App\Domain\Coach\CoachRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 use App\Application\Coach\AddCoach;
 use App\Domain\Coach\Coach;
-use App\Domain\Exceptions\EmptyCoachNameException;
-use App\Domain\Exceptions\EmptySalaryException;
 use App\Domain\Exceptions\EntityNotFoundException;
+use App\Domain\Exceptions\InvalidCoachNameException;
+use App\Domain\Exceptions\InvalidSalaryException;
 use stdClass;
 
 class AddCoachCommandHandlerTest extends TestCase
@@ -70,7 +70,7 @@ class AddCoachCommandHandlerTest extends TestCase
         $this->data->coachName  = '';
         $useCase = $this->initUseCase();
 
-        $this->expectException(EmptyCoachNameException::class);
+        $this->expectException(InvalidCoachNameException::class);
         $useCase(new AddCoach\Command($this->data));
     }
 
@@ -80,7 +80,7 @@ class AddCoachCommandHandlerTest extends TestCase
         $this->data->salary   = 0.0;
         $useCase = $this->initUseCase();
 
-        $this->expectException(EmptySalaryException::class);
+        $this->expectException(InvalidSalaryException::class);
         $useCase(new AddCoach\Command($this->data));
     }
 

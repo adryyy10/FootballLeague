@@ -48,20 +48,89 @@ class AddClubCommandHandlerTest extends TestCase
         );
     }
 
+    public function findClub(bool $willThrowException = false)
+    {
+        if ($willThrowException) {
+            $this->mocks[ClubRepositoryInterface::class]
+            ->expects($this->once())
+            ->method('find')
+            ->willThrowException(new EntityNotFoundException('0', Club::class));
+        } else {
+            $this->mocks[ClubRepositoryInterface::class]
+            ->expects($this->once())
+            ->method('find')
+            ->willReturn($this->mocks[Club::class]);
+        }
+    }
+
+    public function findCoach(bool $willThrowException = false)
+    {
+        if ($willThrowException) {
+            $this->mocks[CoachRepositoryInterface::class]
+            ->expects($this->once())
+            ->method('find')
+            ->willThrowException(new EntityNotFoundException($this->data->coachId, Coach::class));
+        } else {
+            $this->mocks[CoachRepositoryInterface::class]
+            ->expects($this->once())
+            ->method('find')
+            ->willReturn($this->mocks[Coach::class]);
+        }
+    }
+
+    public function testAddClub()
+    {
+        $this->data->clubId = null;
+
+        $command        = new AddClub\Command($this->data);
+        $commandHandler = $this->initHandler();
+
+        $this->findCoach();
+
+        $this->mocks[ClubRepositoryInterface::class]
+            ->expects($this->once())
+            ->method('add');
+
+        $commandHandler($command);
+    }
+
+    public function testUpdateClub()
+    {
+        $command        = new AddClub\Command($this->data);
+        $commandHandler = $this->initHandler();
+
+        $this->findCoach();
+        $this->findClub();
+
+        $this->mocks[ClubRepositoryInterface::class]
+            ->expects($this->once())
+            ->method('flush');
+
+        $commandHandler($command);
+    }
+
+    public function testCoachNotFound()
+    {
+        $command        = new AddClub\Command($this->data);
+        $commandHandler = $this->initHandler();
+
+        $this->findCoach(true);
+        $this->expectException(EntityNotFoundException::class);
+
+        $commandHandler($command);
+    }
+
     public function testUpdateClubNotFound()
     {
         $this->data->clubId = 999999;
 
         $command        = new AddClub\Command($this->data);
-
-        $this->mocks[ClubRepositoryInterface::class]
-        ->expects($this->once())
-        ->method('find')
-        ->willThrowException(new EntityNotFoundException('0', Club::class));
-
         $commandHandler = $this->initHandler();
 
+        $this->findCoach();
+        $this->findClub(true);
         $this->expectException(EntityNotFoundException::class);
+        
         $commandHandler($command);
     }
 

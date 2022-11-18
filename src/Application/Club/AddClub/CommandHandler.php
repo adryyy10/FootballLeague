@@ -4,6 +4,7 @@ namespace App\Application\Club\AddClub;
 
 use App\Domain\Club\Club;
 use App\Domain\Club\ClubRepositoryInterface;
+use App\Domain\Coach\Coach;
 use App\Domain\Coach\CoachRepositoryInterface;
 use App\Domain\Exceptions\EntityNotFoundException;
 
@@ -28,11 +29,15 @@ class CommandHandler
         $this->clubRepository   = $clubRepository;
     }
 
-    public function __invoke(Command $command)
+    public function __invoke(Command $command): void
     {
 
         // We need to find the coach that we have selected for the new club
         $coach = $this->coachRepository->find($command->getCoachId());
+
+        if (empty($coach)) {
+            throw new EntityNotFoundException($command->getCoachId(), Coach::class);
+        }
 
         // If getClubId() is null --> insert new club, else --> update club 
         if (empty($command->getClubId())) {

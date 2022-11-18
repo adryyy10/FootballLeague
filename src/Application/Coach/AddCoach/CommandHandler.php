@@ -2,7 +2,6 @@
 
 namespace App\Application\Coach\AddCoach;
 
-use App\Domain\Club\Club;
 use App\Domain\Club\ClubRepositoryInterface;
 use App\Domain\Coach\Coach;
 use App\Domain\Coach\CoachRepositoryInterface;

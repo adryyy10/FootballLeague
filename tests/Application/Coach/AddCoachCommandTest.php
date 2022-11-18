@@ -34,7 +34,7 @@ class AddCoachCommandTest extends TestCase
 
     public function testInvalidCoachName()
     {
-        $this->data->coachName = null;
+        $this->data->coachName = 1;
 
         $this->expectException(InvalidArgumentException::class);
         new Command($this->data);
@@ -50,7 +50,7 @@ class AddCoachCommandTest extends TestCase
 
     public function testInvalidCoachId()
     {
-        $this->data->coachId = -1;
+        $this->data->coachId = '';
 
         $this->expectException(InvalidArgumentException::class);
         new Command($this->data);

@@ -6,6 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Domain\Exceptions\EmptyCoachNameException;
 use App\Domain\Exceptions\EmptySalaryException;
 use App\Domain\Club\Club;
+use App\Domain\Exceptions\InvalidCoachIdException;
+use App\Domain\Exceptions\InvalidCoachNameException;
+use App\Domain\Exceptions\InvalidSalaryException;
 
 /**
  * @ORM\Entity(repositoryClass=CoachRepository::class)
@@ -77,13 +80,12 @@ class Coach
         float $salary
     ): Coach
     {
-
         if (empty($coachName) || strlen($coachName) < 3) {
-            throw new EmptyCoachNameException('Coach name is invalid!');
+            throw new InvalidCoachNameException();
         }
 
         if (empty($salary) || !is_numeric($salary)) {
-            throw new EmptySalaryException('Salary is invalid!');
+            throw new InvalidSalaryException();
         }
 
         $coach = new Coach(
@@ -100,6 +102,19 @@ class Coach
         float $salary
     ): void
     {
+
+        if ($coach->getId() < 0) {
+            throw new InvalidCoachIdException();
+        }
+
+        if (strlen($coachName) <= 2) {
+            throw new InvalidCoachNameException();
+        }
+
+        if ($salary < 0) {
+            throw new InvalidCoachNameException();
+        }
+
         $coach->setName($coachName);
         $coach->setSalary($salary);
     }
