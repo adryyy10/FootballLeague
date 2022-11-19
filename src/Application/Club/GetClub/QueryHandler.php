@@ -2,6 +2,7 @@
 
 namespace App\Application\Club\GetClub;
 
+use App\Domain\Club\Club;
 use App\Domain\Club\ClubRepositoryInterface;
 
 class QueryHandler {
@@ -18,6 +19,10 @@ class QueryHandler {
 
     public function __invoke(Query $query): Response
     {
+
+        /** Validate the business logic from the Entity */
+        Club::validateBusinessModel($query->getClubId());
+
         $club = $this->clubRepository->find($query->getClubId());
 
         return new Response(

@@ -2,8 +2,8 @@
 
 namespace App\Application\Player\RemovePlayer;
 
-use App\Domain\Exceptions\EmptyPlayerIdException;
 use App\Domain\Exceptions\EntityNotFoundException;
+use App\Domain\Exceptions\Player\InvalidPlayerIdException;
 use App\Domain\Player\Player;
 use App\Domain\Player\PlayerRepositoryInterface;
 
@@ -32,7 +32,7 @@ class CommandHandler
     protected function validateBusinessLogic(Command $command): void
     {
         if ($command->getPlayerId() <= 0) {
-            throw new EmptyPlayerIdException('Invalid player id!');
+            throw new InvalidPlayerIdException('Invalid player id!');
         }
     }
     

@@ -5,7 +5,7 @@ namespace App\Tests\Application\Player;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use App\Application\Player\RemovePlayer;
-use App\Domain\Exceptions\EmptyPlayerIdException;
+use App\Domain\Exceptions\Player\InvalidPlayerIdException;
 use App\Domain\Exceptions\EntityNotFoundException;
 use App\Domain\Player\Player;
 use App\Domain\Player\PlayerRepositoryInterface;
@@ -73,7 +73,7 @@ class RemovePlayerCommandHandlerTest extends TestCase
 
         $handler = $this->initHandler();
 
-        $this->expectException(EmptyPlayerIdException::class);
+        $this->expectException(InvalidPlayerIdException::class);
 
         $handler($command);
     }

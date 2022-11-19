@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Domain\Exceptions;
+namespace App\Domain\Exceptions\Player;
+
+use DomainException;
 
 final class InvalidPlayerIdException extends DomainException
 {
