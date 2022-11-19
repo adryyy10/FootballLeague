@@ -67,17 +67,17 @@ class AddCoachCommandHandlerTest extends TestCase
     public function testAddNewCoachWithEmptyName()
     {
         $this->data->coachId    = null;
-        $this->data->coachName  = '';
+        $this->data->coachName  = 'hi';
         $useCase = $this->initUseCase();
 
         $this->expectException(InvalidCoachNameException::class);
         $useCase(new AddCoach\Command($this->data));
     }
 
-    public function testAddNewCoachWithEmptySalary()
+    public function testAddNewCoachWithInvalidSalary()
     {
         $this->data->coachId  = null;
-        $this->data->salary   = 0.0;
+        $this->data->salary   = -1.1;
         $useCase = $this->initUseCase();
 
         $this->expectException(InvalidSalaryException::class);

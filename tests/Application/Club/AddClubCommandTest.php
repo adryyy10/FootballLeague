@@ -7,12 +7,15 @@ use stdClass;
 use App\Application\Club\AddClub;
 use InvalidArgumentException;
 
-class AddClubQueryTest extends TestCase
+class AddClubCommandTest extends TestCase
 {
 
-    private function generateClubData(): stdClass
+    private stdClass $data;
+
+    protected function setUp(): void
     {
-        return (object) [
+        parent::setUp();
+        $this->data = (object)[
             'clubId' => 1,
             'clubName' => 'test',
             'budget'   => 12345.8,
@@ -27,13 +30,12 @@ class AddClubQueryTest extends TestCase
 
     public function testValidQueryWithClubId()
     {
-        $data   = $this->generateClubData();
-        $query  = $this->generateQuery($data);
+        $query  = $this->generateQuery($this->data);
 
-        $this->assertEquals($query->getClubId(), $data->clubId);
-        $this->assertEquals($query->getClubName(), $data->clubName);
-        $this->assertEquals($query->getBudget(), $data->budget);
-        $this->assertEquals($query->getCoachId(), $data->coachId);
+        $this->assertEquals($query->getClubId(), $this->data->clubId);
+        $this->assertEquals($query->getClubName(), $this->data->clubName);
+        $this->assertEquals($query->getBudget(), $this->data->budget);
+        $this->assertEquals($query->getCoachId(), $this->data->coachId);
 
         $this->assertIsInt($query->getClubId());
         $this->assertIsString($query->getClubName());
@@ -43,12 +45,11 @@ class AddClubQueryTest extends TestCase
 
     public function testValidQueryWithoutClubId()
     {
-        $data   = $this->generateClubData();
-        $query  = $this->generateQuery($data);
+        $query  = $this->generateQuery($this->data);
 
-        $this->assertEquals($query->getClubName(), $data->clubName);
-        $this->assertEquals($query->getBudget(), $data->budget);
-        $this->assertEquals($query->getCoachId(), $data->coachId);
+        $this->assertEquals($query->getClubName(), $this->data->clubName);
+        $this->assertEquals($query->getBudget(), $this->data->budget);
+        $this->assertEquals($query->getCoachId(), $this->data->coachId);
         
         $this->assertIsString($query->getClubName());
         $this->assertIsFloat($query->getBudget());
@@ -57,29 +58,26 @@ class AddClubQueryTest extends TestCase
 
     public function testInvalidClubId()
     {
-        $data = $this->generateClubData();
-        $data->clubId = 0;
+        $this->data->clubId = '';
 
         $this->expectException(InvalidArgumentException::class);
-        $query = $this->generateQuery($data);
+        $this->generateQuery($this->data);
     }
 
     public function testInvalidClubName()
     {
-        $data = $this->generateClubData();
-        $data->clubName = null;
+        $this->data->clubName = null;
 
         $this->expectException(InvalidArgumentException::class);
-        $this->generateQuery($data);
+        $this->generateQuery($this->data);
     }
 
     public function testInvalidCoachId()
     {
-        $data = $this->generateClubData();
-        $data->coachId = null;
+        $this->data->coachId = null;
 
         $this->expectException(InvalidArgumentException::class);
-        $this->generateQuery($data);
+        $this->generateQuery($this->data);
     }
 
 }

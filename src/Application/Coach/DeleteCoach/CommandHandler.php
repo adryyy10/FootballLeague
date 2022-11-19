@@ -4,6 +4,7 @@ namespace App\Application\Coach\DeleteCoach;
 
 use App\Domain\Coach\CoachRepositoryInterface;
 use App\Domain\Club\ClubRepositoryInterface;
+use App\Domain\Coach\Coach;
 use App\Domain\Exceptions\EmptyCoachIdException;
 use App\Domain\Exceptions\EntityNotFoundException;
 use App\Domain\Exceptions\InvalidCoachIdException;
@@ -31,12 +32,11 @@ class CommandHandler
 
     public function __invoke(Command $command)
     {
-        // Validate our business logic before adding a new coach, just in case
-        $this->validateBusinessLogic($command);
+        /** Validate the business logic from the Entity */
+        Coach::validateBusinessModel($command->getCoachId());
 
         $coach = $this->coachRepository->find($command->getCoachId());
 
-        // In case we didn't find the coach, we do not delete it and return isDeleted = false in Response
         if (empty($coach)) {
             throw new EntityNotFoundException($command->getCoachId(), Coach::class);
         }

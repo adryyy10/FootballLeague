@@ -32,17 +32,17 @@ class CommandHandler
     public function __invoke(Command $command): void
     {
 
-        // We need to find the coach that we have selected for the new club
+        /** Find coach */
         $coach = $this->coachRepository->find($command->getCoachId());
 
         if (empty($coach)) {
             throw new EntityNotFoundException($command->getCoachId(), Coach::class);
         }
 
-        // If getClubId() is null --> insert new club, else --> update club 
+        /** If getClubId() is null --> insert new club, else --> update club */
         if (empty($command->getClubId())) {
 
-            // New Club entity created to be able to insert it as a new coach
+            /** New Club entity created */
             $club = Club::create(
                 $command->getClubName(),
                 $command->getBudget(),
@@ -51,14 +51,14 @@ class CommandHandler
 
             $this->clubRepository->add($club, true);
         } else {
-            // We find the coach and update new fields
+            /** Find club */
             $club = $this->clubRepository->find($command->getClubId());
 
             if (empty($club)) {
                 throw new EntityNotFoundException($command->getClubId(), Club::class);
             }
 
-            // Update the entity from domain layer
+            /** Update entity */
             Club::update(
                 $club, 
                 $command->getClubName(),

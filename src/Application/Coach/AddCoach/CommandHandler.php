@@ -30,9 +30,9 @@ class CommandHandler
 
     public function __invoke(Command $command)
     {
-        // If getCoachId() is null --> insert new coach, else --> update coach 
+        /** If getCoachId() is null --> insert new coach, else --> update coach  */
         if (empty($command->getCoachId())) {
-            // New Coach entity created to be able to insert it as a new coach
+            /** New entity Coach created */
             $coach = Coach::create(
                 $command->getCoachName(),
                 $command->getSalary()
@@ -40,14 +40,14 @@ class CommandHandler
 
             $this->coachRepository->add($coach, true);
         } else {
-            // We find the coach and update new fields
+            /** Find coach */
             $coach = $this->coachRepository->find($command->getCoachId());
 
             if (empty($coach)) {
                 throw new EntityNotFoundException($command->getCoachId(), Coach::class);
             }
 
-            // Update the entity from domain layer
+            /** Update Coach */
             Coach::update(
                 $coach, 
                 $command->getCoachName(),

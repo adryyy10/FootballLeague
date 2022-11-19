@@ -3,8 +3,6 @@
 namespace App\Domain\Coach;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Domain\Exceptions\EmptyCoachNameException;
-use App\Domain\Exceptions\EmptySalaryException;
 use App\Domain\Club\Club;
 use App\Domain\Exceptions\InvalidCoachIdException;
 use App\Domain\Exceptions\InvalidCoachNameException;
@@ -75,21 +73,43 @@ class Coach
         return $this;
     }
 
-    public static function create(
-        string $coachName,
-        float $salary
-    ): Coach
-    {
-        if (empty($coachName) || strlen($coachName) < 3) {
+
+    /**
+     * This method validate the business logic from the Entity
+     */
+    public static function validateBusinessModel(
+        ?int $id,
+        string $name = '',
+        float $salary = 0.0
+    ): void {
+
+        if (!empty($id) && $id < 0) {
+            throw new InvalidCoachIdException();
+        }
+
+        if (!empty($name) && strlen($name) <= 2) {
             throw new InvalidCoachNameException();
         }
 
-        if (empty($salary) || !is_numeric($salary)) {
+        if (!empty($salary) && $salary < 0) {
             throw new InvalidSalaryException();
         }
+    }
+
+    public static function create(
+        string $name,
+        float $salary
+    ): Coach
+    {
+        /** Validate business model before anything else */
+        self::validateBusinessModel(
+            null, 
+            $name, 
+            $salary
+        );
 
         $coach = new Coach(
-            $coachName,
+            $name,
             $salary
         );
 
@@ -98,24 +118,19 @@ class Coach
 
     public static function update(
         Coach $coach,
-        string $coachName,
+        string $name,
         float $salary
     ): void
     {
 
-        if ($coach->getId() < 0) {
-            throw new InvalidCoachIdException();
-        }
+        /** Validate business model before anything else */
+        self::validateBusinessModel(
+            $coach->getId(), 
+            $name, 
+            $salary
+        );
 
-        if (strlen($coachName) <= 2) {
-            throw new InvalidCoachNameException();
-        }
-
-        if ($salary < 0) {
-            throw new InvalidCoachNameException();
-        }
-
-        $coach->setName($coachName);
+        $coach->setName($name);
         $coach->setSalary($salary);
     }
 }
