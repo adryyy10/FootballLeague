@@ -6,6 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Domain\Coach\Coach;
+use App\Domain\Exceptions\Club\InvalidClubBudgetException;
+use App\Domain\Exceptions\Club\InvalidClubIdException;
+use App\Domain\Exceptions\Club\InvalidClubNameException;
 use App\Domain\Player\Player;
 
 /**
@@ -125,12 +128,41 @@ class Club
         return $this;
     }
 
+    /**
+     * This method validate the business logic from the Entity
+     */
+    public static function validateBusinessModel(
+        ?int $id,
+        string $name = '',
+        float $budget = 0.0
+    ): void {
+        if (!empty($id) && $id < 0) {
+            throw new InvalidClubIdException();
+        }
+
+        if (!empty($name) && strlen($name) <= 2) {
+            throw new InvalidClubNameException();
+        }
+
+        if (!empty($budget) && $budget < 0) {
+            throw new InvalidClubBudgetException();
+        }
+    }
+
     public static function create(
         string $name,
         float $budget,
         Coach $coach
     ): Club
     {
+
+        /** Validate business model before anything else */
+        self::validateBusinessModel(
+            null,
+            $name,
+            $budget
+        );
+
         $club = new Club(
             $name,
             $budget,
@@ -147,6 +179,14 @@ class Club
         Coach $coach
     ): void
     {
+
+        /** Validate business model before anything else */
+        self::validateBusinessModel(
+            $club->getId(),
+            $name,
+            $budget
+        );
+
         $club->setName($name);
         $club->setBudget($budget);
         $club->setCoach($coach);

@@ -5,9 +5,8 @@ namespace App\Application\Coach\DeleteCoach;
 use App\Domain\Coach\CoachRepositoryInterface;
 use App\Domain\Club\ClubRepositoryInterface;
 use App\Domain\Coach\Coach;
-use App\Domain\Exceptions\EmptyCoachIdException;
 use App\Domain\Exceptions\EntityNotFoundException;
-use App\Domain\Exceptions\InvalidCoachIdException;
+use App\Domain\Exceptions\Coach\InvalidCoachIdException;
 
 class CommandHandler
 {
@@ -41,7 +40,7 @@ class CommandHandler
             throw new EntityNotFoundException($command->getCoachId(), Coach::class);
         }
 
-        // Find the club with the coach associated and set coach_id to null
+        /** Find the club with the coach associated and set coach_id to null */
         $coachClub = $this->clubRepository->findOneByCoachId($command->getCoachId());
 
         if (!empty($coachClub)) {
@@ -49,7 +48,7 @@ class CommandHandler
             $this->clubRepository->flush();
         }
 
-        //remove coach
+        /** remove coach */
         $this->coachRepository->remove($coach, true);
     }
 

@@ -30,7 +30,7 @@ class DeleteClubCommandTest extends TestCase
 
     public function testInvalidClubId()
     {
-        $this->data->clubId = -1;
+        $this->data->clubId = '';
 
         $this->expectException(InvalidArgumentException::class);
         new DeleteClub\Command($this->data);

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Domain\Exceptions;
+namespace App\Domain\Exceptions\Coach;
+
+use DomainException;
 
 final class InvalidCoachIdException extends DomainException
 {

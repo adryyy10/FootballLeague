@@ -9,7 +9,7 @@ use App\Application\Coach\DeleteCoach;
 use App\Domain\Club\Club;
 use App\Domain\Coach\Coach;
 use App\Domain\Exceptions\EntityNotFoundException;
-use App\Domain\Exceptions\InvalidCoachIdException;
+use App\Domain\Exceptions\Coach\InvalidCoachIdException;
 use stdClass;
 
 class DeleteCoachCommandHandlerTest extends TestCase

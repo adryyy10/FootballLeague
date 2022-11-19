@@ -18,6 +18,10 @@ class CommandHandler
 
     public function __invoke(Command $command) 
     {
+
+        /** Validate the business logic from the Entity */
+        Club::validateBusinessModel($command->getClubId());
+
         $club = $this->clubRepository->find($command->getClubId());
 
         if(empty($club)) {

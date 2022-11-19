@@ -4,9 +4,9 @@ namespace App\Domain\Coach;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Domain\Club\Club;
-use App\Domain\Exceptions\InvalidCoachIdException;
-use App\Domain\Exceptions\InvalidCoachNameException;
-use App\Domain\Exceptions\InvalidSalaryException;
+use App\Domain\Exceptions\Coach\InvalidCoachIdException;
+use App\Domain\Exceptions\Coach\InvalidCoachNameException;
+use App\Domain\Exceptions\Coach\InvalidSalaryException;
 
 /**
  * @ORM\Entity(repositoryClass=CoachRepository::class)
@@ -122,7 +122,7 @@ class Coach
         float $salary
     ): void
     {
-
+        dd($salary);
         /** Validate business model before anything else */
         self::validateBusinessModel(
             $coach->getId(), 

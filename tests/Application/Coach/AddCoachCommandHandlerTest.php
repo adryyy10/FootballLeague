@@ -7,9 +7,10 @@ use App\Domain\Coach\CoachRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 use App\Application\Coach\AddCoach;
 use App\Domain\Coach\Coach;
+use App\Domain\Exceptions\Coach\InvalidCoachIdException;
 use App\Domain\Exceptions\EntityNotFoundException;
-use App\Domain\Exceptions\InvalidCoachNameException;
-use App\Domain\Exceptions\InvalidSalaryException;
+use App\Domain\Exceptions\Coach\InvalidCoachNameException;
+use App\Domain\Exceptions\Coach\InvalidSalaryException;
 use stdClass;
 
 class AddCoachCommandHandlerTest extends TestCase
@@ -25,7 +26,7 @@ class AddCoachCommandHandlerTest extends TestCase
         $this->mocks = [];
 
         $this->data = (object)[
-            'coachId'   => 1,
+            'coachId'   => null,
             'coachName' => 'Guardiola',
             'salary'    => 12345.5,
             'clubId'    => null
@@ -66,7 +67,6 @@ class AddCoachCommandHandlerTest extends TestCase
 
     public function testAddNewCoachWithEmptyName()
     {
-        $this->data->coachId    = null;
         $this->data->coachName  = 'hi';
         $useCase = $this->initUseCase();
 
@@ -76,7 +76,6 @@ class AddCoachCommandHandlerTest extends TestCase
 
     public function testAddNewCoachWithInvalidSalary()
     {
-        $this->data->coachId  = null;
         $this->data->salary   = -1.1;
         $useCase = $this->initUseCase();
 
@@ -84,9 +83,9 @@ class AddCoachCommandHandlerTest extends TestCase
         $useCase(new AddCoach\Command($this->data));
     }
 
-    public function testUpdateCoachWithInvalidId()
+    public function testUpdateCoachNotFound()
     {
-        $this->data->coachId  = 99999;
+        $this->data->coachId  = 1;
 
         $this->getCoach(false);
 

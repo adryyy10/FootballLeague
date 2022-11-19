@@ -29,6 +29,5 @@ class Command extends AbstractCommand
     {
         Assert::propertyExists($this->data, 'clubId');
         Assert::integer($this->data->clubId);
-        Assert::greaterThan($this->data->clubId, 0);
     }
 }
