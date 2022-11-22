@@ -7,7 +7,6 @@ use App\Domain\Coach\CoachRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 use App\Application\Coach\AddCoach;
 use App\Domain\Coach\Coach;
-use App\Domain\Exceptions\Coach\InvalidCoachIdException;
 use App\Domain\Exceptions\EntityNotFoundException;
 use App\Domain\Exceptions\Coach\InvalidCoachNameException;
 use App\Domain\Exceptions\Coach\InvalidSalaryException;

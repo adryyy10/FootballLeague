@@ -4,6 +4,7 @@ namespace App\Domain\Player;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Domain\Club\Club;
+use App\Domain\Exceptions\Coach\InvalidSalaryException;
 use App\Domain\Exceptions\Player\InvalidPlayerIdException;
 use App\Domain\Exceptions\Player\InvalidPlayerNameException;
 use App\Domain\Exceptions\Player\InvalidPlayerPositionException;
@@ -109,7 +110,8 @@ class Player
     public static function validateBusinessModel(
         ?int $id,
         string $name = '',
-        string $position = ''
+        string $position = '',
+        float $salary = 0.0
     ): void {
         
         if (!empty($id) && $id < 0) {
@@ -118,6 +120,10 @@ class Player
 
         if (!empty($name) && strlen($name) < 2) {
             throw new InvalidPlayerNameException();
+        }
+
+        if (!empty($salary) && $salary < 0) {
+            throw new InvalidSalaryException();
         }
 
         if (!empty($position) && strlen($position) < 2) {
@@ -132,9 +138,8 @@ class Player
         ?Club $club
     ): Player
     {
-
         /** Validate business logic */
-        self::validateBusinessModel($name, $position, $salary);
+        self::validateBusinessModel(null, $name, $position, $salary);
 
         $player = new Player(
             $name,
@@ -156,7 +161,7 @@ class Player
     {
 
         /** Validate business logic */
-        self::validateBusinessModel($name, $position, $salary);
+        self::validateBusinessModel(null, $name, $position, $salary);
 
         $player->setName($name);
         $player->setPosition($position);
