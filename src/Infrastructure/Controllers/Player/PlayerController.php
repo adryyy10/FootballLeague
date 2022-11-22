@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Controllers\Player;
 
 use App\Application\Player\AddPlayer;
+use App\Application\Player\GetPlayer;
 use App\Application\Player\GetPlayers;
 use App\Application\Player\RemovePlayer;
 use App\Application\Club\GetClubs;
@@ -67,6 +68,7 @@ class PlayerController extends AbstractController
     {
 
         $data = (object)[
+            'playerId'      => (int)$request->get('playerId'),
             'playerName'    => $request->get('playerName'),
             'salary'        => (float)$request->get('salary'),
             'position'      => $request->get('playerPosition'),
@@ -118,5 +120,42 @@ class PlayerController extends AbstractController
             ($success) ? 200 : 400
         );
     }
+
+    /**
+     * @Route("/updatePlayer/{id}", name="app_update_player")
+     * 
+     * @param GetPlayer\QueryHandler
+     * @param int $playerId
+     * 
+     * @return Response
+     */
+    public function update(
+        GetPlayer\QueryHandler $getCoachUseCase, 
+        GetPositions\QueryHandler $getPositionsUseCase,
+        GetClubs\QueryHandler $getClubsUseCase,
+        int $playerId): Response
+    {
+        $data = [
+            'id' => $playerId
+        ];
+
+        $command = new GetPlayer\Query((object)$data);
+
+        /** Find player */
+        $getCoachResponse = $getCoachUseCase($command);
+
+        /** Find positions */
+        $getPositionsResponse = $getPositionsUseCase();
+
+        /** Find positions */
+        $getClubsResponse = $getClubsUseCase();
+        
+        return $this->render('player/add--or--update--player.html.twig', [
+            'player'    => $getCoachResponse->getPlayer(),
+            'positions' => $getPositionsResponse->getPositions(),
+            'clubs'     => $getClubsResponse->getClubs()
+        ]);
+    }
+
 
 }

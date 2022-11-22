@@ -56,3 +56,7 @@ app_add_player_submit:
 app_remove_player:
     path: /removePlayerAction
     controller: App\Infrastructure\Controllers\Player\PlayerController::removeSubmitAction
+
+app_update_player:
+    path: /updatePlayer/{playerId}
+    controller: App\Infrastructure\Controllers\Player\PlayerController::update

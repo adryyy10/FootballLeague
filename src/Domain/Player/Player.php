@@ -4,7 +4,9 @@ namespace App\Domain\Player;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Domain\Club\Club;
-
+use App\Domain\Exceptions\Player\InvalidPlayerIdException;
+use App\Domain\Exceptions\Player\InvalidPlayerNameException;
+use App\Domain\Exceptions\Player\InvalidPlayerPositionException;
 
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
@@ -97,11 +99,30 @@ class Player
         return $this->club;
     }
 
-    public function setClub(?Club $club): self
+    private function setClub(?Club $club): self
     {
         $this->club = $club;
 
         return $this;
+    }
+
+    public static function validateBusinessModel(
+        ?int $id,
+        string $name = '',
+        string $position = ''
+    ): void {
+        
+        if (!empty($id) && $id < 0) {
+            throw new InvalidPlayerIdException();
+        }
+
+        if (!empty($name) && strlen($name) < 2) {
+            throw new InvalidPlayerNameException();
+        }
+
+        if (!empty($position) && strlen($position) < 2) {
+            throw new InvalidPlayerPositionException();
+        }
     }
 
     public static function create(
@@ -111,6 +132,10 @@ class Player
         ?Club $club
     ): Player
     {
+
+        /** Validate business logic */
+        self::validateBusinessModel($name, $position, $salary);
+
         $player = new Player(
             $name,
             $position,
@@ -125,11 +150,17 @@ class Player
         Player $player,
         string $name,
         string $position,
-        string $salary
+        string $salary,
+        ?Club $club
     ): void
     {
+
+        /** Validate business logic */
+        self::validateBusinessModel($name, $position, $salary);
+
         $player->setName($name);
         $player->setPosition($position);
         $player->setSalary($salary);
+        $player->setClub($club);
     }
 }

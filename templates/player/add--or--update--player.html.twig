@@ -21,7 +21,7 @@
       <option value="" selected disabled>Select position</option>
       {% for position in positions %}
           {% set selected = '' %}
-          {% if player is defined and position.id == player.position %}
+          {% if player.position is defined and position.name == player.position %}
             {% set selected = 'selected' %}
           {% endif %}
           <option value="{{position.name}}" {{ selected }}>{{position.name}}</option>
@@ -36,7 +36,7 @@
       <option value="" selected disabled>Select club</option>
       {% for club in clubs %}
           {% set selected = '' %}
-          {% if player is defined and player.club.id == club.id %}
+          {% if player.club.id is defined and player.club.id == club.id %}
             {% set selected = 'selected' %}
           {% endif %}
           <option value="{{club.id}}" {{ selected }}>{{club.name}}</option>

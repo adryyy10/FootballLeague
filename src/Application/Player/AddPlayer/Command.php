@@ -16,6 +16,11 @@ class Command extends AbstractCommand
         $this->data = $data;
     }
 
+    public function getId(): string
+    {
+        return $this->data->playerId;
+    }
+
     public function getName(): string
     {
         return $this->data->playerName;
@@ -38,6 +43,9 @@ class Command extends AbstractCommand
 
     protected function assertMandatoryAttributes()
     {
+        Assert::propertyExists($this->data, 'playerId');
+        Assert::integer($this->data->playerId);
+
         Assert::propertyExists($this->data, 'playerName');
         Assert::string($this->data->playerName);
 

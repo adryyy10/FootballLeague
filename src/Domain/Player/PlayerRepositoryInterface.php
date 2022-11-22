@@ -10,5 +10,7 @@ interface PlayerRepositoryInterface
 
     public function findAll();
 
+    public function flush();
+
     public function remove(Player $entity, bool $flush = false);
 }

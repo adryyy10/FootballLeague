@@ -40,6 +40,11 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
         }
     }
 
+    public function flush(): void
+    {
+        $this->getEntityManager()->flush();
+    }
+
 //    /**
 //     * @return Player[] Returns an array of Player objects
 //     */

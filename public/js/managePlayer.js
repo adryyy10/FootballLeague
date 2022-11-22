@@ -15,3 +15,7 @@ function removePlayer(playerId) {
         ($responseData.success) ? window.location.reload() : console.log("PLAYER NON EXISTENT");
     }
 }
+
+function editPlayer(playerUrl) {
+    window.location.pathname = playerUrl;
+}
