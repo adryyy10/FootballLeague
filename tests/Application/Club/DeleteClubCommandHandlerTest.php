@@ -43,25 +43,15 @@ class DeleteClubCommandHandlerTest extends TestCase
     {
         if ($willThrowException) {
             $this->mocks[ClubRepositoryInterface::class]
-            ->expects($this->once())
-            ->method('find')
-            ->willReturn(null);
+                ->expects($this->once())
+                ->method('find')
+                ->willReturn(null);
         } else {
             $this->mocks[ClubRepositoryInterface::class]
-            ->expects($this->once())
-            ->method('find')
-            ->willReturn($this->mocks[Club::class]);
+                ->expects($this->once())
+                ->method('find')
+                ->willReturn($this->mocks[Club::class]);
         }
-    }
-
-    public function testDeleteClub()
-    {
-        $handler = $this->initHandler();
-        $command = new DeleteClub\Command($this->data);
-
-        $this->getClub();
-
-        $handler($command);
     }
 
     public function testClubNotFound()

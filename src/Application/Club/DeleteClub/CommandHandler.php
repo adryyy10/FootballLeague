@@ -28,6 +28,14 @@ class CommandHandler
             throw new EntityNotFoundException($command->getClubId(), Club::class);
         }
 
+        /** Foreach player, set club to null */
+        $players = $club->getPlayers();
+        if(!empty($players)) {
+            foreach($players as $player) {
+                $club->removePlayer($player);
+            }
+        }
+
         $this->clubRepository->remove($club, true);
     }
 

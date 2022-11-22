@@ -143,11 +143,8 @@ class ClubController extends AbstractController
             'clubId' => (int)$clubId
         ];
 
-        // Instantiate new DeleteClub\Command and pass data to validate 
-        // typos and check if are mandatory or not
         $command = new DeleteClub\Command((object)$data);
 
-        // Delete club
         try {
             $deleteClubUseCase($command);
             $success = true;
