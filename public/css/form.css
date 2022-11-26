@@ -1,7 +1,94 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
     display: flex;
     height: 100vh;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    background: linear-gradient(135deg, #71b7e6, #009879);
+}
+
+.container {
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+}
+
+.container .title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+
+.container .title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    background: linear-gradient(135deg, #71b7e6, #009879);
+}
+
+.container form .item-details{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+form .item-details .input-box{
+    margin: 20px 0 12px 0;
+    width: calc(100% / 2 - 20px);
+}
+
+.item-details .input-box .details{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.item-details .input-box input, .item-details .input-box select{
+    height: 45px;
+    width: 80%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.item-details .input-box label{
+    display: block;
+    margin-bottom: 10px;
+}
+
+form .submit-button {
+    width: 84%;
+    height: 45px;
+    margin: 20px 30px;
+}
+
+form .submit-button input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    color: white;
+    background: linear-gradient(135deg, #71b7e6, #009879);
+    cursor: pointer;
+}
+
+.home {
+    width: auto;
+}
+
+.container .logo {
+    text-align: center;
 }

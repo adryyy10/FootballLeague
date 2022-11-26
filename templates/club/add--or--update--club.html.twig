@@ -9,27 +9,35 @@
 
 {% block body %}
 
-<div>
+<div class="container">
+  <h2 class="title">Add new club</h2>
   <form class="add-club-form" method="POST" action="/addClubSubmitAction">
     <input type="hidden" id="clubId" name="clubId" value="{{ (club is defined) ? club.id : '' }}" />
-    <label for="clubName">Club Name</label>
-    <input type="text" id="clubName" name="clubName" placeholder="Name of the club" value="{{ (club is defined) ? club.name : '' }}">
 
-    <label for="budget">Budget</label>
-    <input type="text" id="budget" name="budget" placeholder="budget in €" value="{{ (club is defined) ? club.budget : '' }}">
+    <div class="item-details">
+      <div class="input-box">
+        <label for="clubName">Club Name</label>
+        <input type="text" id="clubName" name="clubName" placeholder="Name of the club" value="{{ (club is defined) ? club.name : '' }}">
+      </div>
 
-    <label for="coach">Coach*</label>
-    <select id="coachId" name="coachId">
-      <option value="" selected disabled>Select a coach</option>
-        {% for coach in coaches %}
-            <option value="{{coach.id}}" {{ (club.coach.id is defined and club.coach.id == coach.id) ? 'selected' : '' }}>{{coach.name}}</option>
-        {% endfor %}
-    </select>
-  
-    <input type="submit" value="Submit">
+      <div class="input-box">
+        <label for="budget">Budget</label>
+        <input type="text" id="budget" name="budget" placeholder="budget in €" value="{{ (club is defined) ? club.budget : '' }}">
+      </div>
 
-    <div>
-        <label><strong>* means optional</strong></label>
+      <div class="input-box">
+        <label for="coach">Coach*</label>
+        <select id="coachId" name="coachId">
+          <option value="" selected disabled>Select a coach</option>
+            {% for coach in coaches %}
+              <option value="{{coach.id}}" {{ (club.coach.id is defined and club.coach.id == coach.id) ? 'selected' : '' }}>{{coach.name}}</option>
+            {% endfor %}
+        </select>
+      </div>
+    
+      <div class="submit-button">
+        <input type="submit" value="Submit">
+      </div>
     </div>
   </form>
 </div>

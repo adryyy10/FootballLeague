@@ -2,51 +2,60 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('css/listing.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/form.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
 
 {% block title %}New player form!{% endblock %}
 
 {% block body %}
 
-<div>
+<div class="container">
+  <h2 class="title">Add new player</h2>
   <form class="add-player-form" method="POST" action="/addPlayerSubmitAction">
     <input type="hidden" id="playerId" name="playerId" value="{{ (player is defined) ? player.id : '' }}" />
 
-    <label for="playerName">Player Name</label>
-    <input type="text" id="playerName" name="playerName" placeholder="Name of the player" value="{{ (player is defined) ? player.name : '' }}">
+    <div class="item-details">
+      <div class="input-box">
+        <label for="playerName">Player Name</label>
+        <input type="text" id="playerName" name="playerName" placeholder="Name of the player" value="{{ (player is defined) ? player.name : '' }}">
+      </div>
 
-    <label for="playerPosition">Player Position</label>
-    <select class="form-control" id="playerPosition" name="playerPosition">
-      <option value="" selected disabled>Select position</option>
-      {% for position in positions %}
-          {% set selected = '' %}
-          {% if player.position is defined and position.name == player.position %}
-            {% set selected = 'selected' %}
-          {% endif %}
-          <option value="{{position.name}}" {{ selected }}>{{position.name}}</option>
-      {% endfor %}
-    </select>
+      <div class="input-box">
+        <label for="playerPosition">Player Position</label>
+        <select class="form-control" id="playerPosition" name="playerPosition">
+          <option value="" selected disabled>Select position</option>
+          {% for position in positions %}
+              {% set selected = '' %}
+              {% if player.position is defined and position.name == player.position %}
+                {% set selected = 'selected' %}
+              {% endif %}
+              <option value="{{position.name}}" {{ selected }}>{{position.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
 
-    <label for="salary">Salary</label>
-    <input type="text" id="salary" name="salary" placeholder="salary in €" value="{{ (player is defined) ? player.salary : '' }}">
+      <div class="input-box">
+        <label for="salary">Salary</label>
+        <input type="text" id="salary" name="salary" placeholder="salary in €" value="{{ (player is defined) ? player.salary : '' }}">
+      </div>
 
-    <label for="club">Club</label>
-    <select class="form-control" id="club" name="club">
-      <option value="" selected disabled>Select club</option>
-      {% for club in clubs %}
-          {% set selected = '' %}
-          {% if player.club.id is defined and player.club.id == club.id %}
-            {% set selected = 'selected' %}
-          {% endif %}
-          <option value="{{club.id}}" {{ selected }}>{{club.name}}</option>
-      {% endfor %}
-    </select>
+      <div class="input-box">
+        <label for="club">Club</label>
+        <select class="form-control" id="club" name="club">
+          <option value="" selected disabled>Select club</option>
+          {% for club in clubs %}
+              {% set selected = '' %}
+              {% if player.club.id is defined and player.club.id == club.id %}
+                {% set selected = 'selected' %}
+              {% endif %}
+              <option value="{{club.id}}" {{ selected }}>{{club.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
 
-    <input type="submit" value="Submit">
-
-    <div>
-        <label><strong>* means optional</strong></label>
+    <div class="submit-button">
+      <input type="submit" value="Submit">
     </div>
   </form>
 </div>

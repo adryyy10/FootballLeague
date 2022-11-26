@@ -2,25 +2,32 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('css/listing.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/form.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
 
 {% block title %}New coach form!{% endblock %}
 
 {% block body %}
 
-<div>
+<div class="container">
+  <h2 class="title">Add new coach</h2>
   <form class="add-coach-form" method="POST" action="/addCoachSubmitAction">
     <input type="hidden" id="coachId" name="coachId" value="{{ (coach is defined) ? coach.id : '' }}" />
-    <label for="coachName">Coach Name</label>
-    <input type="text" id="coachName" name="coachName" placeholder="Name of the coach" value="{{ (coach is defined) ? coach.name : '' }}">
 
-    <label for="salary">Salary</label>
-    <input type="text" id="salary" name="salary" placeholder="salary in €" value="{{ (coach is defined) ? coach.salary : '' }}">
-    <input type="submit" value="Submit">
+    <div class="item-details">
+      <div class="input-box">
+        <label for="coachName">Coach Name</label>
+        <input type="text" id="coachName" name="coachName" placeholder="Name of the coach" value="{{ (coach is defined) ? coach.name : '' }}">
+      </div>
 
-    <div>
-        <label><strong>* means optional</strong></label>
+      <div class="input-box">
+        <label for="salary">Salary</label>
+        <input type="text" id="salary" name="salary" placeholder="salary in €" value="{{ (coach is defined) ? coach.salary : '' }}">
+      </div>
+    </div>
+
+    <div class="submit-button">
+      <input type="submit" value="Submit">
     </div>
   </form>
 </div>
