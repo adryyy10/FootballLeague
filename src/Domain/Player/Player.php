@@ -100,7 +100,7 @@ class Player
         return $this->club;
     }
 
-    private function setClub(?Club $club): self
+    public function setClub(?Club $club): self
     {
         $this->club = $club;
 
