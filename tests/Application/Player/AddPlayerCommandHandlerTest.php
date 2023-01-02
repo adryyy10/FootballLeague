@@ -5,6 +5,7 @@ namespace App\Tests\Application\Player;
 use App\Application\Player\AddPlayer;
 use App\Domain\Club\Club;
 use App\Domain\Club\ClubRepositoryInterface;
+use App\Domain\Coach\Coach;
 use App\Domain\Exceptions\Coach\InvalidSalaryException;
 use App\Domain\Exceptions\EntityNotFoundException;
 use App\Domain\Exceptions\Player\InvalidPlayerNameException;
@@ -42,6 +43,7 @@ class AddPlayerCommandHandlerTest extends TestCase
         $this->mocks[ClubRepositoryInterface::class]    = $this->createMock(ClubRepositoryInterface::class);
         $this->mocks[Club::class]                       = $this->createMock(Club::class);
         $this->mocks[Player::class]                     = $this->createMock(Player::class);
+        $this->mocks[Coach::class]                      = $this->createMock(Coach::class);
     }
 
     private function initHandler(): AddPlayer\CommandHandler
@@ -58,6 +60,21 @@ class AddPlayerCommandHandlerTest extends TestCase
         ->expects($this->once())
         ->method('find')
         ->willReturn($this->mocks[Club::class]);
+
+        $this->mocks[Club::class]
+            ->expects($this->any())
+            ->method('getName')
+            ->willReturn('test');
+
+        $this->mocks[Club::class]
+            ->expects($this->any())
+            ->method('getBudget')
+            ->willReturn(1234.4);
+
+        $this->mocks[Club::class]
+            ->expects($this->any())
+            ->method('getCoach')
+            ->willReturn($this->mocks[Coach::class]);
     }
 
     private function createPlayer()
@@ -106,8 +123,16 @@ class AddPlayerCommandHandlerTest extends TestCase
         $this->getClub();
         $this->createPlayer();
         $this->addPlayer();
+        $this->flushClub();
 
         $commandHandler($command);
+    }
+
+    private function flushClub()
+    {
+        $this->mocks[ClubRepositoryInterface::class]
+        ->expects($this->once())
+        ->method('flush');
     }
 
     public function testAddNewPlayerInvalidName()
