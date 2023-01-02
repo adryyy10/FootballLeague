@@ -10,7 +10,7 @@
 {% block body %}
 
 <div class="container">
-  <h2 class="title">Add new club</h2>
+  <h2 class="title">{{ (club is defined) ? 'Update' : 'Add' }} new club</h2>
   <form class="add-club-form" method="POST" action="/addClubSubmitAction">
     <input type="hidden" id="clubId" name="clubId" value="{{ (club is defined) ? club.id : '' }}" />
 

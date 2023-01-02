@@ -10,7 +10,7 @@
 {% block body %}
 
 <div class="container">
-  <h2 class="title">Add new player</h2>
+  <h2 class="title">{{ (player is defined) ? 'Update' : 'Add' }} new player</h2>
   <form class="add-player-form" method="POST" action="/addPlayerSubmitAction">
     <input type="hidden" id="playerId" name="playerId" value="{{ (player is defined) ? player.id : '' }}" />
 
