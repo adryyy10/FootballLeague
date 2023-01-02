@@ -22,12 +22,11 @@
 	</thead>
 	<tbody>
         {% for club in clubs %}
-            <tr>
+            <tr onClick="editClub('/updateClub/{{club.id}}')">
                 <td>{{ club.name }}</td>
                 <td>{{ club.budget }} €</td>
                 <td>{{ (club.coach is not null) ? club.coach.name : 'None' }}</td>
-                <td><div onClick="removeClub({{club.id}})" style="cursor:pointer;" data-club-id="{{club.id}}">Delete &#10006;</div></td>
-                <td><div onClick="editClub('/updateClub/{{club.id}}')" style="cursor:pointer;" data-url="/updateClub/{{club.id}}" data-club-id="{{club.id}}">Update &#9989;</div></td>
+                <td><div onClick="removeClub({{club.id}})">Delete &#10006;</div></td>
             </tr>
         {% endfor %}
 	</tbody>

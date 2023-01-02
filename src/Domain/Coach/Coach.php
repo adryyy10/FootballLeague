@@ -122,7 +122,6 @@ class Coach
         float $salary
     ): void
     {
-        dd($salary);
         /** Validate business model before anything else */
         self::validateBusinessModel(
             $coach->getId(), 

@@ -3,7 +3,7 @@
     font-family: Tahoma, Geneva, sans-serif;
     margin: 25px 0px;
     font-size: 0.9em;
-    min-width: 400px;
+    min-width: 640px;
     border-radius: 5px 4px 0 0;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
@@ -19,7 +19,12 @@
 
 .content-table th,
 .content-table td {
-    padding: 12px 15px;
+    padding: 12px 0;
+}
+
+.content-table th:first-child,
+.content-table td:first-child {
+    padding-left: 15px;
 }
 
 .content-table tbody tr {
