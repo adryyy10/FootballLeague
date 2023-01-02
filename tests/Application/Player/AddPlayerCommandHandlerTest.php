@@ -31,6 +31,10 @@ class AddPlayerCommandHandlerTest extends TestCase
             'playerName'    => 'test',
             'salary'        => 100.1,
             'position'      => 'test',
+            'club'          => (object)[
+                'name'          => 'test',
+                'budget'        => 10000.1
+            ],
             'clubId'        => 1
         ];
 
@@ -64,12 +68,12 @@ class AddPlayerCommandHandlerTest extends TestCase
         $this->mocks[Club::class]
             ->expects($this->any())
             ->method('getName')
-            ->willReturn('test');
+            ->willReturn($this->data->club->name);
 
         $this->mocks[Club::class]
             ->expects($this->any())
             ->method('getBudget')
-            ->willReturn(1234.4);
+            ->willReturn($this->data->club->budget);
 
         $this->mocks[Club::class]
             ->expects($this->any())

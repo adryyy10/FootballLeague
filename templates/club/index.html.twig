@@ -24,7 +24,7 @@
         {% for club in clubs %}
             <tr onClick="editClub('/updateClub/{{club.id}}')">
                 <td>{{ club.name }}</td>
-                <td>{{ club.budget }} €</td>
+                <td>{{ club.budget|number_format(2, '.', ',') }} €</td>
                 <td>{{ (club.coach is not null) ? club.coach.name : 'None' }}</td>
                 <td><div onClick="removeClub({{club.id}})">Delete &#10006;</div></td>
             </tr>

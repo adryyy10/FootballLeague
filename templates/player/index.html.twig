@@ -26,7 +26,7 @@
             <tr onClick="editPlayer('/updatePlayer/{{player.id}}')">
                 <td>{{ player.name }}</td>
                 <td>{{ player.position }}</td>
-                <td>{{ player.salary }} €</td>
+                <td>{{ player.salary|number_format(2, '.', ',') }} €</td>
                 <td>{{ (player.club is defined and player.club is not null) ? player.club.name : 'No club' }}</td>
                 <td><div onClick="removePlayer({{player.id}})">Delete &#10006;</div></td>
             </tr>

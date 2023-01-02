@@ -24,7 +24,7 @@
         {% for coach in coaches %}
             <tr onClick="editCoach('/updateCoach/{{coach.id}}')">
                 <td>{{ coach.name }}</td>
-                <td>{{ coach.salary }} €</td>
+                <td>{{ coach.salary|number_format(2, '.', ',') }} €</td>
                 <td>{{ (coach.club is defined and coach.club is not null) ? coach.club.name : 'No club' }}</td>
                 <td><div onClick="removeCoach({{coach.id}})" style="cursor:pointer;">Delete &#10006;</div></td>
             </tr>

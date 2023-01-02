@@ -86,7 +86,7 @@ class Club
         return $this;
     }
 
-    public function getCoach(): Coach
+    public function getCoach(): ?Coach
     {
         return $this->coach;
     }
