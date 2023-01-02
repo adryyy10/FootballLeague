@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Domain\Stadium;
 
-use App\Repository\StadiumRepository;
+use App\Domain\Club\Club;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +36,13 @@ class Stadium
      * @ORM\Column(type="string", length=255)
      */
     private $address;
+
+    /**
+     * One stadium has one club
+     * 
+     * @ORM\OneToOne(targetEntity=Club::class, mappedBy="stadium", cascade={"persist"})
+     */
+    public $club;
 
     public function getId(): ?int
     {

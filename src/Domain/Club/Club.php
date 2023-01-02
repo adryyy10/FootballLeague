@@ -10,6 +10,7 @@ use App\Domain\Exceptions\Club\InvalidClubBudgetException;
 use App\Domain\Exceptions\Club\InvalidClubIdException;
 use App\Domain\Exceptions\Club\InvalidClubNameException;
 use App\Domain\Player\Player;
+use App\Domain\Stadium\Stadium;
 
 /**
  * @ORM\Entity(repositoryClass=ClubRepository::class)
@@ -46,14 +47,24 @@ class Club
      */
     private $players;
 
+    /**
+     * One club has one stadium
+     * 
+     * @ORM\OneToOne(targetEntity=Stadium::class, inversedBy="club", cascade={"persist"})
+     * @ORM\JoinColumn(name="stadium_id", referencedColumnName="id", nullable=true)
+     */
+    private $stadium;
+
     private function __construct(
         string $name,
         float $budget,
-        Coach $coach
+        Coach $coach,
+        Stadium $stadium
     ) {
         $this->name     = $name;
         $this->budget   = $budget;
         $this->coach    = $coach;
+        $this->stadium  = $stadium;
         $this->players  = new ArrayCollection();
     }
 
@@ -94,6 +105,18 @@ class Club
     private function setCoach(?Coach $coach): self
     {
         $this->coach = $coach;
+
+        return $this;
+    }
+
+    public function getStadium(): ?Stadium
+    {
+        return $this->stadium;
+    }
+
+    private function setStadium(?Stadium $stadium): self
+    {
+        $this->stadium = $stadium;
 
         return $this;
     }
@@ -152,7 +175,8 @@ class Club
     public static function create(
         string $name,
         float $budget,
-        Coach $coach
+        Coach $coach,
+        Stadium $stadium
     ): Club
     {
 
@@ -166,7 +190,8 @@ class Club
         $club = new Club(
             $name,
             $budget,
-            $coach
+            $coach,
+            $stadium
         );
 
         return $club;
@@ -176,7 +201,8 @@ class Club
         Club $club,
         string $name,
         float $budget,
-        Coach $coach
+        Coach $coach,
+        Stadium $stadium
     ): void
     {
 
@@ -190,6 +216,7 @@ class Club
         $club->setName($name);
         $club->setBudget($budget);
         $club->setCoach($coach);
+        $club->setStadium($stadium);
     }
 
     public static function setCoachToNull(Club $club): void

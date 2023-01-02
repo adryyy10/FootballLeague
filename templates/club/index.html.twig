@@ -16,7 +16,7 @@
 			<th>Name</th>
             <th>Budget</th>
             <th>Coach</th>
-            <th></th>
+            <th>Stadium</th>
             <th></th>
 		</tr>
 	</thead>
@@ -26,6 +26,7 @@
                 <td>{{ club.name }}</td>
                 <td>{{ club.budget|number_format(2, '.', ',') }} €</td>
                 <td>{{ (club.coach is not null) ? club.coach.name : 'None' }}</td>
+                <td>{{ (club.stadium is not null) ? club.stadium.name : 'None' }}</td>
                 <td><div onClick="removeClub({{club.id}})">Delete &#10006;</div></td>
             </tr>
         {% endfor %}

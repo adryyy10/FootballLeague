@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Repository;
+namespace App\Infrastructure\Doctrine\Model\Stadium;
 
-use App\Entity\Stadium;
+use App\Domain\Stadium\Stadium;
+use App\Domain\Stadium\StadiumRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,7 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Stadium[]    findAll()
  * @method Stadium[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class StadiumRepository extends ServiceEntityRepository
+class StadiumRepository extends ServiceEntityRepository implements StadiumRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
