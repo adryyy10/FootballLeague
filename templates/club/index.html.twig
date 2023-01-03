@@ -3,12 +3,23 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('css/listing.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/clubs.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('css/addButton.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
-
 {% block title %}Premier League clubs!{% endblock %}
 
 {% block body %}
+
+<div class="container">
+    <div class="clubs">
+        {% for club in clubs %}
+            <div class="club" style="background-color: #{{(club.palette is not null) ? club.palette : 'FFFFFF'}}">
+                <h4>{{club.name}}</h4>
+                <h5>{{club.stadium.name}}</h5>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 <table class="content-table">
 	<thead>

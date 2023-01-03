@@ -55,17 +55,24 @@ class Club
      */
     private $stadium;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $palette;
+
     private function __construct(
         string $name,
         float $budget,
         Coach $coach,
-        Stadium $stadium
+        Stadium $stadium,
+        ?string $palette
     ) {
         $this->name     = $name;
         $this->budget   = $budget;
         $this->coach    = $coach;
         $this->stadium  = $stadium;
         $this->players  = new ArrayCollection();
+        $this->palette  = $palette;
     }
 
     public function getId(): ?int
@@ -117,6 +124,18 @@ class Club
     private function setStadium(?Stadium $stadium): self
     {
         $this->stadium = $stadium;
+
+        return $this;
+    }
+
+    public function getPalette(): ?string
+    {
+        return $this->palette;
+    }
+
+    private function setPalette(string $palette): self
+    {
+        $this->palette = $palette;
 
         return $this;
     }
@@ -176,7 +195,8 @@ class Club
         string $name,
         float $budget,
         Coach $coach,
-        Stadium $stadium
+        Stadium $stadium,
+        ?string $palette
     ): Club
     {
 
@@ -191,7 +211,8 @@ class Club
             $name,
             $budget,
             $coach,
-            $stadium
+            $stadium,
+            $palette
         );
 
         return $club;
@@ -202,7 +223,8 @@ class Club
         string $name,
         float $budget,
         Coach $coach,
-        Stadium $stadium
+        Stadium $stadium,
+        ?string $palette
     ): void
     {
 
@@ -217,6 +239,7 @@ class Club
         $club->setBudget($budget);
         $club->setCoach($coach);
         $club->setStadium($stadium);
+        $club->setPalette($palette);
     }
 
     public static function setCoachToNull(Club $club): void
