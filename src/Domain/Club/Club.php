@@ -11,6 +11,7 @@ use App\Domain\Exceptions\Club\InvalidClubIdException;
 use App\Domain\Exceptions\Club\InvalidClubNameException;
 use App\Domain\Player\Player;
 use App\Domain\Stadium\Stadium;
+use App\Domain\Logo\Logo;
 
 /**
  * @ORM\Entity(repositoryClass=ClubRepository::class)
@@ -59,6 +60,14 @@ class Club
      * @ORM\Column(type="string", length=50)
      */
     private $palette;
+
+    /**
+     * One club has one logo
+     * 
+     * @ORM\OneToOne(targetEntity=Logo::class, inversedBy="club", cascade={"persist"})
+     * @ORM\JoinColumn(name="logo", referencedColumnName="id", nullable=true)
+     */
+    private $logo;
 
     private function __construct(
         string $name,
@@ -136,6 +145,18 @@ class Club
     private function setPalette(string $palette): self
     {
         $this->palette = $palette;
+
+        return $this;
+    }
+
+    public function getLogo(): ?Logo
+    {
+        return $this->logo;
+    }
+
+    private function setLogo(?Logo $logo): self
+    {
+        $this->logo = $logo;
 
         return $this;
     }

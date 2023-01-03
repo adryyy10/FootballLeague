@@ -16,3 +16,15 @@
     text-align: center;
     color: whitesmoke;
 }
+
+.club .club-logo {
+    display: flex;
+    width: 5rem;
+    height: 5rem;
+    margin: auto;
+    justify-content: center;
+}
+
+.club-logo img {
+    background-color: transparent;
+}
