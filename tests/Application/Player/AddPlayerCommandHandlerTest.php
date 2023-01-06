@@ -12,6 +12,7 @@ use App\Domain\Exceptions\Player\InvalidPlayerNameException;
 use App\Domain\Exceptions\Player\InvalidPlayerPositionException;
 use App\Domain\Player\Player;
 use App\Domain\Player\PlayerRepositoryInterface;
+use App\Domain\Stadium\Stadium;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -33,7 +34,8 @@ class AddPlayerCommandHandlerTest extends TestCase
             'position'      => 'test',
             'club'          => (object)[
                 'name'          => 'test',
-                'budget'        => 10000.1
+                'budget'        => 10000.1,
+                'palette'       => '#FFFFFF'
             ],
             'clubId'        => 1
         ];
@@ -48,6 +50,7 @@ class AddPlayerCommandHandlerTest extends TestCase
         $this->mocks[Club::class]                       = $this->createMock(Club::class);
         $this->mocks[Player::class]                     = $this->createMock(Player::class);
         $this->mocks[Coach::class]                      = $this->createMock(Coach::class);
+        $this->mocks[Stadium::class]                    = $this->createMock(Stadium::class);
     }
 
     private function initHandler(): AddPlayer\CommandHandler
@@ -79,6 +82,16 @@ class AddPlayerCommandHandlerTest extends TestCase
             ->expects($this->any())
             ->method('getCoach')
             ->willReturn($this->mocks[Coach::class]);
+
+        $this->mocks[Club::class]
+            ->expects($this->any())
+            ->method('getStadium')
+            ->willReturn($this->mocks[Stadium::class]);
+
+        $this->mocks[Club::class]
+            ->expects($this->any())
+            ->method('getPalette')
+            ->willReturn($this->data->club->palette);
     }
 
     private function createPlayer()

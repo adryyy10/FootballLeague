@@ -7,6 +7,8 @@ use App\Domain\Club\ClubRepositoryInterface;
 use App\Domain\Coach\Coach;
 use App\Domain\Coach\CoachRepositoryInterface;
 use App\Domain\Exceptions\EntityNotFoundException;
+use App\Domain\Stadium\Stadium;
+use App\Domain\Stadium\StadiumRepositoryInterface;
 
 class CommandHandler
 {
@@ -21,12 +23,19 @@ class CommandHandler
      */
     public $clubRepository;
 
+    /**
+     * @var StadiumRepositoryInterface $stadiumRepository
+     */
+    public $stadiumRepository;
+
     public function __construct(
         CoachRepositoryInterface $coachRepository,
-        ClubRepositoryInterface $clubRepository
+        ClubRepositoryInterface $clubRepository,
+        StadiumRepositoryInterface $stadiumRepository
     ) {
-        $this->coachRepository  = $coachRepository;
-        $this->clubRepository   = $clubRepository;
+        $this->coachRepository      = $coachRepository;
+        $this->clubRepository       = $clubRepository;
+        $this->stadiumRepository    = $stadiumRepository;
     }
 
     public function __invoke(Command $command): void
@@ -39,6 +48,13 @@ class CommandHandler
             throw new EntityNotFoundException($command->getCoachId(), Coach::class);
         }
 
+        /** Find stadium */
+        $stadium = $this->stadiumRepository->find($command->getStadiumId());
+
+        if (empty($stadium)) {
+            throw new EntityNotFoundException($command->getStadiumId(), Stadium::class);
+        }  
+        
         /** If getClubId() is null --> insert new club, else --> update club */
         if (empty($command->getClubId())) {
 
@@ -46,7 +62,9 @@ class CommandHandler
             $club = Club::create(
                 $command->getClubName(),
                 $command->getBudget(),
-                $coach
+                $coach,
+                $stadium,
+                $command->getPalette()
             );
 
             $this->clubRepository->add($club, true);
@@ -63,7 +81,9 @@ class CommandHandler
                 $club, 
                 $command->getClubName(),
                 $command->getBudget(),
-                $coach
+                $coach,
+                $stadium,
+                $club->getPalette()
             );
 
             $this->clubRepository->flush();

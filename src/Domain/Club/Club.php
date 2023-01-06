@@ -142,7 +142,7 @@ class Club
         return $this->palette;
     }
 
-    private function setPalette(string $palette): self
+    private function setPalette(?string $palette): self
     {
         $this->palette = $palette;
 

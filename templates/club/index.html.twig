@@ -11,6 +11,7 @@
 {% block body %}
 
 <div class="container">
+    <h1>Clubs</h1>
     <div class="clubs">
         {% for club in clubs %}
             <div class="club" style="background-color: #{{(club.palette is not null) ? club.palette : 'FFFFFF'}}">

@@ -67,13 +67,17 @@ class ClubController extends AbstractController
         $clubName   = $request->get('clubName');
         $budget     = $request->get('budget');
         $coachId    = $request->get('coachId');
+        $stadiumId  = $request->get('stadiumId');
+        $palette    = $request->get('palette');
 
         // Create array $data just to pass it to Command
         $data = [
             'clubId'    => (empty($clubId) ? null : (int)$clubId),
             'clubName'  => $clubName,
             'budget'    => (float)$budget,
-            'coachId'   => (int)$coachId
+            'coachId'   => (int)$coachId,
+            'stadiumId' => (int)$stadiumId,
+            'palette'   => $palette
         ];
 
         // Instantiate new AddClub\Command and pass data to validate 

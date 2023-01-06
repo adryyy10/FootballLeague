@@ -16,10 +16,12 @@ class AddClubCommandTest extends TestCase
     {
         parent::setUp();
         $this->data = (object)[
-            'clubId' => 1,
-            'clubName' => 'test',
-            'budget'   => 12345.8,
-            'coachId'  => 1
+            'clubId'    => 1,
+            'clubName'  => 'test',
+            'budget'    => 12345.8,
+            'coachId'   => 1,
+            'stadiumId' => 1,
+            'palette'   => '#FFFFFF'
         ];
     }
 
@@ -36,11 +38,15 @@ class AddClubCommandTest extends TestCase
         $this->assertEquals($query->getClubName(), $this->data->clubName);
         $this->assertEquals($query->getBudget(), $this->data->budget);
         $this->assertEquals($query->getCoachId(), $this->data->coachId);
+        $this->assertEquals($query->getStadiumId(), $this->data->stadiumId);
+        $this->assertEquals($query->getPalette(), $this->data->palette);
 
         $this->assertIsInt($query->getClubId());
         $this->assertIsString($query->getClubName());
         $this->assertIsFloat($query->getBudget());
         $this->assertIsInt($query->getCoachId());
+        $this->assertIsInt($query->getStadiumId());
+        $this->assertIsString($query->getPalette());
     }
 
     public function testValidQueryWithoutClubId()
@@ -50,10 +56,14 @@ class AddClubCommandTest extends TestCase
         $this->assertEquals($query->getClubName(), $this->data->clubName);
         $this->assertEquals($query->getBudget(), $this->data->budget);
         $this->assertEquals($query->getCoachId(), $this->data->coachId);
+        $this->assertEquals($query->getStadiumId(), $this->data->stadiumId);
+        $this->assertEquals($query->getPalette(), $this->data->palette);
         
         $this->assertIsString($query->getClubName());
         $this->assertIsFloat($query->getBudget());
         $this->assertIsInt($query->getCoachId());
+        $this->assertIsInt($query->getStadiumId());
+        $this->assertIsString($query->getPalette());
     }
 
     public function testInvalidClubId()

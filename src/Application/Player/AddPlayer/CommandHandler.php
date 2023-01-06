@@ -60,7 +60,9 @@ class CommandHandler
                     $club,
                     $club->getName(),
                     $newBudget,
-                    $club->getCoach()
+                    $club->getCoach(),
+                    $club->getStadium(),
+                    $club->getPalette()
                 );
                 $this->clubRepository->flush();
             }

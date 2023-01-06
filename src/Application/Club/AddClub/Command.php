@@ -39,6 +39,16 @@ class Command extends AbstractCommand
     {
         return $this->data->coachId;
     }
+
+    public function getStadiumId(): int
+    {
+        return $this->data->stadiumId;
+    }
+
+    public function getPalette(): string
+    {
+        return $this->data->palette;
+    }
     
     /**
      * This method checks the type of the variables and if they are mandatory or not
@@ -57,6 +67,14 @@ class Command extends AbstractCommand
 
         Assert::propertyExists($this->data, 'coachId');
         Assert::integer($this->data->coachId);
+
+        Assert::propertyExists($this->data, 'stadiumId');
+        Assert::integer($this->data->stadiumId);
+
+        if (isset($this->data->palette)) {
+            Assert::string($this->data->palette);
+        }
+
     }
 
 }
