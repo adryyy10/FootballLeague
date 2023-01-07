@@ -23,10 +23,10 @@
             <h4>Official website: {{club.stadium.name}}</h4>
             <div class="social">
                 <ul class="social-options">
-                    <li><a href=""><img src="{{ asset('images/socialMedia/facebook.png') }}"></img></a></li>
-                    <li><a href=""><img src="{{ asset('images/socialMedia/twitter.png') }}"></img></a></li>
-                    <li><a href=""><img src="{{ asset('images/socialMedia/youtube.png') }}"></img></a></li>
-                    <li><a href=""><img src="{{ asset('images/socialMedia/instagram.png') }}"></img></a></li>
+                    {% if club.facebook is defined and club.facebook is not null %} <li><a href="{{club.facebook}}"><img src="{{ asset('images/socialMedia/facebook.png') }}"></img></a></li> {% endif %}
+                    {% if club.twitter is defined and club.twitter is not null %} <li><a href="{{club.twitter}}"><img src="{{ asset('images/socialMedia/twitter.png') }}"></img></a></li> {% endif %}
+                    {% if club.youtube is defined and club.youtube is not null %} <li><a href="{{club.youtube}}"><img src="{{ asset('images/socialMedia/youtube.png') }}"></img></a></li> {% endif %}
+                    {% if club.instagram is defined and club.instagram is not null %} <li><a href="{{club.instagram}}"><img src="{{ asset('images/socialMedia/instagram.png') }}"></img></a></li> {% endif %}
                 </ul>
             </div>
         </div>

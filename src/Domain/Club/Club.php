@@ -69,12 +69,36 @@ class Club
      */
     private $logo;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $facebook;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $twitter;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $youtube;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $instagram;
+
     private function __construct(
         string $name,
         float $budget,
         Coach $coach,
         Stadium $stadium,
-        ?string $palette
+        string $palette = null,
+        string $facebook = null,
+        string $twitter = null,
+        string $youtube = null,
+        string $instagram = null
     ) {
         $this->name     = $name;
         $this->budget   = $budget;
@@ -82,6 +106,10 @@ class Club
         $this->stadium  = $stadium;
         $this->players  = new ArrayCollection();
         $this->palette  = $palette;
+        $this->facebook = $facebook;
+        $this->twitter  = $twitter;
+        $this->youtube  = $youtube;
+        $this->instagram = $instagram;
     }
 
     public function getId(): ?int
@@ -161,6 +189,54 @@ class Club
         return $this;
     }
 
+    public function getFacebook(): ?string
+    {
+        return $this->facebook;
+    }
+
+    private function setFacebook(?string $facebook): self
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
+    public function getTwitter(): ?string
+    {
+        return $this->twitter;
+    }
+
+    private function setTwitter(?string $twitter): self
+    {
+        $this->twitter = $twitter;
+
+        return $this;
+    }
+
+    public function getYoutube(): ?string
+    {
+        return $this->youtube;
+    }
+
+    private function setYoutube(?string $youtube): self
+    {
+        $this->youtube = $youtube;
+
+        return $this;
+    }
+
+    public function getInstagram(): ?string
+    {
+        return $this->instagram;
+    }
+
+    private function setInstagram(?string $instagram): self
+    {
+        $this->instagram = $instagram;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Player>
      */
@@ -217,7 +293,11 @@ class Club
         float $budget,
         Coach $coach,
         Stadium $stadium,
-        ?string $palette
+        string $palette = null,
+        string $facebook = null,
+        string $twitter = null,
+        string $youtube = null,
+        string $instagram = null
     ): Club
     {
 
@@ -233,7 +313,11 @@ class Club
             $budget,
             $coach,
             $stadium,
-            $palette
+            $palette,
+            $facebook,
+            $twitter,
+            $youtube,
+            $instagram
         );
 
         return $club;
@@ -245,7 +329,11 @@ class Club
         float $budget,
         Coach $coach,
         Stadium $stadium,
-        ?string $palette
+        string $palette = null,
+        string $facebook = null,
+        string $twitter = null,
+        string $youtube = null,
+        string $instagram = null
     ): void
     {
 
@@ -261,6 +349,10 @@ class Club
         $club->setCoach($coach);
         $club->setStadium($stadium);
         $club->setPalette($palette);
+        $club->setFacebook($facebook);
+        $club->setTwitter($twitter);
+        $club->setYoutube($youtube);
+        $club->setInstagram($instagram);
     }
 
     public static function setCoachToNull(Club $club): void
