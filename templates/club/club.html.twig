@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/club.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}{{club.name}} | Premier League{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="content" style="background-color: #{{(club.palette is not null) ? club.palette : 'FFFFFF'}}">
+        <div class="club-logo">
+            <img src="{{ asset('images/clubs/' ~ club.logo.name ~ '.png') }}"></img>
+        </div>
+        <div class="info">
+            <h1>{{club.name}}</h1>
+            <div class="stadium">
+                <img src="{{ asset('images/stadium/icons8-performance-30.png') }}"></img>
+                <span>{{club.stadium.name}}</span>
+            </div>
+            <h4>Official website: {{club.stadium.name}}</h4>
+            <div class="social">
+                <ul class="social-options">
+                    <li><a href=""><img src="{{ asset('images/socialMedia/facebook.png') }}"></img></a></li>
+                    <li><a href=""><img src="{{ asset('images/socialMedia/twitter.png') }}"></img></a></li>
+                    <li><a href=""><img src="{{ asset('images/socialMedia/youtube.png') }}"></img></a></li>
+                    <li><a href=""><img src="{{ asset('images/socialMedia/instagram.png') }}"></img></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="stadium-image"></div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+.container .content {
+    padding: 2rem;
+    display: flex;
+    color: whitesmoke;
+}
+
+.club-logo {
+    padding-right: 2rem;
+}
+
+.club-logo img{
+    width: 14.063rem;
+}
+
+.info .stadium {
+    display: flex;
+    align-items: center;
+    margin: 1rem auto;
+}
+
+.info .stadium img {
+    margin-right: 1rem;
+}
+
+.info .social-options {
+    padding: 0;
+    vertical-align: middle;
+}
+
+.info .social-options li {
+    display: inline-block;
+    list-style-type: none;
+}
+
+.info .social-options a {
+    width: 3rem;
+    height: 3rem;
+    transition: all .2s;
+    cursor: pointer;
+    border-radius: 100%;
+    background: #fff;
+    display: inline-block;
+    position: relative;
+}
+
+.info .social-options a img {
+    width: 1.875rem;
+    position: absolute;
+    top: 18%;
+    left: 20%;
+}

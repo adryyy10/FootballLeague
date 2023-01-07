@@ -35,6 +35,31 @@ class ClubController extends AbstractController
     }
 
     /**
+     * @Route("/clubs/{id}", name="app_get_club")
+     * 
+     * @param int $id
+     * @param Getclub\QueryHandler
+     * 
+     * @return Response
+     */
+    public function getClub(int $id, Getclub\QueryHandler $useCase): Response
+    {
+        $data = [
+            'clubId' => $id
+        ];
+
+        // Instantiate new GetClub\Query and pass data to validate 
+        // typos and check if are mandatory or not
+        $command = new GetClub\Query((object)$data);
+
+        $response = $useCase($command);
+
+        return $this->render('club/club.html.twig', [
+            'club' => $response->getClub()
+        ]);
+    }
+
+    /**
      * @Route("/addClub", name="app_add_club")
      * 
      * @param GetCoachesWithNoClub\QueryHandler

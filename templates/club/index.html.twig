@@ -14,13 +14,13 @@
     <h1>Clubs</h1>
     <div class="clubs">
         {% for club in clubs %}
-            <div class="club" style="background-color: #{{(club.palette is not null) ? club.palette : 'FFFFFF'}}">
-                <div class="club-logo">
-                    <img src="{{ asset('images/clubs/' ~ club.logo.name ~ '.png') }}"></img>
-                </div>
-                <h4>{{club.name}}</h4>
-                <h5>{{club.stadium.name}}</h5>
-            </div>
+                <a class="club" href="/clubs/{{club.id}}" style="background-color: #{{(club.palette is not null) ? club.palette : 'FFFFFF'}}">   
+                    <div class="club-logo">
+                        <img src="{{ asset('images/clubs/' ~ club.logo.name ~ '.png') }}"></img>
+                    </div>
+                    <h4>{{club.name}}</h4>
+                    <h5>{{club.stadium.name}}</h5>
+                </a>
         {% endfor %}
     </div>
 </div>

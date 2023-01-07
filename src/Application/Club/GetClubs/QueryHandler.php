@@ -10,6 +10,7 @@ class QueryHandler
     /**
      * @var ClubRepositoryInterface $clubRepository 
      */
+    public $clubRepository;
 
     public function __construct(ClubRepositoryInterface $clubRepository)
     {
