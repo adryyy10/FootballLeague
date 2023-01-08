@@ -49,6 +49,11 @@ class Command extends AbstractCommand
     {
         return $this->data->palette;
     }
+
+    public function getSlug(): string
+    {
+        return $this->data->slug;
+    }
     
     /**
      * This method checks the type of the variables and if they are mandatory or not
@@ -75,6 +80,8 @@ class Command extends AbstractCommand
             Assert::string($this->data->palette);
         }
 
+        Assert::propertyExists($this->data, 'slug');
+        Assert::string($this->data->slug);
     }
 
 }

@@ -16,7 +16,8 @@ class DeleteClubCommandTest extends TestCase
     {
         parent::setUp();
         $this->data = (object) [
-            'clubId' => 1
+            'clubId'    => 1,
+            'slug'      => 'test'
         ];
     }
 

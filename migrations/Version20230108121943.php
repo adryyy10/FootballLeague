@@ -10,22 +10,22 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230108120831 extends AbstractMigration
+final class Version20230108121943 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Add website to club';
+        return 'Add slug to club';
     }
 
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE club ADD website VARCHAR(50) DEFAULT NULL');
+        $this->addSql('ALTER TABLE club ADD slug VARCHAR(50) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE club DROP website');
+        $this->addSql('ALTER TABLE club DROP slug');
     }
 }

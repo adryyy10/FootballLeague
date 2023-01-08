@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Club\GetClub;
+namespace App\Application\Club\GetClubBySlug;
 
 use App\Domain\Club\Club;
 

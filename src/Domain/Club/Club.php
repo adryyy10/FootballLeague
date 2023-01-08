@@ -9,6 +9,7 @@ use App\Domain\Coach\Coach;
 use App\Domain\Exceptions\Club\InvalidClubBudgetException;
 use App\Domain\Exceptions\Club\InvalidClubIdException;
 use App\Domain\Exceptions\Club\InvalidClubNameException;
+use App\Domain\Exceptions\Club\InvalidClubSlugException;
 use App\Domain\Player\Player;
 use App\Domain\Stadium\Stadium;
 use App\Domain\Logo\Logo;
@@ -94,11 +95,17 @@ class Club
      */
     private $website;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $slug;
+
     private function __construct(
         string $name,
         float $budget,
         Coach $coach,
         Stadium $stadium,
+        string $slug,
         string $palette = null,
         string $facebook = null,
         string $twitter = null,
@@ -111,12 +118,13 @@ class Club
         $this->coach    = $coach;
         $this->stadium  = $stadium;
         $this->players  = new ArrayCollection();
+        $this->slug     = $slug;
         $this->palette  = $palette;
         $this->facebook = $facebook;
         $this->twitter  = $twitter;
         $this->youtube  = $youtube;
         $this->instagram = $instagram;
-        $this->website = $website;
+        $this->website  = $website;
     }
 
     public function getId(): ?int
@@ -256,6 +264,18 @@ class Club
         return $this;
     }
 
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    private function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Player>
      */
@@ -290,12 +310,17 @@ class Club
      * This method validate the business logic from the Entity
      */
     public static function validateBusinessModel(
-        ?int $id,
+        int $id = null,
+        string $slug,
         string $name = '',
         float $budget = 0.0
     ): void {
         if (!empty($id) && $id < 0) {
             throw new InvalidClubIdException();
+        }
+
+        if (strlen($slug) <= 2) {
+            throw new InvalidClubSlugException();
         }
 
         if (!empty($name) && strlen($name) <= 2) {
@@ -312,6 +337,7 @@ class Club
         float $budget,
         Coach $coach,
         Stadium $stadium,
+        string $slug,
         string $palette = null,
         string $facebook = null,
         string $twitter = null,
@@ -324,8 +350,9 @@ class Club
         /** Validate business model before anything else */
         self::validateBusinessModel(
             null,
+            $slug,
             $name,
-            $budget
+            $budget,
         );
 
         $club = new Club(
@@ -333,6 +360,7 @@ class Club
             $budget,
             $coach,
             $stadium,
+            $slug,
             $palette,
             $facebook,
             $twitter,
@@ -350,6 +378,7 @@ class Club
         float $budget,
         Coach $coach,
         Stadium $stadium,
+        string $slug,
         string $palette = null,
         string $facebook = null,
         string $twitter = null,
@@ -362,14 +391,16 @@ class Club
         /** Validate business model before anything else */
         self::validateBusinessModel(
             $club->getId(),
+            $slug,
             $name,
-            $budget
+            $budget,
         );
 
         $club->setName($name);
         $club->setBudget($budget);
         $club->setCoach($coach);
         $club->setStadium($stadium);
+        $club->setSlug($slug);
         $club->setPalette($palette);
         $club->setFacebook($facebook);
         $club->setTwitter($twitter);

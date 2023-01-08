@@ -20,7 +20,7 @@ class CommandHandler
     {
 
         /** Validate the business logic from the Entity */
-        Club::validateBusinessModel($command->getClubId());
+        Club::validateBusinessModel($command->getClubId(), $command->getSlug());
 
         $club = $this->clubRepository->find($command->getClubId());
 

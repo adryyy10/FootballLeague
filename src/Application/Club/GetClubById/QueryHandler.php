@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Club\GetClub;
+namespace App\Application\Club\GetClubById;
 
 use App\Domain\Club\Club;
 use App\Domain\Club\ClubRepositoryInterface;

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Application\Club\DeleteClub;
+namespace App\Application\Club\GetClubBySlug;
 
 use App\Application\Shared\AbstractCommand;
-use Webmozart\Assert\Assert;
 use stdClass;
+use Webmozart\Assert\Assert;
 
-class Command extends AbstractCommand
+class Query extends AbstractCommand
 {
 
     /**
@@ -14,28 +14,24 @@ class Command extends AbstractCommand
      */
     public $data;
 
-    public function __construct(stdClass $data)
+    public function __construct(stdClass $data) 
     {
         parent::__construct($data);
         $this->data = $data;
-    }
-
-    public function getClubId(): int
-    {
-        return $this->data->clubId;
     }
 
     public function getSlug(): string
     {
         return $this->data->slug;
     }
-
+    
+    /**
+     * This method checks the type of the variables and if they are mandatory or not
+     */
     protected function assertMandatoryAttributes()
     {
-        Assert::propertyExists($this->data, 'clubId');
-        Assert::integer($this->data->clubId);
-
         Assert::propertyExists($this->data, 'slug');
         Assert::string($this->data->slug);
     }
+
 }

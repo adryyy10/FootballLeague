@@ -30,7 +30,8 @@ class AddClubCommandHandlerTest extends TestCase
             'budget'    => 12345.8,
             'coachId'   => 1,
             'stadiumId' => 1,
-            'palette'   => '#FFFFFF'
+            'palette'   => '#FFFFFF',
+            'slug'      => 'test'
         ];
 
         $this->initMocks();

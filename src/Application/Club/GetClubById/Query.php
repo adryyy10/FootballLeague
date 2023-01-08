@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Club\GetClub;
+namespace App\Application\Club\GetClubById;
 
 use App\Application\Shared\AbstractCommand;
 use stdClass;

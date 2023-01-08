@@ -64,7 +64,8 @@ class CommandHandler
                 $command->getBudget(),
                 $coach,
                 $stadium,
-                $command->getPalette()
+                $command->getPalette(),
+                $command->getSlug()
             );
 
             $this->clubRepository->add($club, true);
@@ -83,6 +84,7 @@ class CommandHandler
                 $command->getBudget(),
                 $coach,
                 $stadium,
+                $command->getSlug(),
                 $club->getPalette()
             );
 

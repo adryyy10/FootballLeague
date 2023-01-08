@@ -3,11 +3,11 @@
 namespace App\Tests\Application\Club;
 
 use PHPUnit\Framework\TestCase;
-use App\Application\Club\GetClub;
+use App\Application\Club\GetClubById;
 use InvalidArgumentException;
 use stdClass;
 
-class GetClubQueryTest extends TestCase
+class GetClubByIdQueryTest extends TestCase
 {
 
     private stdClass $data;
@@ -16,17 +16,19 @@ class GetClubQueryTest extends TestCase
     {
         parent::setUp();
         $this->data = (object)[
-            'clubId' => 1
+            'clubId' => 1,
+            'slug'      => 'test'
         ];
     }
 
     public function testValidQuery()
     {
+        
         $this->data->clubId = 135;
 
-        $query = new GetClub\Query($this->data);
+        $query = new GetClubById\Query($this->data);
 
-        $this->assertInstanceOf(GetClub\Query::class, $query);
+        $this->assertInstanceOf(GetClubById\Query::class, $query);
         $this->assertEquals($this->data->clubId, $query->getClubId());
         $this->assertIsInt($this->data->clubId);
     }
@@ -37,7 +39,7 @@ class GetClubQueryTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectErrorMessage('Expected an integer. Got: NULL');
-        new GetClub\Query($this->data);
+        new GetClubById\Query($this->data);
     }
 
     public function testClubIdNotInteger()
@@ -46,7 +48,7 @@ class GetClubQueryTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectErrorMessage('Expected an integer. Got: string');
-        new GetClub\Query($this->data);
+        new GetClubById\Query($this->data);
     }
 
 }

@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Application\Club\AddClub;
-use App\Application\Club\GetClub;
+use App\Application\Club\GetClubById;
+use App\Application\Club\GetClubBySlug;
 use App\Application\Coach\GetCoaches;
 use App\Application\Club\DeleteClub;
 use App\Domain\Exceptions\EntityNotFoundException;
@@ -35,22 +36,22 @@ class ClubController extends AbstractController
     }
 
     /**
-     * @Route("/clubs/{id}", name="app_get_club")
+     * @Route("/clubs/{slug}", name="app_get_club")
      * 
-     * @param int $id
-     * @param Getclub\QueryHandler
+     * @param string $slug
+     * @param GetClubBySlug\QueryHandler
      * 
      * @return Response
      */
-    public function getClub(int $id, Getclub\QueryHandler $useCase): Response
+    public function getClub(string $slug, GetClubBySlug\QueryHandler $useCase): Response
     {
         $data = [
-            'clubId' => $id
+            'slug' => $slug
         ];
 
-        // Instantiate new GetClub\Query and pass data to validate 
+        // Instantiate new GetClubbySlug\Query and pass data to validate 
         // typos and check if are mandatory or not
-        $command = new GetClub\Query((object)$data);
+        $command = new GetClubbySlug\Query((object)$data);
 
         $response = $useCase($command);
 
@@ -94,6 +95,7 @@ class ClubController extends AbstractController
         $coachId    = $request->get('coachId');
         $stadiumId  = $request->get('stadiumId');
         $palette    = $request->get('palette');
+        $slug       = $request->get('slug');
 
         // Create array $data just to pass it to Command
         $data = [
@@ -102,7 +104,8 @@ class ClubController extends AbstractController
             'budget'    => (float)$budget,
             'coachId'   => (int)$coachId,
             'stadiumId' => (int)$stadiumId,
-            'palette'   => $palette
+            'palette'   => $palette,
+            'slug'      => $slug
         ];
 
         // Instantiate new AddClub\Command and pass data to validate 
@@ -124,14 +127,14 @@ class ClubController extends AbstractController
      * @Route("/updateCoach/{id}", name="app_update_coach")
      * 
      * @param GetCoaches\QueryHandler
-     * @param GetClub\QueryHandler
+     * @param GetClubById\QueryHandler
      * @param int $clubId
      * 
      * @return Response
      */
-    public function update(
+    /*public function update(
         GetCoaches\QueryHandler $getCoaches,
-        GetClub\QueryHandler $getClubUseCase,
+        GetClubById\QueryHandler $getClubUseCase,
         int $clubId
     ): Response
     {
@@ -139,9 +142,9 @@ class ClubController extends AbstractController
             'clubId' => $clubId
         ];
 
-        // Instantiate new GetClub\Query and pass data to validate 
+        // Instantiate new GetClubById\Query and pass data to validate 
         // typos and check if are mandatory or not
-        $command = new GetClub\Query((object)$data);
+        $command = new GetClubById\Query((object)$data);
 
         // Find Club
         $getClubResponse = $getClubUseCase($command);
@@ -153,7 +156,7 @@ class ClubController extends AbstractController
             'coaches'   => $getCoachesResponse->getCoaches(),
             'club'      => $getClubResponse->getClub()
         ]);
-    }
+    }*/
 
     /**
      * @Route("/removeClubAction", name="app_remove_club")
@@ -169,7 +172,8 @@ class ClubController extends AbstractController
         $clubId = $request->get('id');
 
         $data = [
-            'clubId' => (int)$clubId
+            'clubId' => (int)$clubId,
+            'slug'   => $request->get('slug')
         ];
 
         $command = new DeleteClub\Command((object)$data);

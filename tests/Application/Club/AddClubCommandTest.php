@@ -21,7 +21,8 @@ class AddClubCommandTest extends TestCase
             'budget'    => 12345.8,
             'coachId'   => 1,
             'stadiumId' => 1,
-            'palette'   => '#FFFFFF'
+            'palette'   => '#FFFFFF',
+            'slug'      => 'test'
         ];
     }
 
@@ -39,6 +40,7 @@ class AddClubCommandTest extends TestCase
         $this->assertEquals($query->getBudget(), $this->data->budget);
         $this->assertEquals($query->getCoachId(), $this->data->coachId);
         $this->assertEquals($query->getStadiumId(), $this->data->stadiumId);
+        $this->assertEquals($query->getSlug(), $this->data->slug);
         $this->assertEquals($query->getPalette(), $this->data->palette);
 
         $this->assertIsInt($query->getClubId());
@@ -46,6 +48,7 @@ class AddClubCommandTest extends TestCase
         $this->assertIsFloat($query->getBudget());
         $this->assertIsInt($query->getCoachId());
         $this->assertIsInt($query->getStadiumId());
+        $this->assertIsString($query->getSlug());
         $this->assertIsString($query->getPalette());
     }
 
@@ -57,12 +60,14 @@ class AddClubCommandTest extends TestCase
         $this->assertEquals($query->getBudget(), $this->data->budget);
         $this->assertEquals($query->getCoachId(), $this->data->coachId);
         $this->assertEquals($query->getStadiumId(), $this->data->stadiumId);
+        $this->assertEquals($query->getSlug(), $this->data->slug);
         $this->assertEquals($query->getPalette(), $this->data->palette);
         
         $this->assertIsString($query->getClubName());
         $this->assertIsFloat($query->getBudget());
         $this->assertIsInt($query->getCoachId());
         $this->assertIsInt($query->getStadiumId());
+        $this->assertIsString($query->getSlug());
         $this->assertIsString($query->getPalette());
     }
 
