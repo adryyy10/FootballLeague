@@ -44,6 +44,11 @@ class Stadium
      */
     public $club;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $img;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +98,18 @@ class Stadium
     public function setAddress(string $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): self
+    {
+        $this->img = $img;
 
         return $this;
     }

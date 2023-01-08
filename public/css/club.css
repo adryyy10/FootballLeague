@@ -1,3 +1,7 @@
+.main {
+    position: relative;
+}
+
 .container .content {
     padding: 2rem;
     display: flex;
@@ -57,4 +61,14 @@
     position: absolute;
     top: 18%;
     left: 20%;
+}
+
+.stadium-image {
+    position: absolute;
+    top: 0px;
+    right: 0rem;
+    bottom: 0;
+    width: 35%;
+    z-index: 0;
+    background-size: cover;
 }
