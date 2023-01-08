@@ -20,7 +20,7 @@
                 <img src="{{ asset('images/stadium/icons8-performance-30.png') }}"></img>
                 <span>{{club.stadium.name}}</span>
             </div>
-            <h4>Official website: {{club.stadium.name}}</h4>
+            <h4>Official website: <span class="website">{{club.website}}<span></h4>
             <div class="social">
                 <ul class="social-options">
                     {% if club.facebook is defined and club.facebook is not null %} <li><a href="{{club.facebook}}"><img src="{{ asset('images/socialMedia/facebook.png') }}"></img></a></li> {% endif %}

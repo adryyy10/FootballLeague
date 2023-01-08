@@ -14,7 +14,7 @@ final class Version20230107094530 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add socials to club';
     }
 
     public function up(Schema $schema): void

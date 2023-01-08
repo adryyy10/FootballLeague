@@ -89,6 +89,11 @@ class Club
      */
     private $instagram;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $website;
+
     private function __construct(
         string $name,
         float $budget,
@@ -98,7 +103,8 @@ class Club
         string $facebook = null,
         string $twitter = null,
         string $youtube = null,
-        string $instagram = null
+        string $instagram = null,
+        string $website = null
     ) {
         $this->name     = $name;
         $this->budget   = $budget;
@@ -110,6 +116,7 @@ class Club
         $this->twitter  = $twitter;
         $this->youtube  = $youtube;
         $this->instagram = $instagram;
+        $this->website = $website;
     }
 
     public function getId(): ?int
@@ -237,6 +244,18 @@ class Club
         return $this;
     }
 
+    public function getWebsite(): ?string
+    {
+        return $this->website;
+    }
+
+    private function setWebsite(?string $website): self
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Player>
      */
@@ -297,7 +316,8 @@ class Club
         string $facebook = null,
         string $twitter = null,
         string $youtube = null,
-        string $instagram = null
+        string $instagram = null,
+        string $website = null
     ): Club
     {
 
@@ -317,7 +337,8 @@ class Club
             $facebook,
             $twitter,
             $youtube,
-            $instagram
+            $instagram,
+            $website
         );
 
         return $club;
@@ -333,7 +354,8 @@ class Club
         string $facebook = null,
         string $twitter = null,
         string $youtube = null,
-        string $instagram = null
+        string $instagram = null,
+        string $website = null
     ): void
     {
 
@@ -353,6 +375,7 @@ class Club
         $club->setTwitter($twitter);
         $club->setYoutube($youtube);
         $club->setInstagram($instagram);
+        $club->setWebsite($website);
     }
 
     public static function setCoachToNull(Club $club): void

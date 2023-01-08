@@ -12,6 +12,15 @@
     width: 14.063rem;
 }
 
+.info h1 {
+    margin-top: 0;
+    font-size: 3rem;
+}
+
+.info h4 .website {
+    text-decoration: underline;
+}
+
 .info .stadium {
     display: flex;
     align-items: center;

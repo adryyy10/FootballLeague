@@ -14,7 +14,7 @@ final class Version20230103110530 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add color palette in each Club';
     }
 
     public function up(Schema $schema): void

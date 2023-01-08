@@ -14,7 +14,7 @@ final class Version20230103195821 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Create logo Entity and foreign key in Club entity';
     }
 
     public function up(Schema $schema): void
