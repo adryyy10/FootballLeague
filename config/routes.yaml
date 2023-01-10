@@ -60,3 +60,7 @@ app_remove_player:
 app_update_player:
     path: /updatePlayer/{playerId}
     controller: App\Infrastructure\Controllers\Player\PlayerController::update
+
+app_register:
+    path: /register
+    controller: App\Infrastructure\Controllers\Register\RegistrationController::register
