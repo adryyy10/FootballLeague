@@ -64,3 +64,11 @@ app_update_player:
 app_register:
     path: /register
     controller: App\Infrastructure\Controllers\Register\RegistrationController::register
+
+app_login:
+    path: /login
+    controller: App\Infrastructure\Controllers\Security\SecurityController::login
+
+app_logout:
+    path: /logout
+    controller: App\Infrastructure\Controllers\Security\SecurityController::logout
