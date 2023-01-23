@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class CoachController extends AbstractController
 {
@@ -25,6 +26,14 @@ class CoachController extends AbstractController
      */
     public function list(GetCoaches\QueryHandler $useCase): Response
     {
+
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
+
         // Get list of Coaches via useCase where we can show them with the $response->getCoaches()
         $response = $useCase();
 
@@ -42,6 +51,14 @@ class CoachController extends AbstractController
      */
     public function add(): Response
     {
+
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
+
         return $this->render('BackOffice/coach/add--or--update--coach.html.twig', []);
     }
 
@@ -56,6 +73,13 @@ class CoachController extends AbstractController
      */
     public function addSubmitAction(Request $request, AddCoach\CommandHandler $addCoachUseCase)
     {
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
+
         // Get data from the form via $request
         $coachId    = $request->get('coachId');
         $coachName  = $request->get('coachName');
@@ -95,6 +119,14 @@ class CoachController extends AbstractController
      */
     public function update(GetCoach\QueryHandler $getCoachUseCase, int $coachId): Response
     {
+
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
+
         $data = [
             'coachId' => $coachId
         ];
@@ -118,6 +150,13 @@ class CoachController extends AbstractController
      */
     public function removeSubmitAction(Request $request, DeleteCoach\CommandHandler $deleteCoachUseCase)
     {
+        
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
 
         $coachId = $request->get('id');
 

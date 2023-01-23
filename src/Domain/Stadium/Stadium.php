@@ -3,6 +3,11 @@
 namespace App\Domain\Stadium;
 
 use App\Domain\Club\Club;
+use App\Domain\Exceptions\Stadium\InvalidStadiumAddressException;
+use App\Domain\Exceptions\Stadium\InvalidStadiumBuiltException;
+use App\Domain\Exceptions\Stadium\InvalidStadiumCapacityException;
+use App\Domain\Exceptions\Stadium\InvalidStadiumIdException;
+use App\Domain\Exceptions\Stadium\InvalidStadiumNameException;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,6 +53,20 @@ class Stadium
      * @ORM\Column(type="string", length=50)
      */
     private $img;
+
+    public function __construct(
+        int $id = null,
+        string $name,
+        int $capacity,
+        int $built,
+        string $address
+    ) {
+        $this->id       = $id;
+        $this->name     = $name;
+        $this->capacity = $capacity;
+        $this->built    = $built;
+        $this->address  = $address;
+    }
 
     public function getId(): ?int
     {
@@ -112,5 +131,53 @@ class Stadium
         $this->img = $img;
 
         return $this;
+    }
+
+    public static function validateBusinessModel(
+        int $id = null,
+        string $name,
+        int $capacity,
+        int $built,
+        string $address
+    ): void {
+        
+        if (!empty($id) && $id < 0) {
+            throw new InvalidStadiumIdException();
+        }
+
+        if (strlen($name) < 2) {
+            throw new InvalidStadiumNameException();
+        }
+
+        if ($capacity < 0) {
+            throw new InvalidStadiumCapacityException();
+        }
+
+        if ($built < 0) {
+            throw new InvalidStadiumBuiltException();
+        }
+
+        if (strlen($address) < 2) {
+            throw new InvalidStadiumAddressException();
+        }
+    }
+
+    public static function create (
+        string $name,
+        int $capacity,
+        int $built,
+        string $address
+    ): self {
+
+        /** Validate business logic */
+        self::validateBusinessModel(null, $name, $capacity, $built, $address);
+
+        return new self (
+            null,
+            $name,
+            $capacity,
+            $built,
+            $address
+        );
     }
 }

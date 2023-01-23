@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/listing.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/addButton.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}Premier League stadiums{% endblock %}
+
+{% block body %}
+
+<table class="content-table">
+	<thead>
+		<tr>
+			<th>Name</th>
+            <th>Capacity</th>
+			<th>Built</th>
+            <th>Address</th>
+            <th>Club</th>
+            <th></th>
+		</tr>
+	</thead>
+	<tbody>
+        {% for stadium in stadiums %}
+            <tr onClick="editStadium('/updateStadium/{{stadium.id}}')">
+                <td>{{ stadium.name }}</td>
+                <td>{{ stadium.capacity }}</td>
+                <td>{{ stadium.built }}</td>
+                <td>{{ stadium.address }}</td>
+                <td>{{ (stadium.club is defined and stadium.club is not null) ? stadium.club.name : 'No club' }}</td>
+                <td><div onClick="removeStadium({{stadium.id}})">Delete &#10006;</div></td>
+            </tr>
+        {% endfor %}
+	</tbody>
+</table>
+
+<a class="add-button" href="/addStadium">Add new stadium</a>
+<a class="add-button" href="/admin/clubs">Clubs</a>
+<a class="add-button" href="/admin/coaches">Coaches</a>
+<a class="add-button" href="/admin/players">Players</a>
+
+{% block javascripts %}
+    <script src="{{ asset('js/manageStadium.js') }}"></script>
+{% endblock %}
+
+{% endblock %}

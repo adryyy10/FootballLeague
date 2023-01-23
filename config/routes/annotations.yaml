@@ -22,6 +22,10 @@ controllerBackOfficePlayer:
     resource: ../../src/Infrastructure/Controllers/BackOffice/Player/
     type: annotation
 
+controllerBackOfficeStadium:
+    resource: ../../src/Infrastructure/Controllers/BackOffice/Stadium/
+    type: annotation
+
 kernel:
     resource: ../../src/Kernel.php
     type: annotation

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/form.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}New stadium form!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <h2 class="title">{{ (stadium is defined) ? 'Update' : 'Add' }} new stadium</h2>
+  <form class="add-stadium-form" method="POST" action="/addStadiumSubmitAction">
+    <input type="hidden" id="stadiumId" name="stadiumId" value="{{ (stadium is defined) ? stadium.id : '' }}" />
+
+    <div class="item-details">
+      <div class="input-box">
+        <label for="stadiumName">Stadium Name</label>
+        <input type="text" id="stadiumName" name="stadiumName" placeholder="Name of the stadium" value="{{ (stadium is defined) ? stadium.name : '' }}">
+      </div>
+
+      <div class="input-box">
+        <label for="salary">Capacity</label>
+        <input type="text" id="capacity" name="capacity" placeholder="Capacity" value="{{ (stadium is defined) ? stadium.capacity : '' }}">
+      </div>
+
+      <div class="input-box">
+        <label for="built">Built</label>
+        <input type="text" id="built" name="built" placeholder="built" value="{{ (stadium is defined) ? stadium.built : '' }}">
+      </div>
+
+      <div class="input-box">
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" placeholder="address" value="{{ (stadium is defined) ? stadium.address : '' }}">
+      </div>
+    </div>
+
+    <div class="submit-button">
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+</div>
+
+{% endblock %}

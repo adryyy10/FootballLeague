@@ -8,6 +8,7 @@ class Response
     /**
      * @var array $clubs
      */
+    private $clubs;
 
     public function __construct(array $clubs)
     {

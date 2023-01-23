@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PlayerController extends AbstractController
 {
@@ -28,6 +29,13 @@ class PlayerController extends AbstractController
      */
     public function list(GetPlayers\QueryHandler $useCase): Response
     {
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
+
         $useCaseResponse = $useCase();
 
         return $this->render('BackOffice/player/index.html.twig', [
@@ -46,6 +54,12 @@ class PlayerController extends AbstractController
      */
     public function add(GetPositions\QueryHandler $positionUseCase, GetClubs\QueryHandler $clubUseCase): Response
     {
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
 
         $positionUseCaseResponse    = $positionUseCase();
         $clubUseCaseResponse        = $clubUseCase();
@@ -56,7 +70,6 @@ class PlayerController extends AbstractController
         ]);
     }
 
-
     /**
      * 
      * @Route("/addPlayerSubmitAction", name="app_admin_add_player_submit")
@@ -66,6 +79,12 @@ class PlayerController extends AbstractController
      */
     public function addSubmitAction(Request $request, AddPlayer\CommandHandler $useCase): Response
     {
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
 
         $data = (object)[
             'playerId'      => (int)$request->get('playerId'),
@@ -83,11 +102,10 @@ class PlayerController extends AbstractController
             return $e->getMessage();
         }
 
-
         return $this->redirectToRoute('app_admin_player');
     }
 
-        /**
+    /**
      * 
      * @Route("/removeSubmitAction", name="app_admin_remove_player")
      * 
@@ -96,6 +114,12 @@ class PlayerController extends AbstractController
      */
     public function removeSubmitAction(Request $request, RemovePlayer\CommandHandler $useCase): Response
     {
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
 
         $data = (object)[
             'playerId' => (int)$request->get('id'),
@@ -135,6 +159,13 @@ class PlayerController extends AbstractController
         GetClubs\QueryHandler $getClubsUseCase,
         int $playerId): Response
     {
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
+
         $data = [
             'id' => $playerId
         ];
