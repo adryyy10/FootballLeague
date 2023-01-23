@@ -70,10 +70,11 @@ app_website_player:
     path: /players
     controller: App\Infrastructure\Controllers\Website\Player\PlayerController::list
 
+
+#SIGNUP
 app_register:
     path: /register
     controller: App\Infrastructure\Controllers\Register\RegistrationController::register
-
 
 #LOGIN
 app_login:
