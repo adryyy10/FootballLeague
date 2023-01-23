@@ -33,7 +33,7 @@ class ClubController extends AbstractController
             return $this->redirectToRoute('app_website_club');
         }
 
-        // Get list of clubs via useCase where we can show them with the $response->getClubs()
+        // Get list of clubs via useCase and retrieve them with the $response->getClubs()
         $response = $useCase();
 
         return $this->render('BackOffice/club/index.html.twig', [
