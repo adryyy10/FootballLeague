@@ -1,25 +1,23 @@
 <?php
 
-namespace App\Infrastructure\Controllers\Club;
+namespace App\Infrastructure\Controllers\BackOffice\Club;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Application\Club\AddClub;
+use App\Application\Club\DeleteClub;
 use App\Application\Club\GetClubs;
 use App\Application\Coach\GetCoachesWithNoClub;
+use App\Domain\Exceptions\EntityNotFoundException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Application\Club\AddClub;
-use App\Application\Club\GetClubById;
-use App\Application\Club\GetClubBySlug;
-use App\Application\Coach\GetCoaches;
-use App\Application\Club\DeleteClub;
-use App\Domain\Exceptions\EntityNotFoundException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ClubController extends AbstractController
 {
 
     /**
-     * @Route("/clubs", name="app_club")
+     * @Route("/admin/clubs", name="app_admin_club")
      * 
      * @param GetClubs\QueryHandler
      * 
@@ -27,41 +25,24 @@ class ClubController extends AbstractController
      */
     public function list(GetClubs\QueryHandler $useCase): Response
     {
+
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
+
         // Get list of clubs via useCase where we can show them with the $response->getClubs()
         $response = $useCase();
 
-        return $this->render('club/index.html.twig', [
+        return $this->render('BackOffice/club/index.html.twig', [
             'clubs' => $response->getClubs()
         ]);
     }
 
     /**
-     * @Route("/clubs/{slug}", name="app_get_club")
-     * 
-     * @param string $slug
-     * @param GetClubBySlug\QueryHandler
-     * 
-     * @return Response
-     */
-    public function getClub(string $slug, GetClubBySlug\QueryHandler $useCase): Response
-    {
-        $data = [
-            'slug' => $slug
-        ];
-
-        // Instantiate new GetClubbySlug\Query and pass data to validate 
-        // typos and check if are mandatory or not
-        $command = new GetClubbySlug\Query((object)$data);
-
-        $response = $useCase($command);
-
-        return $this->render('club/club.html.twig', [
-            'club' => $response->getClub()
-        ]);
-    }
-
-    /**
-     * @Route("/addClub", name="app_add_club")
+     * @Route("/addClub", name="app_admin_add_club")
      * 
      * @param GetCoachesWithNoClub\QueryHandler
      * 
@@ -69,16 +50,24 @@ class ClubController extends AbstractController
      */
     public function add(GetCoachesWithNoClub\QueryHandler $getCoachesByNoClubUseCase): Response
     {
+
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
+
         // Get all the coaches that have no club to show them in the dropdown
         $getClubsResponse = $getCoachesByNoClubUseCase();
         
-        return $this->render('club/add--or--update--club.html.twig', [
+        return $this->render('BackOffice/club/add--or--update--club.html.twig', [
             'coaches' => $getClubsResponse->getCoaches()
         ]);
     }
 
     /**
-     * @Route("/addClubSubmitAction", name="app_add_club_submit")
+     * @Route("/addClubSubmitAction", name="app_admin_add_club_submit")
      * 
      * @param Request
      * @param AddClub\CommandHandler
@@ -88,6 +77,14 @@ class ClubController extends AbstractController
      */
     public function addSubmitAction(Request $request,AddClub\CommandHandler $addClubUseCase): Response
     {
+
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
+
         // Get data from the form via $request
         $clubId     = $request->get('clubId');
         $clubName   = $request->get('clubName');
@@ -124,42 +121,7 @@ class ClubController extends AbstractController
     }
 
     /**
-     * @Route("/updateCoach/{id}", name="app_update_coach")
-     * 
-     * @param GetCoaches\QueryHandler
-     * @param GetClubById\QueryHandler
-     * @param int $clubId
-     * 
-     * @return Response
-     */
-    /*public function update(
-        GetCoaches\QueryHandler $getCoaches,
-        GetClubById\QueryHandler $getClubUseCase,
-        int $clubId
-    ): Response
-    {
-        $data = [
-            'clubId' => $clubId
-        ];
-
-        // Instantiate new GetClubById\Query and pass data to validate 
-        // typos and check if are mandatory or not
-        $command = new GetClubById\Query((object)$data);
-
-        // Find Club
-        $getClubResponse = $getClubUseCase($command);
-
-        // Get all coaches to show in the dropdown
-        $getCoachesResponse = $getCoaches();
-        
-        return $this->render('club/add--or--update--club.html.twig', [
-            'coaches'   => $getCoachesResponse->getCoaches(),
-            'club'      => $getClubResponse->getClub()
-        ]);
-    }*/
-
-    /**
-     * @Route("/removeClubAction", name="app_remove_club")
+     * @Route("/removeClubAction", name="app_admin_remove_club")
      * 
      * @param Request
      * @param DeleteClub\CommandHandler
@@ -169,6 +131,14 @@ class ClubController extends AbstractController
      */
     public function removeSubmitAction(Request $request, DeleteClub\CommandHandler $deleteClubUseCase)
     {
+
+        /** If we are not ROLE_SUPER_ADMIN, we redirect to website clubs */
+        try {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN', null, 'User tried to access admin without having ROLE_SUPER_ADMIN');
+        } catch (AccessDeniedException $e) {
+            return $this->redirectToRoute('app_website_club');
+        }
+
         $clubId = $request->get('id');
 
         $data = [

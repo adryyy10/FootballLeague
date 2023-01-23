@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Controllers\Coach;
+namespace App\Infrastructure\Controllers\Website\Coach;
 
 use App\Application\Coach\GetCoaches;
 use App\Application\Club\GetClubsWithNoCoach;

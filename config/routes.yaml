@@ -1,70 +1,81 @@
-#COACHES
-app_coach:
-    path: /coaches
-    controller: App\Infrastructure\Controllers\Coach\CoachController::list
-
-app_add_coach:
-    path: /addCoach
-    controller: App\Infrastructure\Controllers\Coach\CoachController::add
-
-app_add_coach_submit:
-    path: /addCoachSubmitAction
-    controller: App\Infrastructure\Controllers\Coach\CoachController::addSubmitAction
-
-app_update_coach:
-    path: /updateCoach/{coachId}
-    controller: App\Infrastructure\Controllers\Coach\CoachController::update
-
-app_remove_coach:
-    path: /removeCoachAction
-    controller: App\Infrastructure\Controllers\Coach\CoachController::removeSubmitAction
+#BACKOFFICE
 
 #CLUBS
-app_club:
-    path: /clubs
-    controller: App\Infrastructure\Controllers\Club\ClubController::list
-
-app_add_club:
+app_admin_add_club:
     path: /addClub
-    controller: App\Infrastructure\Controllers\Club\ClubController::add
+    controller: App\Infrastructure\Controllers\BackOffice\Club\ClubController::add
 
-app_add_club_submit:
+app_admin_add_club_submit:
     path: /addClubSubmitAction
-    controller: App\Infrastructure\Controllers\Club\ClubController::addSubmitAction
+    controller: App\Infrastructure\Controllers\BackOffice\Club\ClubController::addSubmitAction
 
-app_update_club:
+app_admin_update_club:
     path: /updateClub/{clubId}
-    controller: App\Infrastructure\Controllers\Club\ClubController::update
+    controller: App\Infrastructure\Controllers\BackOffice\Club\ClubController::update
 
-app_remove_club:
+app_admin_remove_club:
     path: /removeClubAction
-    controller: App\Infrastructure\Controllers\Club\ClubController::removeSubmitAction
+    controller: App\Infrastructure\Controllers\BackOffice\Club\ClubController::removeSubmitAction
+
+#COACHES
+app_admin_add_coach:
+    path: /addCoach
+    controller: App\Infrastructure\Controllers\BackOffice\Coach\CoachController::add
+
+app_admin_add_coach_submit:
+    path: /addCoachSubmitAction
+    controller: App\Infrastructure\Controllers\BackOffice\Coach\CoachController::addSubmitAction
+
+app_admin_update_coach:
+    path: /updateCoach/{coachId}
+    controller: App\Infrastructure\Controllers\BackOffice\Coach\CoachController::update
+
+app_admin_remove_coach:
+    path: /removeCoachAction
+    controller: App\Infrastructure\Controllers\BackOffice\Coach\CoachController::removeSubmitAction
 
 #PLAYERS
-app_player:
-    path: /players
-    controller: App\Infrastructure\Controllers\Player\PlayerController::list
-
-app_add_player:
+app_admin_add_player:
     path: /addPlayer
-    controller: App\Infrastructure\Controllers\Player\PlayerController::add
+    controller: App\Infrastructure\Controllers\BackOffice\Player\PlayerController::add
 
-app_add_player_submit:
+app_admin_add_player_submit:
     path: /addPlayerSubmitAction
-    controller: App\Infrastructure\Controllers\Player\PlayerController::addSubmitAction
+    controller: App\Infrastructure\Controllers\BackOffice\Player\PlayerController::addSubmitAction
 
-app_remove_player:
+app_admin_remove_player:
     path: /removePlayerAction
-    controller: App\Infrastructure\Controllers\Player\PlayerController::removeSubmitAction
+    controller: App\Infrastructure\Controllers\BackOffice\Player\PlayerController::removeSubmitAction
 
-app_update_player:
+app_admin_update_player:
     path: /updatePlayer/{playerId}
-    controller: App\Infrastructure\Controllers\Player\PlayerController::update
+    controller: App\Infrastructure\Controllers\BackOffice\Player\PlayerController::update
+
+
+
+#WEBSITE
+
+#CLUBS
+app_website_club:
+    path: /clubs
+    controller: App\Infrastructure\Controllers\Website\Club\ClubController::list
+
+#COACHES
+app_website_coach:
+    path: /coaches
+    controller: App\Infrastructure\Controllers\Website\Coach\CoachController::list
+
+#PLAYERS
+app_website_player:
+    path: /players
+    controller: App\Infrastructure\Controllers\Website\Player\PlayerController::list
 
 app_register:
     path: /register
     controller: App\Infrastructure\Controllers\Register\RegistrationController::register
 
+
+#LOGIN
 app_login:
     path: /login
     controller: App\Infrastructure\Controllers\Security\SecurityController::login

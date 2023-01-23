@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Controllers\Player;
+namespace App\Infrastructure\Controllers\Website\Player;
 
 use App\Application\Player\AddPlayer;
 use App\Application\Player\GetPlayer;

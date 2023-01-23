@@ -1,13 +1,25 @@
-controllerCoach:
-    resource: ../../src/Infrastructure/Controllers/Coach/
+controllerWebsiteCoach:
+    resource: ../../src/Infrastructure/Controllers/Website/Coach/
     type: annotation
 
-controllerClub:
-    resource: ../../src/Infrastructure/Controllers/Club/
+controllerWebsiteClub:
+    resource: ../../src/Infrastructure/Controllers/Website/Club/
     type: annotation
 
-controllerPlayer:
-    resource: ../../src/Infrastructure/Controllers/Player/
+controllerWebsitePlayer:
+    resource: ../../src/Infrastructure/Controllers/Website/Player/
+    type: annotation
+
+controllerBackOfficeCoach:
+    resource: ../../src/Infrastructure/Controllers/BackOffice/Coach/
+    type: annotation
+
+controllerBackOfficeClub:
+    resource: ../../src/Infrastructure/Controllers/BackOffice/Club/
+    type: annotation
+
+controllerBackOfficePlayer:
+    resource: ../../src/Infrastructure/Controllers/BackOffice/Player/
     type: annotation
 
 kernel:

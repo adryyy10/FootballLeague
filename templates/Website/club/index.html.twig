@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/clubs.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/addButton.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block title %}Premier League clubs!{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <h1>Clubs</h1>
+        <div class="clubs">
+            {% for club in clubs %}
+                    <a class="club" href="/clubs/{{club.slug}}" style="background-color: #{{(club.palette is not null) ? club.palette : 'FFFFFF'}};">   
+                        <div class="stadium" style="background-image: url({{ asset('images/stadium/' ~ club.logo.name ~ '.jpg') }});"></div>
+                        <div class="club-logo">
+                            <img src="{{ asset('images/clubs/' ~ club.logo.name ~ '.png') }}"></img>
+                        </div>
+                        <h4>{{club.name}}</h4>
+                        <h5>{{club.stadium.name}}</h5>
+                    </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
